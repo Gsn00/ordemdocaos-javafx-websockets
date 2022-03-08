@@ -13,8 +13,8 @@ import org.json.simple.parser.ParseException;
 
 public class JSONService {
 
-	static File dir = new File("C:\\Zumbificacao\\config");
-	static File file = new File(dir+"\\character.json");
+	static File dir = new File("C:\\ordemdocaos\\config");
+	static File file = new File(dir+"\\userdata.json");
 
 	public static void createDefaultFile() {
 		try {
@@ -23,11 +23,19 @@ public class JSONService {
 				file.createNewFile();
 				FileWriter fw = new FileWriter(file);
 				Map<String, Object> obj = new HashMap<>();
-				obj.put("Registrado", false);
-				obj.put("Nome", "");
-				obj.put("Tempo", 0);
-				obj.put("Peso", 0.0);
-				obj.put("Compra", false);
+				obj.put("jogador", "jogador-default");
+				obj.put("nome", "usuario001");
+				obj.put("sobrenome", "");
+				
+				obj.put("maxVida", 100);
+				obj.put("vida", 50);
+				obj.put("maxEnergia", 100);
+				obj.put("energia", 50);
+				obj.put("maxResistencia", 100);
+				obj.put("resistencia", 50);
+				obj.put("maxSanidade", 100);
+				obj.put("sanidade", 50);
+				
 				JSONObject json = new JSONObject(obj);
 				fw.write(json.toJSONString());
 				fw.close();

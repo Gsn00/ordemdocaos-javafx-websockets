@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Message;
+
 public class Server extends Thread
 {
 	private static ServerSocket server;

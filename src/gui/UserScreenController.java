@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import entities.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import listeners.MessageEvent;
 import network.Client;
-import network.Message;
+import services.JSONService;
 
 public class UserScreenController implements Initializable, MessageEvent
 {
@@ -34,6 +35,8 @@ public class UserScreenController implements Initializable, MessageEvent
 	private TextField txtMsg;
 
 	private Client client = new Client();
+	
+	private String name = (String) JSONService.getData("nome");
 
 	private ObservableList<String> obsMsg = FXCollections.observableArrayList();
 
@@ -91,11 +94,11 @@ public class UserScreenController implements Initializable, MessageEvent
 						}
 						result += "\nTotal: ( " + (sum + addition) + " )"; 
 						
-						client.sendSocket(new Message(result));
-						sendMessage(result);
+						client.sendSocket(new Message(name + ":\n" + result));
+						sendMessage(name + ":\n" + result);
 					} catch (NumberFormatException e)
 					{
-						sendMessage(msg);
+						sendMessage(name + ": " + msg);
 					}
 				}
 
@@ -103,8 +106,8 @@ public class UserScreenController implements Initializable, MessageEvent
 				return;
 			}
 
-			client.sendSocket(new Message(txtMsg.getText()));
-			sendMessage(txtMsg.getText());
+			client.sendSocket(new Message(name + ": " + txtMsg.getText()));
+			sendMessage(name + ": " + txtMsg.getText());
 		}
 	}
 

@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Message;
 import javafx.application.Platform;
 import listeners.MessageEvent;
 
@@ -90,7 +91,6 @@ public class Client
 					try
 					{
 						objectInputStream = new ObjectInputStream(socket.getInputStream());
-						System.out.println("S");
 						while (true)
 						{
 							Message object = (Message) objectInputStream.readObject();
