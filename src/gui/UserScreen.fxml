@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UserScreenController">
+   <children>
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="1366.0" style="-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #010a06, #05120c, #010a06);" HBox.hgrow="ALWAYS">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="300.0" style="-fx-border-color: white; -fx-border-radius: 18 18 18 18;">
+               <HBox.margin>
+                  <Insets bottom="90.0" left="20.0" right="20.0" top="90.0" />
+               </HBox.margin>
+               <children>
+                  <Label text="Galo Cego" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Bodoni MT" size="28.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="60.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="700.0" prefWidth="692.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="lblOrdemDoCaos" text="Ordem do Caos" textFill="WHITE">
+                     <font>
+                        <Font name="Bodoni MT Condensed" size="59.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="BOTTOM_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="534.0" prefWidth="674.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="590.0" prefWidth="44.0">
+                           <children>
+                              <AnchorPane>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="200.0" layoutX="10.0" layoutY="223.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="25.0" AnchorPane.bottomAnchor="0.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5c4ecc" height="100.0" layoutX="10.0" layoutY="263.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="25.0" AnchorPane.bottomAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="590.0" prefWidth="44.0">
+                           <children>
+                              <AnchorPane>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="200.0" layoutX="10.0" layoutY="223.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="25.0" AnchorPane.bottomAnchor="0.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b9b73f" height="100.0" layoutX="10.0" layoutY="263.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="25.0" AnchorPane.bottomAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="590.0" prefWidth="44.0">
+                           <children>
+                              <AnchorPane>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="200.0" layoutX="10.0" layoutY="223.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="25.0" AnchorPane.bottomAnchor="0.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ab3434" height="100.0" layoutX="10.0" layoutY="263.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="25.0" AnchorPane.bottomAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="590.0" prefWidth="44.0">
+                           <children>
+                              <AnchorPane>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="200.0" layoutX="10.0" layoutY="223.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="25.0" AnchorPane.bottomAnchor="0.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4eaacc" height="100.0" layoutX="10.0" layoutY="263.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="25.0" AnchorPane.bottomAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="590.0" prefWidth="44.0">
+                           <children>
+                              <Label text="300" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <AnchorPane>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="200.0" layoutX="10.0" layoutY="223.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="25.0" AnchorPane.bottomAnchor="0.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4dcd55" height="100.0" layoutX="10.0" layoutY="263.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="25.0" AnchorPane.bottomAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="60.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="700.0" prefWidth="300.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);;">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="336.0" prefWidth="330.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Circle fx:id="circle" fill="#1f93ff" radius="100.0" scaleX="0.8" scaleY="0.8" scaleZ="0.8" stroke="BLACK" strokeType="INSIDE">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="70.0" right="60.0" top="20.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <ListView fx:id="listView" focusTraversable="false" prefHeight="279.0" prefWidth="313.0" style="-fx-border-color: transparent; -fx-background-radius: 20 20 0 0; -fx-focus-color: transparent; -fx-background-color: #383838;" stylesheets="@../css/listview.css">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                     </padding>
+                  </ListView>
+                  <TextField fx:id="txtMsg" focusTraversable="false" onAction="#onTxtMsg" prefHeight="48.0" prefWidth="290.0" promptText="Digite aqui" style="-fx-border-color: transparent; -fx-background-radius: 0 0 20 20; -fx-focus-color: transparent; -fx-faint-color: transparent; -fx-background-color: #383838; -fx-border-color: #4f4f4f; -fx-border-width: 1 0 0 0; -fx-text-fill: white;">
+                     <VBox.margin>
+                        <Insets bottom="40.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</HBox>
