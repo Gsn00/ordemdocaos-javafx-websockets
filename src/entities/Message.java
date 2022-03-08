@@ -2,20 +2,52 @@ package entities;
 
 import java.io.Serializable;
 
+import enums.MessageType;
+
 public class Message implements Serializable
 {
 
 	private static final long serialVersionUID = 1L;
 
-	String message;
-	String name;
+	private String message;
+	private MessageType messageType;
 	
-	public Message(Object object)
+	public Message(Object object, MessageType messageType)
 	{
-		if (object instanceof String)
+		this.messageType = messageType;
+		
+		if (messageType == MessageType.MESSAGE)
 		{
 			message = (String) object;
 		}
+		if (messageType == MessageType.STATUS)
+		{
+			//
+		}
+		if (messageType == MessageType.METHOD)
+		{
+			//
+		}
+	}
+
+	public String getMessage()
+	{
+		return message;
+	}
+
+	public void setMessage(String message)
+	{
+		this.message = message;
+	}
+
+	public MessageType getMessageType()
+	{
+		return messageType;
+	}
+
+	public void setMessageType(MessageType messageType)
+	{
+		this.messageType = messageType;
 	}
 
 	@Override

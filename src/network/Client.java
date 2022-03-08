@@ -96,18 +96,18 @@ public class Client
 							Message object = (Message) objectInputStream.readObject();
 							if (object != null)
 							{
-								System.out.println("Client listen 1");
-								message = object.toString();
-
-								Platform.runLater(new Runnable()
+								switch (object.getMessageType())
 								{
-									@Override
-									public void run()
-									{
-										System.out.println("Client listen 2");
-										notifyMessageEvent();
-									}
-								});
+								case MESSAGE:
+									treatMessage(object);
+									break;
+								case STATUS:
+									treatStatus(object);
+									break;
+								case METHOD:
+									treatMethod(object);
+									break;
+								}
 							}
 						}
 					} catch (Exception e)
@@ -119,5 +119,31 @@ public class Client
 			t.setDaemon(true);
 			t.start();
 		}
+	}
+	
+	public void treatMessage(Message object)
+	{
+		System.out.println("Client listen 1");
+		message = object.toString();
+
+		Platform.runLater(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				System.out.println("Client listen 2");
+				notifyMessageEvent();
+			}
+		});
+	}
+	
+	public void treatStatus(Message object)
+	{
+		
+	}
+	
+	public void treatMethod(Message object)
+	{
+		
 	}
 }
