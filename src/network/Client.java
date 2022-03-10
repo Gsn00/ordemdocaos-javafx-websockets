@@ -48,7 +48,7 @@ public class Client
 			System.err.println("Não foi possível conectar ao servidor.");
 		}
 	}
-	
+
 	public void disconnect()
 	{
 		try
@@ -120,7 +120,7 @@ public class Client
 			t.start();
 		}
 	}
-	
+
 	public void treatMessage(Message object)
 	{
 		System.out.println("Client listen 1");
@@ -136,14 +136,14 @@ public class Client
 			}
 		});
 	}
-	
+
 	public void treatStatus(Message object)
 	{
-		
+
 	}
-	
+
 	public void treatMethod(Message object)
 	{
-		
+
 	}
 }

@@ -4,8 +4,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import entities.Message;
 
@@ -15,7 +15,7 @@ public class Server extends Thread
 	private ObjectInputStream objectInputStream;
 	private ObjectOutputStream objectOutputStream;
 
-	public static List<ObjectOutputStream> players;
+	public static Set<ObjectOutputStream> players = new HashSet<>();
 
 	public Server(Socket socket)
 	{
@@ -36,7 +36,7 @@ public class Server extends Thread
 	{
 		try
 		{
-			while (true)
+			while (players.contains(objectOutputStream))
 			{
 				Message object = (Message) objectInputStream.readObject();
 				if (object != null)
@@ -72,7 +72,6 @@ public class Server extends Thread
 		{
 			e.printStackTrace();
 		}
-
 	}
 
 	public static void startServer()
@@ -80,7 +79,6 @@ public class Server extends Thread
 		try
 		{
 			server = new ServerSocket(7000);
-			players = new ArrayList<>();
 
 			while (true)
 			{

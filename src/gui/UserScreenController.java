@@ -31,6 +31,7 @@ import javafx.util.Duration;
 import listeners.MessageEvent;
 import network.Client;
 import services.JSONService;
+import services.Utils;
 
 public class UserScreenController implements Initializable, MessageEvent
 {
@@ -90,56 +91,50 @@ public class UserScreenController implements Initializable, MessageEvent
 					sendMessage(msg);
 				if (msg.contains("d"))
 				{
-					try
+					// Check if contains a value to sum
+					int addition = 0;
+					if (msg.contains("+"))
 					{
-						// Check if contains a value to sum
-						int addition = 0;
-						if (msg.contains("+"))
+						addition = msg.indexOf('+');
+						if (addition != -1)
 						{
-							addition = msg.indexOf('+');
-							if (addition != -1)
-							{
-								addition = Integer.parseInt(msg.substring(addition, msg.length()));
-								String[] vect = msg.split(" ");
-								msg = vect[0];
-							}
+							addition = Integer.parseInt(msg.substring(addition, msg.length()));
+							String[] vect = msg.split(" ");
+							msg = vect[0];
 						}
-
-						int D = msg.indexOf('d');
-						int quantityDices = Integer.parseInt(msg.substring(1, D));
-						int dice = Integer.parseInt(msg.substring((D + 1), msg.length()));
-
-						String result = "Resultado: ( ";
-						List<Integer> values = new ArrayList<>();
-
-						// Roll the dices
-						for (int i = 0; i < quantityDices; i++)
-						{
-							int value = (int) ((Math.random() * dice) + 1);
-							values.add(value);
-							result += value + " ";
-						}
-						result += ")";
-
-						if (addition != 0)
-						{
-							result += (" +" + addition);
-						}
-
-						// Sum the final result
-						int sum = 0;
-						for (Integer i : values)
-						{
-							sum += i;
-						}
-						result += "\nTotal: ( " + (sum + addition) + " )";
-						result = quantityDices + "D" + dice + "\n" + result;
-
-						sendMessage(result);
-					} catch (NumberFormatException e)
-					{
-						sendMessage(msg);
 					}
+
+					int D = msg.indexOf('d');
+					int quantityDices = Integer.parseInt(msg.substring(1, D));
+					int dice = Integer.parseInt(msg.substring((D + 1), msg.length()));
+
+					String result = "Resultado: ( ";
+					List<Integer> values = new ArrayList<>();
+
+					// Roll the dices
+					for (int i = 0; i < quantityDices; i++)
+					{
+						int value = (int) ((Math.random() * dice) + 1);
+						values.add(value);
+						result += value + " ";
+					}
+					result += ")";
+
+					if (addition != 0)
+					{
+						result += (" +" + addition);
+					}
+
+					// Sum the final result
+					int sum = 0;
+					for (Integer i : values)
+					{
+						sum += i;
+					}
+					result += "\nTotal: ( " + (sum + addition) + " )";
+					result = quantityDices + "D" + dice + "\n" + result;
+
+					sendMessage(result);
 				}
 				return;
 			}
@@ -229,32 +224,6 @@ public class UserScreenController implements Initializable, MessageEvent
 		}
 	}
 
-	public double parsePercent(double current, double max)
-	{
-		if (current > max)
-		{
-			current = max;
-		}
-		if (current < 0)
-		{
-			current = 0;
-		}
-		return (current / max * 100);
-	}
-
-	public int filterValue(double current, double max)
-	{
-		if (current > max)
-		{
-			return (int) max;
-		}
-		if (current < 0)
-		{
-			return 0;
-		}
-		return (int) current;
-	}
-
 	public void updateBars()
 	{
 		barVida = new StatusBar(rectVida, lblVida, "vida", "maxVida");
@@ -265,9 +234,7 @@ public class UserScreenController implements Initializable, MessageEvent
 		for (StatusBar bar : bars)
 		{
 			bar.getLabel().setText(bar.getValue() + "/" + bar.getMaxValue());
-
-			KeyValue width = new KeyValue(bar.getRectangle().widthProperty(),
-					parsePercent(bar.getValue(), bar.getMaxValue()));
+			KeyValue width = new KeyValue(bar.getRectangle().widthProperty(), Utils.parsePercent(bar.getValue(), bar.getMaxValue()));
 			KeyFrame frame = new KeyFrame(Duration.seconds(0.5), width);
 			Timeline timeLine = new Timeline(frame);
 			timeLine.play();
