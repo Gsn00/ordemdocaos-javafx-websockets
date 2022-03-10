@@ -120,7 +120,6 @@ public class Client
 
 	public void treatMessage(Message object)
 	{
-		System.out.println("Client listen 1");
 		message = object.toString();
 
 		Platform.runLater(new Runnable()
@@ -128,7 +127,6 @@ public class Client
 			@Override
 			public void run()
 			{
-				System.out.println("Client listen 2");
 				notifyMessageEvent();
 			}
 		});
