@@ -53,6 +53,14 @@ public class UserScreenController implements Initializable, MessageEvent
 	@FXML
 	private Button btAddSanidade;
 	@FXML
+	private Button btRemVida;
+	@FXML
+	private Button btRemEnergia;
+	@FXML
+	private Button btRemResistencia;
+	@FXML
+	private Button btRemSanidade;
+	@FXML
 	private Rectangle rectVida;
 	@FXML
 	private Rectangle rectEnergia;
@@ -144,28 +152,52 @@ public class UserScreenController implements Initializable, MessageEvent
 
 	public void onBtAddVida()
 	{
-		barVida.incrementMaxValue();
+		barVida.incrementValue();
 		updateBars();
 	}
 
 	public void onBtAddEnergia()
 	{
-		barEnergia.incrementMaxValue();
+		barEnergia.incrementValue();
 		updateBars();
 	}
 
 	public void onBtAddResistencia()
 	{
-		barResistencia.incrementMaxValue();
+		barResistencia.incrementValue();
 		updateBars();
 	}
 
 	public void onBtAddSanidade()
 	{
-		barSanidade.incrementMaxValue();
+		barSanidade.incrementValue();
 		updateBars();
 	}
 
+	public void onBtRemVida()
+	{
+		barVida.decrementValue();
+		updateBars();
+	}
+
+	public void onBtRemEnergia()
+	{
+		barEnergia.decrementValue();
+		updateBars();
+	}
+
+	public void onBtRemResistencia()
+	{
+		barResistencia.decrementValue();
+		updateBars();
+	}
+
+	public void onBtRemSanidade()
+	{
+		barSanidade.decrementValue();
+		updateBars();
+	}
+	
 	public void sendMessage(String msg)
 	{
 		obsMsg.add(name + ": " + msg);
@@ -208,7 +240,8 @@ public class UserScreenController implements Initializable, MessageEvent
 
 	public void configButtons()
 	{
-		List<Button> buttons = Arrays.asList(btAddVida, btAddEnergia, btAddResistencia, btAddSanidade);
+		List<Button> buttons = Arrays.asList(btAddVida, btAddEnergia, btAddResistencia, btAddSanidade,
+				btRemVida, btRemEnergia, btRemResistencia, btRemSanidade);
 		for (Button bt : buttons)
 		{
 			bt.setOnMouseEntered(event ->

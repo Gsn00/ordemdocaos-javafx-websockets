@@ -68,9 +68,14 @@
                                     </Label>
                                     <AnchorPane prefHeight="19.0" prefWidth="257.0">
                                        <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="99.0" layoutY="2.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" AnchorPane.rightAnchor="97.0" />
-                                          <Rectangle fx:id="rectVida" arcHeight="5.0" arcWidth="5.0" fill="#b22626" height="15.0" layoutX="149.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" AnchorPane.rightAnchor="99.0" />
-                                          <Button fx:id="btAddVida" layoutX="210.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtAddVida" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE" AnchorPane.rightAnchor="64.0">
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="99.0" layoutY="2.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="97.0" />
+                                          <Rectangle fx:id="rectVida" arcHeight="5.0" arcWidth="5.0" fill="#b22626" height="15.0" layoutX="149.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" AnchorPane.leftAnchor="99.0" />
+                                          <Button fx:id="btAddVida" layoutX="210.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtAddVida" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE" AnchorPane.leftAnchor="210.0">
+                                             <font>
+                                                <Font name="Bernard MT Condensed" size="12.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="btRemVida" layoutX="64.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtRemVida" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE" AnchorPane.leftAnchor="64.0">
                                              <font>
                                                 <Font name="Bernard MT Condensed" size="12.0" />
                                              </font>
@@ -88,9 +93,14 @@
                                     </Label>
                                     <AnchorPane prefHeight="19.0" prefWidth="257.0">
                                        <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="99.0" layoutY="2.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" AnchorPane.rightAnchor="97.0" />
-                                          <Rectangle fx:id="rectEnergia" arcHeight="5.0" arcWidth="5.0" fill="#f2f531" height="15.0" layoutX="149.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" AnchorPane.rightAnchor="99.0" />
-                                          <Button fx:id="btAddEnergia" layoutX="210.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtAddEnergia" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE" AnchorPane.rightAnchor="64.0">
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="99.0" layoutY="2.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="97.0" />
+                                          <Rectangle fx:id="rectEnergia" arcHeight="5.0" arcWidth="5.0" fill="#f2f531" height="15.0" layoutX="149.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" AnchorPane.leftAnchor="99.0" />
+                                          <Button fx:id="btAddEnergia" layoutX="210.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtAddEnergia" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE" AnchorPane.leftAnchor="210.0">
+                                             <font>
+                                                <Font name="Bernard MT Condensed" size="12.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="btRemEnergia" layoutX="64.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtRemEnergia" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE" AnchorPane.leftAnchor="64.0">
                                              <font>
                                                 <Font name="Bernard MT Condensed" size="12.0" />
                                              </font>
@@ -108,9 +118,14 @@
                                     </Label>
                                     <AnchorPane prefHeight="19.0" prefWidth="257.0">
                                        <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="99.0" layoutY="2.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" AnchorPane.rightAnchor="97.0" />
-                                          <Rectangle fx:id="rectResistencia" arcHeight="5.0" arcWidth="5.0" fill="#f79d25" height="15.0" layoutX="149.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" AnchorPane.rightAnchor="99.0" />
-                                          <Button fx:id="btAddResistencia" layoutX="210.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtAddResistencia" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE" AnchorPane.rightAnchor="64.0">
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="99.0" layoutY="2.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="97.0" />
+                                          <Rectangle fx:id="rectResistencia" arcHeight="5.0" arcWidth="5.0" fill="#f79d25" height="15.0" layoutX="149.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" AnchorPane.leftAnchor="99.0" />
+                                          <Button fx:id="btAddResistencia" layoutX="210.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtAddResistencia" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE" AnchorPane.leftAnchor="210.0">
+                                             <font>
+                                                <Font name="Bernard MT Condensed" size="12.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="btRemResistencia" layoutX="64.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtRemResistencia" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE" AnchorPane.leftAnchor="64.0">
                                              <font>
                                                 <Font name="Bernard MT Condensed" size="12.0" />
                                              </font>
@@ -128,9 +143,14 @@
                                     </Label>
                                     <AnchorPane prefHeight="19.0" prefWidth="257.0">
                                        <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="99.0" layoutY="2.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" AnchorPane.rightAnchor="97.0" />
-                                          <Rectangle fx:id="rectSanidade" arcHeight="5.0" arcWidth="5.0" fill="#27a6b0" height="15.0" layoutX="149.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" AnchorPane.rightAnchor="99.0" />
-                                          <Button fx:id="btAddSanidade" layoutX="210.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtAddSanidade" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE" AnchorPane.rightAnchor="64.0">
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="99.0" layoutY="2.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="97.0" />
+                                          <Rectangle fx:id="rectSanidade" arcHeight="5.0" arcWidth="5.0" fill="#27a6b0" height="15.0" layoutX="149.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" AnchorPane.leftAnchor="99.0" />
+                                          <Button fx:id="btAddSanidade" layoutX="210.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtAddSanidade" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE" AnchorPane.leftAnchor="210.0">
+                                             <font>
+                                                <Font name="Bernard MT Condensed" size="12.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="btRemSanidade" layoutX="64.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtRemSanidade" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE" AnchorPane.leftAnchor="64.0">
                                              <font>
                                                 <Font name="Bernard MT Condensed" size="12.0" />
                                              </font>

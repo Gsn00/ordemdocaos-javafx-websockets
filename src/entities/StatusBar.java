@@ -12,7 +12,7 @@ public class StatusBar
 	private Integer value;
 	private Integer maxValue;
 	private Label label;
-	
+
 	public StatusBar()
 	{
 	}
@@ -94,16 +94,41 @@ public class StatusBar
 	{
 		JSONService.setData(maxValueName, maxValue);
 	}
-	
+
 	public void incrementValue()
 	{
-		value += 1;
-		JSONService.setData(valueName, value);
+		if (value < maxValue)
+		{
+			value += 1;
+			JSONService.setData(valueName, value);
+		}
 	}
-	
+
+	public void decrementValue()
+	{
+		if (value > 0)
+		{
+			value -= 1;
+			JSONService.setData(valueName, value);
+		}
+	}
+
 	public void incrementMaxValue()
 	{
 		maxValue += 1;
 		JSONService.setData(maxValueName, maxValue);
+	}
+
+	public void decrementMaxValue()
+	{
+		if (maxValue > 1)
+		{
+			maxValue -= 1;
+			JSONService.setData(maxValueName, maxValue);
+			if (value > maxValue)
+			{
+				setValue(maxValue);
+			}
+		}
 	}
 }
