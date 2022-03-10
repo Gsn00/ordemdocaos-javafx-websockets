@@ -23,9 +23,12 @@ public class JSONService {
 				file.createNewFile();
 				FileWriter fw = new FileWriter(file);
 				Map<String, Object> obj = new HashMap<>();
-				obj.put("jogador", "jogador-default");
-				obj.put("nome", "usuario001");
-				obj.put("sobrenome", "");
+				obj.put("jogador", "Jogador");
+				obj.put("nome", "Nome do personagem");
+				obj.put("ocupacao", "Ocupação do personagem");
+				obj.put("idade", "Idade do personagem");
+				obj.put("sexo", "Sexo do personagem");
+				obj.put("localNascimento", "Local de nascimento do personagem");
 				
 				obj.put("maxVida", 100);
 				obj.put("vida", 50);

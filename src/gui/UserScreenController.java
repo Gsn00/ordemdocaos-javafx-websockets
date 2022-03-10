@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import application.Main;
+import entities.Character;
 import entities.Message;
 import entities.StatusBar;
 import enums.MessageType;
@@ -30,7 +32,6 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import listeners.MessageEvent;
 import network.Client;
-import services.JSONService;
 import services.Utils;
 
 public class UserScreenController implements Initializable, MessageEvent
@@ -76,15 +77,26 @@ public class UserScreenController implements Initializable, MessageEvent
 	private Label lblResistencia;
 	@FXML
 	private Label lblSanidade;
-
+	@FXML
+	private Label lblJogador;
+	@FXML
+	private TextField txtNome;
+	@FXML
+	private TextField txtOcupacao;
+	@FXML
+	private TextField txtIdade;
+	@FXML
+	private TextField txtSexo;
+	@FXML
+	private TextField txtLocalNascimento;
+	
 	private StatusBar barVida;
 	private StatusBar barEnergia;
 	private StatusBar barResistencia;
 	private StatusBar barSanidade;
 
-	private Client client = new Client();
-
-	private String name = (String) JSONService.getData("nome");
+	private Client client = Main.client;
+	private Character c = new Character();
 
 	private ObservableList<String> obsMsg = FXCollections.observableArrayList();
 
@@ -200,9 +212,9 @@ public class UserScreenController implements Initializable, MessageEvent
 	
 	public void sendMessage(String msg)
 	{
-		obsMsg.add(name + ": " + msg);
+		obsMsg.add(c.getNome() + ": " + msg);
 		listView.setItems(obsMsg);
-		client.sendSocket(new Message((name + ": " + msg), MessageType.MESSAGE));
+		client.sendSocket(new Message((c.getNome() + ": " + msg), MessageType.MESSAGE));
 		txtMsg.setText("");
 		listView.scrollTo(obsMsg.size());
 	}
@@ -283,13 +295,18 @@ public class UserScreenController implements Initializable, MessageEvent
 		Font popZero = Font.loadFont(getClass().getResourceAsStream("/fonts/Populationzerobb.otf"), 64);
 		lblOrdemDoCaos.setFont(popZero);
 
+		lblJogador.setText(c.getJogador());
+		txtNome.setText(c.getNome());
+		txtOcupacao.setText(c.getOcupacao());
+		txtIdade.setText(c.getIdade());
+		txtSexo.setText(c.getSexo());
+		txtLocalNascimento.setText(c.getLocalNascimento());
+		
 		configListView();
 		configButtons();
 		updateBars();
 
 		client.subscribeMessageEvent(this);
-		client.connect();
-		client.listen();
 	}
 
 	@Override

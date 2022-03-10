@@ -56,7 +56,6 @@ public class Client
 			objectOutputStream.close();
 			objectInputStream.close();
 			socket.close();
-			Server.players.remove(objectOutputStream);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -69,9 +68,7 @@ public class Client
 		{
 			try
 			{
-				System.out.println("Client sendSocket 1");
 				objectOutputStream.writeObject(object);
-				System.out.println("Client sendSocket 2");
 			} catch (Exception e)
 			{
 				e.printStackTrace();

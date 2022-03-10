@@ -41,9 +41,7 @@ public class Server extends Thread
 				Message object = (Message) objectInputStream.readObject();
 				if (object != null)
 				{
-					System.out.println("Server listen 1");
 					sendToAll(objectOutputStream, object);
-					System.out.println("Server listen 2");
 				}
 			}
 		} catch (Exception e)
@@ -63,9 +61,7 @@ public class Server extends Thread
 				newClient = client;
 				if (socket != newClient)
 				{
-					System.out.println("Server sendToAll 1");
 					client.writeObject(object);
-					System.out.println("Server sendToAll 2");
 				}
 			}
 		} catch (Exception e)
