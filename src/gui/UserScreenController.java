@@ -111,7 +111,6 @@ public class UserScreenController implements Initializable, MessageEvent
 					sendMessage(msg);
 				if (msg.contains("d"))
 				{
-					// Check if contains a value to sum
 					int addition = 0;
 					if (msg.contains("+"))
 					{
@@ -131,7 +130,6 @@ public class UserScreenController implements Initializable, MessageEvent
 					String result = "Resultado: ( ";
 					List<Integer> values = new ArrayList<>();
 
-					// Roll the dices
 					for (int i = 0; i < quantityDices; i++)
 					{
 						int value = (int) ((Math.random() * dice) + 1);
@@ -145,7 +143,6 @@ public class UserScreenController implements Initializable, MessageEvent
 						result += (" +" + addition);
 					}
 
-					// Sum the final result
 					int sum = 0;
 					for (Integer i : values)
 					{

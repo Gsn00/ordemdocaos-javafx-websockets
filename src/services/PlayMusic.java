@@ -7,7 +7,7 @@ public class PlayMusic
 {
 	private static MediaPlayer mp;
 	public static boolean looping = false;
-	public static double VOLUME = 0.4;
+	public static double VOLUME = 0.2;
 
 	public static void playByName(String name)
 	{

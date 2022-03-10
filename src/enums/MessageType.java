@@ -4,5 +4,6 @@ public enum MessageType
 {
 	MESSAGE,
 	STATUS,
-	METHOD;
+	METHOD,
+	PLAYMUSIC;
 }

@@ -15,16 +15,9 @@ public class Message implements Serializable
 	public Message(Object object, MessageType messageType)
 	{
 		this.messageType = messageType;
+		this.message = (String) object;
 		
-		if (messageType == MessageType.MESSAGE)
-		{
-			message = (String) object;
-		}
 		if (messageType == MessageType.STATUS)
-		{
-			//
-		}
-		if (messageType == MessageType.METHOD)
 		{
 			//
 		}
