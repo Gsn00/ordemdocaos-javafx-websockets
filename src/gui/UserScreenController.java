@@ -67,12 +67,12 @@ public class UserScreenController implements Initializable, MessageEvent
 	private Label lblResistencia;
 	@FXML
 	private Label lblSanidade;
-	
+
 	private StatusBar barVida;
 	private StatusBar barEnergia;
 	private StatusBar barResistencia;
 	private StatusBar barSanidade;
-	
+
 	private Client client = new Client();
 
 	private String name = (String) JSONService.getData("nome");
@@ -86,7 +86,8 @@ public class UserScreenController implements Initializable, MessageEvent
 			if (txtMsg.getText().charAt(0) == '!')
 			{
 				String msg = txtMsg.getText().toLowerCase();
-
+				if (!msg.contains("d"))
+					sendMessage(msg);
 				if (msg.contains("d"))
 				{
 					try
@@ -132,43 +133,38 @@ public class UserScreenController implements Initializable, MessageEvent
 							sum += i;
 						}
 						result += "\nTotal: ( " + (sum + addition) + " )";
-						result = name + ":\n" + result;
+						result = quantityDices + "D" + dice + "\n" + result;
 
-						client.sendSocket(new Message(result, MessageType.MESSAGE));
 						sendMessage(result);
 					} catch (NumberFormatException e)
 					{
-						sendMessage(name + ": " + msg);
+						sendMessage(msg);
 					}
 				}
-
-				txtMsg.setText("");
 				return;
 			}
-
-			client.sendSocket(new Message((name + ": " + txtMsg.getText()), MessageType.MESSAGE));
-			sendMessage(name + ": " + txtMsg.getText());
+			sendMessage(txtMsg.getText());
 		}
 	}
-	
+
 	public void onBtAddVida()
 	{
 		barVida.incrementMaxValue();
 		updateBars();
 	}
-	
+
 	public void onBtAddEnergia()
 	{
 		barEnergia.incrementMaxValue();
 		updateBars();
 	}
-	
+
 	public void onBtAddResistencia()
 	{
 		barResistencia.incrementMaxValue();
 		updateBars();
 	}
-	
+
 	public void onBtAddSanidade()
 	{
 		barSanidade.incrementMaxValue();
@@ -177,9 +173,17 @@ public class UserScreenController implements Initializable, MessageEvent
 
 	public void sendMessage(String msg)
 	{
+		obsMsg.add(name + ": " + msg);
+		listView.setItems(obsMsg);
+		client.sendSocket(new Message((name + ": " + msg), MessageType.MESSAGE));
+		txtMsg.setText("");
+		listView.scrollTo(obsMsg.size());
+	}
+
+	public void addMessage(String msg)
+	{
 		obsMsg.add(msg);
 		listView.setItems(obsMsg);
-		txtMsg.setText("");
 		listView.scrollTo(obsMsg.size());
 	}
 
@@ -237,7 +241,7 @@ public class UserScreenController implements Initializable, MessageEvent
 		}
 		return (current / max * 100);
 	}
-	
+
 	public int filterValue(double current, double max)
 	{
 		if (current > max)
@@ -250,7 +254,7 @@ public class UserScreenController implements Initializable, MessageEvent
 		}
 		return (int) current;
 	}
-	
+
 	public void updateBars()
 	{
 		barVida = new StatusBar(rectVida, lblVida, "vida", "maxVida");
@@ -261,12 +265,13 @@ public class UserScreenController implements Initializable, MessageEvent
 		for (StatusBar bar : bars)
 		{
 			bar.getLabel().setText(bar.getValue() + "/" + bar.getMaxValue());
-			
-			KeyValue width = new KeyValue(bar.getRectangle().widthProperty(), parsePercent(bar.getValue(), bar.getMaxValue()));
+
+			KeyValue width = new KeyValue(bar.getRectangle().widthProperty(),
+					parsePercent(bar.getValue(), bar.getMaxValue()));
 			KeyFrame frame = new KeyFrame(Duration.seconds(0.5), width);
 			Timeline timeLine = new Timeline(frame);
 			timeLine.play();
-			
+
 		}
 	}
 
@@ -290,6 +295,6 @@ public class UserScreenController implements Initializable, MessageEvent
 	@Override
 	public void onMessage()
 	{
-		sendMessage(client.getMessage());
+		addMessage(client.getMessage());
 	}
 }

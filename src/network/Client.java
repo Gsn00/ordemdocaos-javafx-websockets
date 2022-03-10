@@ -41,7 +41,7 @@ public class Client
 	{
 		try
 		{
-			socket = new Socket("127.0.0.1", 7000);
+			socket = new Socket("26.163.199.159", 7000);
 			objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 		} catch (Exception e)
 		{
