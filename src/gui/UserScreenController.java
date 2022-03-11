@@ -48,7 +48,7 @@ public class UserScreenController implements Initializable, MessageEvent
 	@FXML
 	private ListView<String> listView;
 	@FXML
-	private TextField txtMsg;
+	private TextField txtMessage;
 	@FXML
 	private Button btAddVida;
 	@FXML
@@ -116,13 +116,13 @@ public class UserScreenController implements Initializable, MessageEvent
 
 	private ObservableList<String> obsMsg = FXCollections.observableArrayList();
 
-	public void onTxtMsg()
+	public void onTxtMessage()
 	{
-		if (txtMsg.getText().length() != 0)
+		if (!txtMessage.getText().trim().isEmpty())
 		{
-			if (txtMsg.getText().charAt(0) == '!')
+			if (txtMessage.getText().charAt(0) == '!')
 			{
-				String msg = txtMsg.getText().toLowerCase();
+				String msg = txtMessage.getText().toLowerCase();
 				if (!msg.contains("d"))
 					sendMessage(msg);
 				if (msg.contains("d"))
@@ -171,7 +171,7 @@ public class UserScreenController implements Initializable, MessageEvent
 				}
 				return;
 			}
-			sendMessage(txtMsg.getText());
+			sendMessage(txtMessage.getText());
 		}
 	}
 
@@ -228,7 +228,7 @@ public class UserScreenController implements Initializable, MessageEvent
 		obsMsg.add(c.getNome() + ": " + msg);
 		listView.setItems(obsMsg);
 		client.sendSocket(new Message((c.getNome() + ": " + msg), MessageType.MESSAGE));
-		txtMsg.setText("");
+		txtMessage.setText("");
 		listView.scrollTo(obsMsg.size());
 	}
 

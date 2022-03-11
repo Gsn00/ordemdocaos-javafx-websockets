@@ -1,6 +1,5 @@
 package gui.services;
 
-
 import java.util.List;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -70,12 +69,16 @@ public class InventoryService
 		List<String> strList = (List<String>) JSONService.getList("items");
 		items.addAll(strList);
 		table.setItems(items);
-		
-		txt.setOnAction(event -> {
-			addItem(txt.getText());
-			txt.setText("");
+
+		txt.setOnAction(event ->
+		{
+			if (!txt.getText().trim().isEmpty())
+			{
+				addItem(txt.getText());
+				txt.setText("");
+			}
 		});
-		
+
 		columnItem.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		columnButton.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		columnButton.setCellFactory(param -> new TableCell<String, String>()
