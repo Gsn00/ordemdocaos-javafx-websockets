@@ -23,8 +23,8 @@ public class StatusBar
 		this.label = label;
 		this.valueName = valueName;
 		this.maxValueName = maxValueName;
-		this.value = (int) ((long) JSONService.getData(valueName));
-		this.maxValue = (int) ((long) JSONService.getData(maxValueName));
+		this.value = JSONService.getInt(valueName);
+		this.maxValue = JSONService.getInt(maxValueName);
 	}
 
 	public Rectangle getRectangle()
@@ -69,7 +69,7 @@ public class StatusBar
 
 	public Integer getValue()
 	{
-		return (int) ((long) JSONService.getData(valueName));
+		return JSONService.getInt(valueName);
 	}
 
 	public void setValue(Integer value)
@@ -87,7 +87,7 @@ public class StatusBar
 
 	public Integer getMaxValue()
 	{
-		return (int) ((long) JSONService.getData(maxValueName));
+		return JSONService.getInt(maxValueName);
 	}
 
 	public void setMaxValue(Integer maxValue)

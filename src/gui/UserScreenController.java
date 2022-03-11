@@ -11,6 +11,7 @@ import entities.Character;
 import entities.Message;
 import entities.StatusBar;
 import enums.MessageType;
+import gui.services.InventoryService;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -23,8 +24,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -89,6 +93,18 @@ public class UserScreenController implements Initializable, MessageEvent
 	private TextField txtSexo;
 	@FXML
 	private TextField txtLocalNascimento;
+	@FXML
+	private Circle btInventory;
+	@FXML
+	private VBox vboxInventory;
+	@FXML
+	private TableView<String> tbItems;
+	@FXML
+	private TextField txtItems;
+	@FXML
+	private TableColumn<String, String> columnItem;
+	@FXML
+	private TableColumn<String, String> columnButton;
 	
 	private StatusBar barVida;
 	private StatusBar barEnergia;
@@ -265,6 +281,28 @@ public class UserScreenController implements Initializable, MessageEvent
 			});
 		}
 	}
+	
+	public void configCircleButtons()
+	{
+		btInventory.setOnMouseEntered(event ->
+		{
+			btInventory.getScene().setCursor(Cursor.HAND);
+		});
+		btInventory.setOnMouseExited(event ->
+		{
+			btInventory.getScene().setCursor(Cursor.DEFAULT);
+		});
+		btInventory.setOnMouseClicked(event -> {
+			if (!vboxInventory.isVisible())
+			{
+				vboxInventory.setVisible(true);
+				btInventory.setOpacity(0.7);
+			} else {
+				vboxInventory.setVisible(false);
+				btInventory.setOpacity(0.4);
+			}
+		});
+	}
 
 	public void updateBars()
 	{
@@ -289,6 +327,8 @@ public class UserScreenController implements Initializable, MessageEvent
 	{
 		Image img = new Image(getClass().getResource("/images/Screenshot_1.png").toExternalForm());
 		circle.setFill(new ImagePattern(img));
+		Image img2 = new Image(getClass().getResource("/images/Backpack.png").toExternalForm());
+		btInventory.setFill(new ImagePattern(img2));
 		Font popZero = Font.loadFont(getClass().getResourceAsStream("/fonts/Populationzerobb.otf"), 64);
 		lblOrdemDoCaos.setFont(popZero);
 
@@ -299,8 +339,11 @@ public class UserScreenController implements Initializable, MessageEvent
 		txtSexo.setText(c.getSexo());
 		txtLocalNascimento.setText(c.getLocalNascimento());
 		
+		new InventoryService(tbItems, txtItems, columnItem, columnButton);
+		
 		configListView();
 		configButtons();
+		configCircleButtons();
 		updateBars();
 
 		client.subscribeMessageEvent(this);
