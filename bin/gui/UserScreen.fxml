@@ -124,7 +124,7 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="700.0" prefWidth="692.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="724.0" prefWidth="804.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label fx:id="lblOrdemDoCaos" text="Ordem do Caos" textFill="WHITE">
                      <font>
@@ -139,50 +139,53 @@
                         <Insets bottom="60.0" />
                      </VBox.margin>
                      <children>
-                        <VBox alignment="BOTTOM_RIGHT" prefHeight="554.0" prefWidth="768.0">
+                        <VBox alignment="BOTTOM_RIGHT" prefHeight="554.0" prefWidth="768.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <AnchorPane prefHeight="469.0" prefWidth="726.0">
+                              <VBox fx:id="vboxInventory" alignment="CENTER_RIGHT" prefHeight="291.0" prefWidth="648.0" visible="false">
                                  <children>
-                                    <Circle fx:id="btInventory" fill="DODGERBLUE" layoutX="880.0" layoutY="532.0" radius="22.0" stroke="#4d4d4d00" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-opacity: 0.4;" />
-                                    <VBox fx:id="vboxInventory" alignment="CENTER" layoutX="608.0" layoutY="219.0" prefHeight="291.0" prefWidth="250.0" visible="false">
-                                       <children>
-                                          <TableView fx:id="tbItems" focusTraversable="false" prefHeight="238.0" prefWidth="250.0" style="-fx-border-color: transparent; -fx-background-radius: 20 20 0 0; -fx-focus-color: transparent; -fx-background-color: #383838;" stylesheets="@../css/tableviewstyle.css">
-                                            <columns>
-                                              <TableColumn fx:id="columnItem" editable="false" prefWidth="157.0" resizable="false" />
-                                              <TableColumn fx:id="columnButton" editable="false" prefWidth="60.0" resizable="false" />
-                                            </columns>
-                                             <padding>
-                                                <Insets bottom="20.0" left="10.0" right="10.0" />
-                                             </padding>
-                                          </TableView>
-                                          <TextField fx:id="txtItems" focusTraversable="false" minHeight="30.0" prefHeight="50.0" prefWidth="250.0" promptText="Adicione um item" style="-fx-border-color: transparent; -fx-background-radius: 0 0 20 20; -fx-focus-color: transparent; -fx-faint-color: transparent; -fx-background-color: #383838; -fx-border-color: #4f4f4f; -fx-border-width: 1 0 0 0; -fx-text-fill: white;">
-                                             <padding>
-                                                <Insets left="20.0" right="20.0" />
-                                             </padding>
-                                             <font>
-                                                <Font name="Arial" size="14.0" />
-                                             </font>
-                                          </TextField>
-                                       </children>
-                                    </VBox>
+                                    <TableView fx:id="tbItems" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="250.0" style="-fx-border-color: transparent; -fx-background-radius: 20 20 0 0; -fx-focus-color: transparent; -fx-background-color: #383838;" stylesheets="@../css/tableviewstyle.css">
+                                      <columns>
+                                        <TableColumn fx:id="columnItem" editable="false" prefWidth="157.0" resizable="false" />
+                                        <TableColumn fx:id="columnButton" editable="false" prefWidth="60.0" resizable="false" />
+                                      </columns>
+                                       <padding>
+                                          <Insets bottom="20.0" left="10.0" right="10.0" />
+                                       </padding>
+                                    </TableView>
+                                    <TextField fx:id="txtItems" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="30.0" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Adicione um item" style="-fx-border-color: transparent; -fx-background-radius: 0 0 20 20; -fx-focus-color: transparent; -fx-faint-color: transparent; -fx-background-color: #383838; -fx-border-color: #4f4f4f; -fx-border-width: 1 0 0 0; -fx-text-fill: white;">
+                                       <padding>
+                                          <Insets left="20.0" right="20.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </TextField>
                                  </children>
-                              </AnchorPane>
+                                 <VBox.margin>
+                                    <Insets right="40.0" />
+                                 </VBox.margin>
+                              </VBox>
+                              <Circle fx:id="btInventory" fill="DODGERBLUE" radius="22.0" stroke="#4d4d4d00" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-opacity: 0.4;" />
                            </children>
                         </VBox>
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="700.0" prefWidth="300.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);;">
+            <VBox alignment="BOTTOM_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="300.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);;">
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="336.0" prefWidth="330.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Circle fx:id="circle" fill="#1f93ff" radius="85.0" scaleX="0.8" scaleY="0.8" scaleZ="0.8" stroke="BLACK" strokeType="INSIDE">
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="261.0">
+                           <children>
+                              <Circle fx:id="btD20" fill="DODGERBLUE" radius="22.0" stroke="#ffffff00" strokeType="INSIDE" />
+                              <Circle fx:id="circle" fill="#1f93ff" radius="70.0" stroke="BLACK" strokeType="INSIDE" />
+                           </children>
                            <VBox.margin>
-                              <Insets left="60.0" right="60.0" top="20.0" />
+                              <Insets top="20.0" />
                            </VBox.margin>
-                        </Circle>
-                        <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="330.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                        </HBox>
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="173.0" prefWidth="261.0" spacing="5.0" VBox.vgrow="ALWAYS">
                            <children>
                               <VBox alignment="BOTTOM_CENTER" prefHeight="15.0" prefWidth="330.0">
                                  <children>
@@ -193,14 +196,14 @@
                                     </Label>
                                     <AnchorPane prefHeight="19.0" prefWidth="257.0">
                                        <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="99.0" layoutY="2.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="97.0" />
-                                          <Rectangle fx:id="rectVida" arcHeight="5.0" arcWidth="5.0" fill="#b22626" height="15.0" layoutX="149.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" AnchorPane.leftAnchor="99.0" />
-                                          <Button fx:id="btAddVida" layoutX="210.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtAddVida" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE" AnchorPane.leftAnchor="210.0">
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="100.0" layoutY="6.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" />
+                                          <Rectangle fx:id="rectVida" arcHeight="5.0" arcWidth="5.0" fill="#b22626" height="15.0" layoutX="100.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
+                                          <Button fx:id="btAddVida" layoutX="211.0" mnemonicParsing="false" onAction="#onBtAddVida" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE">
                                              <font>
                                                 <Font name="Bernard MT Condensed" size="12.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="btRemVida" layoutX="64.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtRemVida" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE" AnchorPane.leftAnchor="64.0">
+                                          <Button fx:id="btRemVida" layoutX="65.0" mnemonicParsing="false" onAction="#onBtRemVida" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE">
                                              <font>
                                                 <Font name="Bernard MT Condensed" size="12.0" />
                                              </font>
@@ -218,14 +221,14 @@
                                     </Label>
                                     <AnchorPane prefHeight="19.0" prefWidth="257.0">
                                        <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="99.0" layoutY="2.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="97.0" />
-                                          <Rectangle fx:id="rectEnergia" arcHeight="5.0" arcWidth="5.0" fill="#f2f531" height="15.0" layoutX="149.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" AnchorPane.leftAnchor="99.0" />
-                                          <Button fx:id="btAddEnergia" layoutX="210.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtAddEnergia" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE" AnchorPane.leftAnchor="210.0">
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="100.0" layoutY="5.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" />
+                                          <Rectangle fx:id="rectEnergia" arcHeight="5.0" arcWidth="5.0" fill="#f2f531" height="15.0" layoutX="100.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
+                                          <Button fx:id="btAddEnergia" layoutX="211.0" layoutY="-1.0" mnemonicParsing="false" onAction="#onBtAddEnergia" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE">
                                              <font>
                                                 <Font name="Bernard MT Condensed" size="12.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="btRemEnergia" layoutX="64.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtRemEnergia" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE" AnchorPane.leftAnchor="64.0">
+                                          <Button fx:id="btRemEnergia" layoutX="65.0" layoutY="-1.0" mnemonicParsing="false" onAction="#onBtRemEnergia" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE">
                                              <font>
                                                 <Font name="Bernard MT Condensed" size="12.0" />
                                              </font>
@@ -241,16 +244,16 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <AnchorPane prefHeight="19.0" prefWidth="257.0">
+                                    <AnchorPane prefHeight="22.0" prefWidth="284.0">
                                        <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="99.0" layoutY="2.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="97.0" />
-                                          <Rectangle fx:id="rectResistencia" arcHeight="5.0" arcWidth="5.0" fill="#f79d25" height="15.0" layoutX="149.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" AnchorPane.leftAnchor="99.0" />
-                                          <Button fx:id="btAddResistencia" layoutX="210.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtAddResistencia" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE" AnchorPane.leftAnchor="210.0">
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="100.0" layoutY="5.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" />
+                                          <Rectangle fx:id="rectResistencia" arcHeight="5.0" arcWidth="5.0" fill="#f79d25" height="15.0" layoutX="100.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
+                                          <Button fx:id="btAddResistencia" layoutX="211.0" layoutY="-1.0" mnemonicParsing="false" onAction="#onBtAddResistencia" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE">
                                              <font>
                                                 <Font name="Bernard MT Condensed" size="12.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="btRemResistencia" layoutX="64.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtRemResistencia" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE" AnchorPane.leftAnchor="64.0">
+                                          <Button fx:id="btRemResistencia" layoutX="65.0" layoutY="-1.0" mnemonicParsing="false" onAction="#onBtRemResistencia" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE">
                                              <font>
                                                 <Font name="Bernard MT Condensed" size="12.0" />
                                              </font>
@@ -268,18 +271,19 @@
                                     </Label>
                                     <AnchorPane prefHeight="19.0" prefWidth="257.0">
                                        <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="99.0" layoutY="2.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="97.0" />
-                                          <Rectangle fx:id="rectSanidade" arcHeight="5.0" arcWidth="5.0" fill="#27a6b0" height="15.0" layoutX="149.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" AnchorPane.leftAnchor="99.0" />
-                                          <Button fx:id="btAddSanidade" layoutX="210.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtAddSanidade" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE" AnchorPane.leftAnchor="210.0">
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="100.0" layoutY="5.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" />
+                                          <Rectangle fx:id="rectSanidade" arcHeight="5.0" arcWidth="5.0" fill="#27a6b0" height="15.0" layoutX="100.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
+                                          <Button fx:id="btAddSanidade" layoutX="211.0" layoutY="-1.0" mnemonicParsing="false" onAction="#onBtAddSanidade" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE">
                                              <font>
                                                 <Font name="Bernard MT Condensed" size="12.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="btRemSanidade" layoutX="64.0" layoutY="-4.0" mnemonicParsing="false" onAction="#onBtRemSanidade" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE" AnchorPane.leftAnchor="64.0">
+                                          <Button fx:id="btRemSanidade" layoutX="65.0" layoutY="-1.0" mnemonicParsing="false" onAction="#onBtRemSanidade" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE">
                                              <font>
                                                 <Font name="Bernard MT Condensed" size="12.0" />
                                              </font>
                                           </Button>
+                                          <Circle fx:id="btD100" fill="DODGERBLUE" layoutX="36.0" layoutY="13.0" radius="15.0" stroke="#ffffff00" strokeType="OUTSIDE" />
                                        </children>
                                     </AnchorPane>
                                  </children>

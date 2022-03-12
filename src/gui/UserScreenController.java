@@ -105,7 +105,11 @@ public class UserScreenController implements Initializable, MessageEvent
 	private TableColumn<String, String> columnItem;
 	@FXML
 	private TableColumn<String, String> columnButton;
-	
+	@FXML
+	private Circle btD20;
+	@FXML
+	private Circle btD100;
+
 	private StatusBar barVida;
 	private StatusBar barEnergia;
 	private StatusBar barResistencia;
@@ -118,61 +122,7 @@ public class UserScreenController implements Initializable, MessageEvent
 
 	public void onTxtMessage()
 	{
-		if (!txtMessage.getText().trim().isEmpty())
-		{
-			if (txtMessage.getText().charAt(0) == '!')
-			{
-				String msg = txtMessage.getText().toLowerCase();
-				if (!msg.contains("d"))
-					sendMessage(msg);
-				if (msg.contains("d"))
-				{
-					int addition = 0;
-					if (msg.contains("+"))
-					{
-						addition = msg.indexOf('+');
-						if (addition != -1)
-						{
-							addition = Integer.parseInt(msg.substring(addition, msg.length()));
-							String[] vect = msg.split(" ");
-							msg = vect[0];
-						}
-					}
-
-					int D = msg.indexOf('d');
-					int quantityDices = Integer.parseInt(msg.substring(1, D));
-					int dice = Integer.parseInt(msg.substring((D + 1), msg.length()));
-
-					String result = "Resultado: ( ";
-					List<Integer> values = new ArrayList<>();
-
-					for (int i = 0; i < quantityDices; i++)
-					{
-						int value = (int) ((Math.random() * dice) + 1);
-						values.add(value);
-						result += value + " ";
-					}
-					result += ")";
-
-					if (addition != 0)
-					{
-						result += (" +" + addition);
-					}
-
-					int sum = 0;
-					for (Integer i : values)
-					{
-						sum += i;
-					}
-					result += "\nTotal: ( " + (sum + addition) + " )";
-					result = quantityDices + "D" + dice + "\n" + result;
-
-					sendMessage(result);
-				}
-				return;
-			}
-			sendMessage(txtMessage.getText());
-		}
+		createMessage(txtMessage.getText());
 	}
 
 	public void onBtAddVida()
@@ -222,7 +172,68 @@ public class UserScreenController implements Initializable, MessageEvent
 		barSanidade.decrementValue();
 		updateBars();
 	}
-	
+
+	public void createMessage(String msg)
+	{
+		if (!msg.trim().isEmpty())
+		{
+			if (!(msg.charAt(0) == '!')) sendMessage(msg);
+			if (msg.charAt(0) == '!')
+			{
+				if (msg.contains("d"))
+				{
+					try
+					{
+						int addition = 0;
+						if (msg.contains("+"))
+						{
+							addition = msg.indexOf('+');
+							if (addition != -1)
+							{
+								addition = Integer.parseInt(msg.substring(addition, msg.length()));
+								String[] vect = msg.split(" ");
+								msg = vect[0];
+							}
+						}
+
+						int D = msg.indexOf('d');
+						int quantityDices = Integer.parseInt(msg.substring(1, D));
+						int dice = Integer.parseInt(msg.substring((D + 1), msg.length()));
+
+						String result = "Resultado: ( ";
+						List<Integer> values = new ArrayList<>();
+
+						for (int i = 0; i < quantityDices; i++)
+						{
+							int value = (int) ((Math.random() * dice) + 1);
+							values.add(value);
+							result += value + " ";
+						}
+						result += ")";
+
+						if (addition != 0)
+						{
+							result += (" +" + addition);
+						}
+
+						int sum = 0;
+						for (Integer i : values)
+						{
+							sum += i;
+						}
+						result += "\nTotal: ( " + (sum + addition) + " )";
+						result = quantityDices + "D" + dice + "\n" + result;
+
+						sendMessage(result);
+					} catch (Exception e)
+					{
+						sendMessage(msg);
+					}
+				}
+			}
+		}
+	}
+
 	public void sendMessage(String msg)
 	{
 		obsMsg.add(c.getNome() + ": " + msg);
@@ -265,8 +276,8 @@ public class UserScreenController implements Initializable, MessageEvent
 
 	public void configButtons()
 	{
-		List<Button> buttons = Arrays.asList(btAddVida, btAddEnergia, btAddResistencia, btAddSanidade,
-				btRemVida, btRemEnergia, btRemResistencia, btRemSanidade);
+		List<Button> buttons = Arrays.asList(btAddVida, btAddEnergia, btAddResistencia, btAddSanidade, btRemVida,
+				btRemEnergia, btRemResistencia, btRemSanidade);
 		for (Button bt : buttons)
 		{
 			bt.setOnMouseEntered(event ->
@@ -281,26 +292,40 @@ public class UserScreenController implements Initializable, MessageEvent
 			});
 		}
 	}
-	
+
 	public void configCircleButtons()
 	{
-		btInventory.setOnMouseEntered(event ->
+		List<Circle> circles = Arrays.asList(btInventory, btD20, btD100);
+		for (Circle c : circles)
 		{
-			btInventory.getScene().setCursor(Cursor.HAND);
-		});
-		btInventory.setOnMouseExited(event ->
+			c.setOnMouseEntered(event ->
+			{
+				c.getScene().setCursor(Cursor.HAND);
+			});
+			c.setOnMouseExited(event ->
+			{
+				c.getScene().setCursor(Cursor.DEFAULT);
+			});
+		}
+		btInventory.setOnMouseClicked(event ->
 		{
-			btInventory.getScene().setCursor(Cursor.DEFAULT);
-		});
-		btInventory.setOnMouseClicked(event -> {
 			if (!vboxInventory.isVisible())
 			{
 				vboxInventory.setVisible(true);
 				btInventory.setOpacity(0.7);
-			} else {
+			} else
+			{
 				vboxInventory.setVisible(false);
 				btInventory.setOpacity(0.4);
 			}
+		});
+		btD20.setOnMouseClicked(event ->
+		{
+			createMessage("!1d20");
+		});
+		btD100.setOnMouseClicked(event ->
+		{
+			createMessage("!1d100");
 		});
 	}
 
@@ -314,7 +339,8 @@ public class UserScreenController implements Initializable, MessageEvent
 		for (StatusBar bar : bars)
 		{
 			bar.getLabel().setText(bar.getValue() + "/" + bar.getMaxValue());
-			KeyValue width = new KeyValue(bar.getRectangle().widthProperty(), Utils.parsePercent(bar.getValue(), bar.getMaxValue()));
+			KeyValue width = new KeyValue(bar.getRectangle().widthProperty(),
+					Utils.parsePercent(bar.getValue(), bar.getMaxValue()));
 			KeyFrame frame = new KeyFrame(Duration.seconds(0.5), width);
 			Timeline timeLine = new Timeline(frame);
 			timeLine.play();
@@ -325,10 +351,13 @@ public class UserScreenController implements Initializable, MessageEvent
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		Image img = new Image(getClass().getResource("/images/Screenshot_1.png").toExternalForm());
+		Image img = new Image(getClass().getResource("/images/Zyan.png").toExternalForm());
 		circle.setFill(new ImagePattern(img));
 		Image img2 = new Image(getClass().getResource("/images/Backpack.png").toExternalForm());
 		btInventory.setFill(new ImagePattern(img2));
+		Image img3 = new Image(getClass().getResource("/images/dice.png").toExternalForm());
+		btD20.setFill(new ImagePattern(img3));
+		btD100.setFill(new ImagePattern(img3));
 		Font popZero = Font.loadFont(getClass().getResourceAsStream("/fonts/Populationzerobb.otf"), 64);
 		lblOrdemDoCaos.setFont(popZero);
 
@@ -338,9 +367,9 @@ public class UserScreenController implements Initializable, MessageEvent
 		txtIdade.setText(c.getIdade());
 		txtSexo.setText(c.getSexo());
 		txtLocalNascimento.setText(c.getLocalNascimento());
-		
+
 		new InventoryService(tbItems, txtItems, columnItem, columnButton);
-		
+
 		configListView();
 		configButtons();
 		configCircleButtons();
