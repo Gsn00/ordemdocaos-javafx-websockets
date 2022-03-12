@@ -32,14 +32,14 @@ public class JSONService
 				obj.put("sexo", "Sexo do personagem");
 				obj.put("localNascimento", "Local de nascimento do personagem");
 
-				obj.put("maxVida", "100");
-				obj.put("vida", "50");
-				obj.put("maxEnergia", "100");
-				obj.put("energia", "50");
-				obj.put("maxResistencia", "100");
-				obj.put("resistencia", "50");
-				obj.put("maxSanidade", "100");
-				obj.put("sanidade", "50");
+				obj.put("maxVida", 100);
+				obj.put("vida", 50);
+				obj.put("maxEnergia", 100);
+				obj.put("energia", 50);
+				obj.put("maxResistencia", 100);
+				obj.put("resistencia", 50);
+				obj.put("maxSanidade", 100);
+				obj.put("sanidade", 50);
 				
 				obj.put("items", new ArrayList<String>());
 
