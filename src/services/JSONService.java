@@ -10,6 +10,8 @@ import java.util.List;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 
+import javafx.application.Platform;
+
 public class JSONService
 {
 
@@ -82,6 +84,8 @@ public class JSONService
 			} catch (Exception e)
 			{
 				e.printStackTrace();
+				System.exit(0);
+				Platform.exit();
 			}
 		}
 		return null;
