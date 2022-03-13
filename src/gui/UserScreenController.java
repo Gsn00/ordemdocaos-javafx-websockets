@@ -378,6 +378,7 @@ public class UserScreenController implements Initializable, MessageEvent
 		client.subscribeMessageEvent(this);
 		client.connect();
 		client.listen();
+		client.sendSocket(new Message("[ ! ] " + c.getNome() + " conectou-se!", MessageType.MESSAGE));
 	}
 
 	@Override
