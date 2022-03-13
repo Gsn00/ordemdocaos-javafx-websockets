@@ -1,8 +1,6 @@
 package gui;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,79 +31,71 @@ public class ChoosingCharacterController implements Initializable
 
 	public void addCharacter(String name)
 	{
-		try
+		HBox cHBox = new HBox();
+		Circle cCircle = new Circle(50);
+		VBox cVBox = new VBox();
+		Label cLabel = new Label(name);
+		Label cLblIdade = new Label();
+		Label cLblOcupacao = new Label();
+
+		cCircle.setFill(new ImagePattern(
+				new Image(getClass().getResource("/images/characters/" + name + ".png").toExternalForm())));
+		cCircle.setStrokeType(StrokeType.OUTSIDE);
+		cCircle.setStroke(Color.BLACK);
+
+		cCircle.setOnMouseEntered(event ->
 		{
-			HBox cHBox = new HBox();
-			Circle cCircle = new Circle(50);
-			VBox cVBox = new VBox();
-			Label cLabel = new Label(name);
-			Label cLblIdade = new Label();
-			Label cLblOcupacao = new Label();
-
-			File file = new File(getClass().getResource("/characters/" + name + ".json").toURI());
-
-			cCircle.setFill(new ImagePattern(
-					new Image(getClass().getResource("/images/characters/" + name + ".png").toExternalForm())));
-			cCircle.setStrokeType(StrokeType.OUTSIDE);
-			cCircle.setStroke(Color.BLACK);
-
-			cCircle.setOnMouseEntered(event ->
-			{
-				cCircle.getScene().setCursor(Cursor.HAND);
-				cHBox.setOpacity(1);
-			});
-			cCircle.setOnMouseExited(event ->
-			{
-				if (cCircle.getScene() != null)
-				{
-					cCircle.getScene().setCursor(Cursor.DEFAULT);
-					cHBox.setOpacity(0.6);
-				}
-			});
-			cCircle.setOnMouseClicked(event ->
-			{
-				try
-				{
-					JSONService.createDefaultFile(name);
-
-					Parent parent = FXMLLoader.load(getClass().getResource("/gui/UserScreen.fxml"));
-					Scene scene = cCircle.getScene();
-					scene.setRoot(parent);
-					scene.setCursor(Cursor.DEFAULT);
-				} catch (IOException e)
-				{
-					e.printStackTrace();
-				}
-			});
-
-			cLabel.setFont(Font.font("Bodoni MT", 22));
-			cLabel.setTextFill(Color.WHITE);
-
-			cLblIdade.setText((String) JSONService.getData("idade", file));
-			cLblIdade.setFont(Font.font("Bodoni MT", 16));
-			cLblIdade.setTextFill(Color.SILVER);
-			cLblIdade.setPadding(new Insets(0, 0, 0, 10));
-
-			cLblOcupacao.setText((String) JSONService.getData("ocupacao", file));
-			cLblOcupacao.setFont(Font.font("Bodoni MT", 16));
-			cLblOcupacao.setTextFill(Color.SILVER);
-			cLblOcupacao.setPadding(new Insets(0, 0, 0, 10));
-
-			cVBox.setSpacing(5);
-
-			cVBox.getChildren().add(cLabel);
-			cVBox.getChildren().add(cLblIdade);
-			cVBox.getChildren().add(cLblOcupacao);
-
-			cHBox.getChildren().add(cCircle);
-			cHBox.getChildren().add(cVBox);
-			cHBox.setOpacity(0.6);
-
-			hbox.getChildren().add(cHBox);
-		} catch (URISyntaxException e)
+			cCircle.getScene().setCursor(Cursor.HAND);
+			cHBox.setOpacity(1);
+		});
+		cCircle.setOnMouseExited(event ->
 		{
-			e.printStackTrace();
-		}
+			if (cCircle.getScene() != null)
+			{
+				cCircle.getScene().setCursor(Cursor.DEFAULT);
+				cHBox.setOpacity(0.6);
+			}
+		});
+		cCircle.setOnMouseClicked(event ->
+		{
+			try
+			{
+				JSONService.createDefaultFile(name);
+
+				Parent parent = FXMLLoader.load(getClass().getResource("/gui/UserScreen.fxml"));
+				Scene scene = cCircle.getScene();
+				scene.setRoot(parent);
+				scene.setCursor(Cursor.DEFAULT);
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		});
+
+		cLabel.setFont(Font.font("Bodoni MT", 22));
+		cLabel.setTextFill(Color.WHITE);
+
+		cLblIdade.setText((String) JSONService.getData("idade", name));
+		cLblIdade.setFont(Font.font("Bodoni MT", 16));
+		cLblIdade.setTextFill(Color.SILVER);
+		cLblIdade.setPadding(new Insets(0, 0, 0, 10));
+
+		cLblOcupacao.setText((String) JSONService.getData("ocupacao", name));
+		cLblOcupacao.setFont(Font.font("Bodoni MT", 16));
+		cLblOcupacao.setTextFill(Color.SILVER);
+		cLblOcupacao.setPadding(new Insets(0, 0, 0, 10));
+
+		cVBox.setSpacing(5);
+
+		cVBox.getChildren().add(cLabel);
+		cVBox.getChildren().add(cLblIdade);
+		cVBox.getChildren().add(cLblOcupacao);
+
+		cHBox.getChildren().add(cCircle);
+		cHBox.getChildren().add(cVBox);
+		cHBox.setOpacity(0.6);
+
+		hbox.getChildren().add(cHBox);
 	}
 
 	@Override

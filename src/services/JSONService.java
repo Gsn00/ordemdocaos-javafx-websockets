@@ -1,8 +1,11 @@
 package services;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,40 +17,38 @@ public class JSONService
 {
 
 	static File dir = new File("C:\\ordemdocaos\\config");
-	static File file = new File(dir + "\\character.json");
+	public static File file = new File(dir + "\\character.json");
 
 	public static void createDefaultFile(String name)
 	{
 		if (!file.exists())
 		{
-			try (Reader reader = new FileReader(
-					new File(JSONService.class.getResource("/characters/" + name + ".json").toURI())))
+			try
 			{
 				dir.mkdirs();
 				file.createNewFile();
 				JsonObject obj = new JsonObject();
 
-				JsonObject character = (JsonObject) Jsoner.deserialize(reader);
-				obj.put("jogador", character.get("jogador"));
+				obj.put("jogador", getData("jogador", name));
 
-				obj.put("nome", character.get("nome"));
-				obj.put("ocupacao", character.get("ocupacao"));
-				obj.put("idade", character.get("idade"));
-				obj.put("sexo", character.get("sexo"));
-				obj.put("localNascimento", character.get("localNascimento"));
-				obj.put("imgUrl", character.get("imgUrl"));
+				obj.put("nome", getData("nome", name));
+				obj.put("ocupacao", getData("ocupacao", name));
+				obj.put("idade", getData("idade", name));
+				obj.put("sexo", getData("sexo", name));
+				obj.put("localNascimento", getData("localNascimento", name));
+				obj.put("imgUrl", getData("imgUrl", name));
 
-				obj.put("maxVida", character.get("maxVida"));
-				obj.put("vida", character.get("vida"));
-				obj.put("maxEnergia", character.get("maxEnergia"));
-				obj.put("energia", character.get("energia"));
-				obj.put("maxResistencia", character.get("maxResistencia"));
-				obj.put("resistencia", character.get("resistencia"));
-				obj.put("maxSanidade", character.get("maxSanidade"));
-				obj.put("sanidade", character.get("sanidade"));
+				obj.put("maxVida", getData("maxVida", name));
+				obj.put("vida", getData("vida", name));
+				obj.put("maxEnergia", getData("maxEnergia", name));
+				obj.put("energia", getData("energia", name));
+				obj.put("maxResistencia", getData("maxResistencia", name));
+				obj.put("resistencia", getData("resistencia", name));
+				obj.put("maxSanidade", getData("maxSanidade", name));
+				obj.put("sanidade", getData("sanidade", name));
 
 				obj.put("items", new ArrayList<String>());
-
+				
 				try (FileWriter fileWriter = new FileWriter(file))
 				{
 					fileWriter.write(obj.toJson());
@@ -91,20 +92,18 @@ public class JSONService
 		}
 		return null;
 	}
-
-	public static Object getData(String key, File file)
+	
+	public static Object getData(String key, String name)
 	{
-		if (file.exists())
+		InputStream input = JSONService.class.getResourceAsStream("/characters/" + name + ".json");
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(input)))
 		{
-			try (Reader reader = new FileReader(file))
-			{
-				JsonObject obj = (JsonObject) Jsoner.deserialize(reader);
-				Object object = obj.get(key);
-				return object;
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-			}
+			JsonObject obj = (JsonObject) Jsoner.deserialize(reader);
+			Object object = obj.get(key);
+			return object;
+		} catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 		return null;
 	}
