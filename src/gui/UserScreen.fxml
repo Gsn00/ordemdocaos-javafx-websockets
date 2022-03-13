@@ -178,7 +178,7 @@
                      <children>
                         <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="261.0">
                            <children>
-                              <Circle fx:id="btD20" fill="DODGERBLUE" radius="22.0" stroke="BLACK" strokeType="OUTSIDE" />
+                              <Circle fx:id="btD20" fill="DODGERBLUE" radius="22.0" stroke="TRANSPARENT" strokeType="OUTSIDE" />
                               <Circle fx:id="circle" fill="#1f93ff" radius="70.0" stroke="BLACK" strokeType="INSIDE" />
                            </children>
                            <VBox.margin>
@@ -283,7 +283,7 @@
                                                 <Font name="Bernard MT Condensed" size="12.0" />
                                              </font>
                                           </Button>
-                                          <Circle fx:id="btD100" fill="DODGERBLUE" layoutX="36.0" layoutY="13.0" radius="15.0" stroke="BLACK" strokeType="OUTSIDE" />
+                                          <Circle fx:id="btD100" fill="DODGERBLUE" layoutX="36.0" layoutY="13.0" radius="15.0" stroke="TRANSPARENT" strokeType="OUTSIDE" />
                                        </children>
                                     </AnchorPane>
                                  </children>
