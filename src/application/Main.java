@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import network.Client;
-import services.JSONService;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -18,7 +17,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) {
 		try {
-			Parent parent = FXMLLoader.load(getClass().getResource("/gui/UserScreen.fxml"));
+			Parent parent = FXMLLoader.load(getClass().getResource("/gui/ChoosingCharacter.fxml"));
 			Scene scene = new Scene(parent);
 			stage.setTitle("Ordem do Caos");
 			stage.getIcons().add(new Image(getClass().getResource("/images/dice.png").toExternalForm()));
@@ -30,8 +29,7 @@ public class Main extends Application {
 		}
 	}
 	
-	public static void main(String[] args) {
-		JSONService.createDefaultFile();
+	public static void main(String[] args) throws InterruptedException {
 		client.connect();
 		client.listen();
 		launch(args);

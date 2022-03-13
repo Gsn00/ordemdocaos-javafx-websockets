@@ -36,6 +36,7 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import listeners.MessageEvent;
 import network.Client;
+import services.JSONService;
 import services.Utils;
 
 public class UserScreenController implements Initializable, MessageEvent
@@ -351,7 +352,7 @@ public class UserScreenController implements Initializable, MessageEvent
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		Image img = new Image(getClass().getResource("/images/Zyan.png").toExternalForm());
+		Image img = new Image(getClass().getResource((String) JSONService.getData("imgUrl")).toExternalForm());
 		circle.setFill(new ImagePattern(img));
 		Image img2 = new Image(getClass().getResource("/images/Backpack.png").toExternalForm());
 		btInventory.setFill(new ImagePattern(img2));

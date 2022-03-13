@@ -16,41 +16,46 @@ public class JSONService
 	static File dir = new File("C:\\ordemdocaos\\config");
 	static File file = new File(dir + "\\character.json");
 
-	public static void createDefaultFile()
+	public static void createDefaultFile(String name)
 	{
-		try
+		if (!file.exists())
 		{
-			if (!file.exists())
+			try (Reader reader = new FileReader(
+					new File(JSONService.class.getResource("/characters/" + name + ".json").toURI())))
 			{
 				dir.mkdirs();
 				file.createNewFile();
 				JsonObject obj = new JsonObject();
-				obj.put("jogador", "Jogador");
-				obj.put("nome", "Nome do personagem");
-				obj.put("ocupacao", "Ocupação do personagem");
-				obj.put("idade", "Idade do personagem");
-				obj.put("sexo", "Sexo do personagem");
-				obj.put("localNascimento", "Local de nascimento do personagem");
 
-				obj.put("maxVida", 100);
-				obj.put("vida", 50);
-				obj.put("maxEnergia", 100);
-				obj.put("energia", 50);
-				obj.put("maxResistencia", 100);
-				obj.put("resistencia", 50);
-				obj.put("maxSanidade", 100);
-				obj.put("sanidade", 50);
-				
+				JsonObject character = (JsonObject) Jsoner.deserialize(reader);
+				obj.put("jogador", character.get("jogador"));
+
+				obj.put("nome", character.get("nome"));
+				obj.put("ocupacao", character.get("ocupacao"));
+				obj.put("idade", character.get("idade"));
+				obj.put("sexo", character.get("sexo"));
+				obj.put("localNascimento", character.get("localNascimento"));
+				obj.put("imgUrl", character.get("imgUrl"));
+
+				obj.put("maxVida", character.get("maxVida"));
+				obj.put("vida", character.get("vida"));
+				obj.put("maxEnergia", character.get("maxEnergia"));
+				obj.put("energia", character.get("energia"));
+				obj.put("maxResistencia", character.get("maxResistencia"));
+				obj.put("resistencia", character.get("resistencia"));
+				obj.put("maxSanidade", character.get("maxSanidade"));
+				obj.put("sanidade", character.get("sanidade"));
+
 				obj.put("items", new ArrayList<String>());
 
 				try (FileWriter fileWriter = new FileWriter(file))
 				{
 					fileWriter.write(obj.toJson());
 				}
+			} catch (Exception e)
+			{
+				e.printStackTrace();
 			}
-		} catch (Exception e)
-		{
-			e.printStackTrace();
 		}
 	}
 
@@ -71,6 +76,23 @@ public class JSONService
 	}
 
 	public static Object getData(String key)
+	{
+		if (file.exists())
+		{
+			try (Reader reader = new FileReader(file))
+			{
+				JsonObject obj = (JsonObject) Jsoner.deserialize(reader);
+				Object object = obj.get(key);
+				return object;
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	public static Object getData(String key, File file)
 	{
 		if (file.exists())
 		{

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox style="-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #010a06, #05120c, #010a06);" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ChoosingCharacterController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="724.0" prefWidth="1316.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Label fx:id="lblOrdemDoCaos" text="Ordem do Caos" textFill="WHITE">
+               <font>
+                  <Font name="Bodoni MT Condensed" size="59.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Escolha seu personagem..." textFill="WHITE">
+               <font>
+                  <Font name="Bodoni MT Condensed" size="30.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </Label>
+            <HBox fx:id="hbox" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="1366.0" spacing="25.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="60.0" left="20.0" right="20.0" top="60.0" />
+               </VBox.margin></HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>

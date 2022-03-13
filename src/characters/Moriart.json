@@ -1,0 +1,18 @@
+{
+	"maxEnergia": 350,
+	"resistencia": 30,
+	"maxVida": 800,
+	"energia": 230,
+	"vida": 670,
+	"sanidade": 50,
+	"nome": "Moriart",
+	"maxResistencia": 100,
+	"imgUrl": "/images/characters/Moriart.png",
+	"idade": "18",
+	"ocupacao": "Ocupacao de Moriart",
+	"localNascimento": "Marte",
+	"maxSanidade": 100,
+	"sexo": "Masculino",
+	"items": [],
+	"jogador": "Moriart"
+}

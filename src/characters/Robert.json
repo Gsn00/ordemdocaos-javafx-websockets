@@ -1,0 +1,18 @@
+{
+	"maxEnergia": 350,
+	"resistencia": 30,
+	"maxVida": 800,
+	"energia": 230,
+	"vida": 670,
+	"sanidade": 50,
+	"nome": "Robert",
+	"maxResistencia": 100,
+	"imgUrl": "/images/characters/Robert.png",
+	"idade": "18",
+	"ocupacao": "Ocupacao de Robert",
+	"localNascimento": "Marte",
+	"maxSanidade": 100,
+	"sexo": "Masculino",
+	"items": [],
+	"jogador": "Robert"
+}
