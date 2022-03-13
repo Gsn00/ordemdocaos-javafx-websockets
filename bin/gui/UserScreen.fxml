@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UserScreenController">
@@ -185,111 +182,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </HBox>
-                        <VBox alignment="BOTTOM_CENTER" prefHeight="173.0" prefWidth="261.0" spacing="5.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <VBox alignment="BOTTOM_CENTER" prefHeight="15.0" prefWidth="330.0">
-                                 <children>
-                                    <Label fx:id="lblVida" text="50/100" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <AnchorPane prefHeight="19.0" prefWidth="257.0">
-                                       <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="100.0" layoutY="6.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" />
-                                          <Rectangle fx:id="rectVida" arcHeight="5.0" arcWidth="5.0" fill="#b22626" height="15.0" layoutX="100.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
-                                          <Button fx:id="btAddVida" layoutX="211.0" mnemonicParsing="false" onAction="#onBtAddVida" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE">
-                                             <font>
-                                                <Font name="Bernard MT Condensed" size="12.0" />
-                                             </font>
-                                          </Button>
-                                          <Button fx:id="btRemVida" layoutX="65.0" mnemonicParsing="false" onAction="#onBtRemVida" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE">
-                                             <font>
-                                                <Font name="Bernard MT Condensed" size="12.0" />
-                                             </font>
-                                          </Button>
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </VBox>
-                              <VBox alignment="BOTTOM_CENTER" prefHeight="15.0" prefWidth="330.0">
-                                 <children>
-                                    <Label fx:id="lblEnergia" text="50/100" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <AnchorPane prefHeight="19.0" prefWidth="257.0">
-                                       <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="100.0" layoutY="5.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" />
-                                          <Rectangle fx:id="rectEnergia" arcHeight="5.0" arcWidth="5.0" fill="#f2f531" height="15.0" layoutX="100.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
-                                          <Button fx:id="btAddEnergia" layoutX="211.0" layoutY="-1.0" mnemonicParsing="false" onAction="#onBtAddEnergia" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE">
-                                             <font>
-                                                <Font name="Bernard MT Condensed" size="12.0" />
-                                             </font>
-                                          </Button>
-                                          <Button fx:id="btRemEnergia" layoutX="65.0" layoutY="-1.0" mnemonicParsing="false" onAction="#onBtRemEnergia" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE">
-                                             <font>
-                                                <Font name="Bernard MT Condensed" size="12.0" />
-                                             </font>
-                                          </Button>
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </VBox>
-                              <VBox alignment="BOTTOM_CENTER" prefHeight="15.0" prefWidth="330.0">
-                                 <children>
-                                    <Label fx:id="lblResistencia" text="50/100" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <AnchorPane prefHeight="22.0" prefWidth="284.0">
-                                       <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="100.0" layoutY="5.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" />
-                                          <Rectangle fx:id="rectResistencia" arcHeight="5.0" arcWidth="5.0" fill="#f79d25" height="15.0" layoutX="100.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
-                                          <Button fx:id="btAddResistencia" layoutX="211.0" layoutY="-1.0" mnemonicParsing="false" onAction="#onBtAddResistencia" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE">
-                                             <font>
-                                                <Font name="Bernard MT Condensed" size="12.0" />
-                                             </font>
-                                          </Button>
-                                          <Button fx:id="btRemResistencia" layoutX="65.0" layoutY="-1.0" mnemonicParsing="false" onAction="#onBtRemResistencia" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE">
-                                             <font>
-                                                <Font name="Bernard MT Condensed" size="12.0" />
-                                             </font>
-                                          </Button>
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </VBox>
-                              <VBox alignment="BOTTOM_CENTER" prefHeight="15.0" prefWidth="330.0">
-                                 <children>
-                                    <Label fx:id="lblSanidade" text="50/100" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <AnchorPane prefHeight="19.0" prefWidth="257.0">
-                                       <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f4f4f" height="15.0" layoutX="100.0" layoutY="5.0" stroke="#383838" strokeType="OUTSIDE" strokeWidth="2.0" width="100.0" />
-                                          <Rectangle fx:id="rectSanidade" arcHeight="5.0" arcWidth="5.0" fill="#27a6b0" height="15.0" layoutX="100.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
-                                          <Button fx:id="btAddSanidade" layoutX="211.0" layoutY="-1.0" mnemonicParsing="false" onAction="#onBtAddSanidade" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="+" textFill="WHITE">
-                                             <font>
-                                                <Font name="Bernard MT Condensed" size="12.0" />
-                                             </font>
-                                          </Button>
-                                          <Button fx:id="btRemSanidade" layoutX="65.0" layoutY="-1.0" mnemonicParsing="false" onAction="#onBtRemSanidade" prefHeight="24.0" prefWidth="24.0" style="-fx-background-radius: 15; -fx-background-color: #383838;" text="–" textFill="WHITE">
-                                             <font>
-                                                <Font name="Bernard MT Condensed" size="12.0" />
-                                             </font>
-                                          </Button>
-                                          <Circle fx:id="btD100" fill="DODGERBLUE" layoutX="36.0" layoutY="13.0" radius="15.0" stroke="TRANSPARENT" strokeType="OUTSIDE" />
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </VBox>
+                        <VBox fx:id="vboxSatusBar" alignment="BOTTOM_CENTER" prefHeight="173.0" prefWidth="261.0" spacing="5.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                   <HBox prefHeight="341.0" prefWidth="290.0">

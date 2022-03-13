@@ -27,7 +27,8 @@ public class Main extends Application
 				stage.setScene(scene);
 				stage.setMaximized(true);
 				stage.show();
-			} else {
+			} else
+			{
 				Parent parent = FXMLLoader.load(getClass().getResource("/gui/ChoosingCharacter.fxml"));
 				Scene scene = new Scene(parent);
 				stage.setTitle("Ordem do Caos");

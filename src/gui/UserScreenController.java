@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,18 +9,18 @@ import java.util.ResourceBundle;
 
 import entities.Character;
 import entities.Message;
-import entities.StatusBar;
+import entities.UserStatusBar;
 import enums.MessageType;
+import enums.StatusBarType;
 import gui.services.InventoryService;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.control.Button;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -30,13 +31,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.util.Duration;
 import listeners.MessageEvent;
 import network.Client;
 import services.JSONService;
-import services.Utils;
 
 public class UserScreenController implements Initializable, MessageEvent
 {
@@ -49,38 +47,6 @@ public class UserScreenController implements Initializable, MessageEvent
 	private ListView<String> listView;
 	@FXML
 	private TextField txtMessage;
-	@FXML
-	private Button btAddVida;
-	@FXML
-	private Button btAddEnergia;
-	@FXML
-	private Button btAddResistencia;
-	@FXML
-	private Button btAddSanidade;
-	@FXML
-	private Button btRemVida;
-	@FXML
-	private Button btRemEnergia;
-	@FXML
-	private Button btRemResistencia;
-	@FXML
-	private Button btRemSanidade;
-	@FXML
-	private Rectangle rectVida;
-	@FXML
-	private Rectangle rectEnergia;
-	@FXML
-	private Rectangle rectResistencia;
-	@FXML
-	private Rectangle rectSanidade;
-	@FXML
-	private Label lblVida;
-	@FXML
-	private Label lblEnergia;
-	@FXML
-	private Label lblResistencia;
-	@FXML
-	private Label lblSanidade;
 	@FXML
 	private Label lblJogador;
 	@FXML
@@ -108,13 +74,8 @@ public class UserScreenController implements Initializable, MessageEvent
 	@FXML
 	private Circle btD20;
 	@FXML
-	private Circle btD100;
-
-	private StatusBar barVida;
-	private StatusBar barEnergia;
-	private StatusBar barResistencia;
-	private StatusBar barSanidade;
-
+	private VBox vboxSatusBar;
+	
 	private Client client = new Client();
 	private Character c = new Character();
 
@@ -125,54 +86,6 @@ public class UserScreenController implements Initializable, MessageEvent
 		createMessage(txtMessage.getText());
 	}
 
-	public void onBtAddVida()
-	{
-		barVida.incrementValue();
-		updateBars();
-	}
-
-	public void onBtAddEnergia()
-	{
-		barEnergia.incrementValue();
-		updateBars();
-	}
-
-	public void onBtAddResistencia()
-	{
-		barResistencia.incrementValue();
-		updateBars();
-	}
-
-	public void onBtAddSanidade()
-	{
-		barSanidade.incrementValue();
-		updateBars();
-	}
-
-	public void onBtRemVida()
-	{
-		barVida.decrementValue();
-		updateBars();
-	}
-
-	public void onBtRemEnergia()
-	{
-		barEnergia.decrementValue();
-		updateBars();
-	}
-
-	public void onBtRemResistencia()
-	{
-		barResistencia.decrementValue();
-		updateBars();
-	}
-
-	public void onBtRemSanidade()
-	{
-		barSanidade.decrementValue();
-		updateBars();
-	}
-
 	public void createMessage(String msg)
 	{
 		if (!msg.trim().isEmpty())
@@ -180,6 +93,20 @@ public class UserScreenController implements Initializable, MessageEvent
 			if (!(msg.charAt(0) == '!')) sendMessage(msg);
 			if (msg.charAt(0) == '!')
 			{
+				// Just for test
+				if (msg.equalsIgnoreCase("!admin"))
+				{
+					try
+					{
+						Parent parent = FXMLLoader.load(UserScreenController.class.getResource("/gui/AdminScreen.fxml"));
+						Scene scene = txtMessage.getScene();
+						scene.setRoot(parent);
+						return;
+					} catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+				}
 				if (msg.contains("d"))
 				{
 					try
@@ -274,28 +201,9 @@ public class UserScreenController implements Initializable, MessageEvent
 		});
 	}
 
-	public void configButtons()
-	{
-		List<Button> buttons = Arrays.asList(btAddVida, btAddEnergia, btAddResistencia, btAddSanidade, btRemVida,
-				btRemEnergia, btRemResistencia, btRemSanidade);
-		for (Button bt : buttons)
-		{
-			bt.setOnMouseEntered(event ->
-			{
-				bt.setStyle("-fx-background-color: #424242");
-				bt.getScene().setCursor(Cursor.HAND);
-			});
-			bt.setOnMouseExited(event ->
-			{
-				bt.setStyle("-fx-background-color: #383838; -fx-background-radius: 15");
-				bt.getScene().setCursor(Cursor.DEFAULT);
-			});
-		}
-	}
-
 	public void configCircleButtons()
 	{
-		List<Circle> circles = Arrays.asList(btInventory, btD20, btD100);
+		List<Circle> circles = Arrays.asList(btInventory, btD20);
 		for (Circle c : circles)
 		{
 			c.setOnMouseEntered(event ->
@@ -323,29 +231,6 @@ public class UserScreenController implements Initializable, MessageEvent
 		{
 			createMessage("!1d20");
 		});
-		btD100.setOnMouseClicked(event ->
-		{
-			createMessage("!1d100");
-		});
-	}
-
-	public void updateBars()
-	{
-		barVida = new StatusBar(rectVida, lblVida, "vida", "maxVida");
-		barEnergia = new StatusBar(rectEnergia, lblEnergia, "energia", "maxEnergia");
-		barResistencia = new StatusBar(rectResistencia, lblResistencia, "resistencia", "maxResistencia");
-		barSanidade = new StatusBar(rectSanidade, lblSanidade, "sanidade", "maxSanidade");
-		List<StatusBar> bars = Arrays.asList(barVida, barEnergia, barResistencia, barSanidade);
-		for (StatusBar bar : bars)
-		{
-			bar.getLabel().setText(bar.getValue() + "/" + bar.getMaxValue());
-			KeyValue width = new KeyValue(bar.getRectangle().widthProperty(),
-					Utils.parsePercent(bar.getValue(), bar.getMaxValue()));
-			KeyFrame frame = new KeyFrame(Duration.seconds(0.5), width);
-			Timeline timeLine = new Timeline(frame);
-			timeLine.play();
-
-		}
 	}
 
 	@Override
@@ -357,10 +242,16 @@ public class UserScreenController implements Initializable, MessageEvent
 		btInventory.setFill(new ImagePattern(img2));
 		Image img3 = new Image(getClass().getResource("/images/dice.png").toExternalForm());
 		btD20.setFill(new ImagePattern(img3));
-		btD100.setFill(new ImagePattern(img3));
 		Font popZero = Font.loadFont(getClass().getResourceAsStream("/fonts/Populationzerobb.otf"), 64);
 		lblOrdemDoCaos.setFont(popZero);
 
+		UserStatusBar barVida = new UserStatusBar("#b22626", c, StatusBarType.VIDA);
+		UserStatusBar barEnergia = new UserStatusBar("#f2f531", c, StatusBarType.ENERGIA);
+		UserStatusBar barResistencia = new UserStatusBar("#f79d25", c, StatusBarType.RESISTENCIA);
+		UserStatusBar barSanidade = new UserStatusBar("#27a6b0", c, StatusBarType.SANIDADE);
+		
+		vboxSatusBar.getChildren().addAll(barVida, barEnergia, barResistencia, barSanidade);
+		
 		lblJogador.setText(c.getJogador());
 		txtNome.setText(c.getNome());
 		txtOcupacao.setText(c.getOcupacao());
@@ -371,9 +262,7 @@ public class UserScreenController implements Initializable, MessageEvent
 		new InventoryService(tbItems, txtItems, columnItem, columnButton);
 
 		configListView();
-		configButtons();
 		configCircleButtons();
-		updateBars();
 
 		client.subscribeMessageEvent(this);
 		client.connect();
