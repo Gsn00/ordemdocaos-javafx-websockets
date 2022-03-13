@@ -3,7 +3,6 @@ package application;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import network.Client;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -12,7 +11,6 @@ import javafx.scene.image.Image;
 public class Main extends Application {
 	
 	public static String VERSION = "2.0.0";
-	public static Client client = new Client();
 	
 	@Override
 	public void start(Stage stage) {
@@ -30,8 +28,6 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		client.connect();
-		client.listen();
 		launch(args);
 	}
 }

@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import application.Main;
 import entities.Character;
 import entities.Message;
 import entities.StatusBar;
@@ -116,7 +115,7 @@ public class UserScreenController implements Initializable, MessageEvent
 	private StatusBar barResistencia;
 	private StatusBar barSanidade;
 
-	private Client client = Main.client;
+	private Client client = new Client();
 	private Character c = new Character();
 
 	private ObservableList<String> obsMsg = FXCollections.observableArrayList();
@@ -377,6 +376,8 @@ public class UserScreenController implements Initializable, MessageEvent
 		updateBars();
 
 		client.subscribeMessageEvent(this);
+		client.connect();
+		client.listen();
 	}
 
 	@Override
