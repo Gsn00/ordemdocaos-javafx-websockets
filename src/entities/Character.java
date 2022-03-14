@@ -52,6 +52,7 @@ public class Character implements Serializable
 		this.maxResistencia = clone.maxResistencia;
 		this.sanidade = clone.sanidade;
 		this.maxSanidade = clone.maxSanidade;
+		this.items = clone.items;
 	}
 	
 	public String getJogador()
@@ -240,8 +241,8 @@ public class Character implements Serializable
 	public void getJSONData()
 	{
 		jogador = (String) JSONService.getData("jogador");
-		nome =(String) JSONService.getData("nome");
-		ocupacao =(String) JSONService.getData("ocupacao");
+		nome = (String) JSONService.getData("nome");
+		ocupacao = (String) JSONService.getData("ocupacao");
 		idade = (String) JSONService.getData("idade");
 		sexo = (String) JSONService.getData("sexo");
 		localNascimento = (String) JSONService.getData("localNascimento");

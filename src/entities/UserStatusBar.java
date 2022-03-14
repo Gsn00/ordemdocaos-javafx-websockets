@@ -74,27 +74,27 @@ public class UserStatusBar extends HBox
 			switch (statusBarType)
 			{
 			case VIDA:
-				character.setVida(StatusService.incrementValue(character.getVida(), character.getMaxVida()));
-				StatusService.updateBar(bar, lblStatus, character.getVida(), character.getMaxVida());
-				JSONService.setData("vida", character.getVida());
+				this.character.setVida(StatusService.incrementValue(this.character.getVida(), this.character.getMaxVida()));
+				StatusService.updateBar(bar, lblStatus, this.character.getVida(), this.character.getMaxVida());
+				JSONService.setData("vida", this.character.getVida());
 				break;
 			case ENERGIA:
-				character.setEnergia(StatusService.incrementValue(character.getEnergia(), character.getMaxEnergia()));
-				StatusService.updateBar(bar, lblStatus, character.getEnergia(), character.getMaxEnergia());
-				JSONService.setData("energia", character.getEnergia());
+				this.character.setEnergia(StatusService.incrementValue(this.character.getEnergia(), this.character.getMaxEnergia()));
+				StatusService.updateBar(bar, lblStatus, this.character.getEnergia(), this.character.getMaxEnergia());
+				JSONService.setData("energia", this.character.getEnergia());
 				break;
 			case RESISTENCIA:
-				character.setResistencia(StatusService.incrementValue(character.getResistencia(), character.getMaxResistencia()));
-				StatusService.updateBar(bar, lblStatus, character.getResistencia(), character.getMaxResistencia());
-				JSONService.setData("resistencia", character.getResistencia());
+				this.character.setResistencia(StatusService.incrementValue(this.character.getResistencia(), this.character.getMaxResistencia()));
+				StatusService.updateBar(bar, lblStatus, this.character.getResistencia(), this.character.getMaxResistencia());
+				JSONService.setData("resistencia", this.character.getResistencia());
 				break;
 			case SANIDADE:
-				character.setSanidade(StatusService.incrementValue(character.getSanidade(), character.getMaxSanidade()));
-				StatusService.updateBar(bar, lblStatus, character.getSanidade(), character.getMaxSanidade());
-				JSONService.setData("sanidade", character.getSanidade());
+				this.character.setSanidade(StatusService.incrementValue(this.character.getSanidade(), this.character.getMaxSanidade()));
+				StatusService.updateBar(bar, lblStatus, this.character.getSanidade(), this.character.getMaxSanidade());
+				JSONService.setData("sanidade", this.character.getSanidade());
 				break;
 			}
-			Character newCharacter = new Character(character);
+			Character newCharacter = new Character(this.character);
 			client.sendSocket(new Message(newCharacter, MessageType.STATUS));
 		});
 		
@@ -119,27 +119,27 @@ public class UserStatusBar extends HBox
 			switch (statusBarType)
 			{
 			case VIDA:
-				character.setVida(StatusService.decrementValue(character.getVida(), character.getMaxVida()));
-				StatusService.updateBar(bar, lblStatus, character.getVida(), character.getMaxVida());
-				JSONService.setData("vida", character.getVida());
+				this.character.setVida(StatusService.decrementValue(this.character.getVida(), this.character.getMaxVida()));
+				StatusService.updateBar(bar, lblStatus, this.character.getVida(), this.character.getMaxVida());
+				JSONService.setData("vida", this.character.getVida());
 				break;
 			case ENERGIA:
-				character.setEnergia(StatusService.decrementValue(character.getEnergia(), character.getMaxEnergia()));
-				StatusService.updateBar(bar, lblStatus, character.getEnergia(), character.getMaxEnergia());
-				JSONService.setData("energia", character.getEnergia());
+				this.character.setEnergia(StatusService.decrementValue(this.character.getEnergia(), this.character.getMaxEnergia()));
+				StatusService.updateBar(bar, lblStatus, this.character.getEnergia(), this.character.getMaxEnergia());
+				JSONService.setData("energia", this.character.getEnergia());
 				break;
 			case RESISTENCIA:
-				character.setResistencia(StatusService.decrementValue(character.getResistencia(), character.getMaxResistencia()));
-				StatusService.updateBar(bar, lblStatus, character.getResistencia(), character.getMaxResistencia());
-				JSONService.setData("resistencia", character.getResistencia());
+				this.character.setResistencia(StatusService.decrementValue(this.character.getResistencia(), this.character.getMaxResistencia()));
+				StatusService.updateBar(bar, lblStatus, this.character.getResistencia(), this.character.getMaxResistencia());
+				JSONService.setData("resistencia", this.character.getResistencia());
 				break;
 			case SANIDADE:
-				character.setSanidade(StatusService.decrementValue(character.getSanidade(), character.getMaxSanidade()));
-				StatusService.updateBar(bar, lblStatus, character.getSanidade(), character.getMaxSanidade());
-				JSONService.setData("sanidade", character.getSanidade());
+				this.character.setSanidade(StatusService.decrementValue(this.character.getSanidade(), this.character.getMaxSanidade()));
+				StatusService.updateBar(bar, lblStatus, this.character.getSanidade(), this.character.getMaxSanidade());
+				JSONService.setData("sanidade", this.character.getSanidade());
 				break;
 			}
-			Character newCharacter = new Character(character);
+			Character newCharacter = new Character(this.character);
 			client.sendSocket(new Message(newCharacter, MessageType.STATUS));
 		});
 

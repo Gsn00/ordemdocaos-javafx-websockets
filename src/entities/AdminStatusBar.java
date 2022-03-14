@@ -73,23 +73,23 @@ public class AdminStatusBar extends HBox
 			switch (statusBarType)
 			{
 			case VIDA:
-				character.setMaxVida(StatusService.incrementMaxValue(character.getMaxVida()));
-				StatusService.updateBar(bar, lblStatus, character.getVida(), character.getMaxVida());
+				this.character.setMaxVida(StatusService.incrementMaxValue(this.character.getMaxVida()));
+				StatusService.updateBar(bar, lblStatus, this.character.getVida(), this.character.getMaxVida());
 				break;
 			case ENERGIA:
-				character.setMaxEnergia(StatusService.incrementMaxValue(character.getMaxEnergia()));
-				StatusService.updateBar(bar, lblStatus, character.getEnergia(), character.getMaxEnergia());
+				this.character.setMaxEnergia(StatusService.incrementMaxValue(this.character.getMaxEnergia()));
+				StatusService.updateBar(bar, lblStatus, this.character.getEnergia(), this.character.getMaxEnergia());
 				break;
 			case RESISTENCIA:
-				character.setMaxResistencia(StatusService.incrementMaxValue(character.getMaxResistencia()));
-				StatusService.updateBar(bar, lblStatus, character.getResistencia(), character.getMaxResistencia());
+				this.character.setMaxResistencia(StatusService.incrementMaxValue(this.character.getMaxResistencia()));
+				StatusService.updateBar(bar, lblStatus, this.character.getResistencia(), this.character.getMaxResistencia());
 				break;
 			case SANIDADE:
-				character.setMaxSanidade(StatusService.incrementMaxValue(character.getMaxSanidade()));
-				StatusService.updateBar(bar, lblStatus, character.getSanidade(), character.getMaxSanidade());
+				this.character.setMaxSanidade(StatusService.incrementMaxValue(this.character.getMaxSanidade()));
+				StatusService.updateBar(bar, lblStatus, this.character.getSanidade(), this.character.getMaxSanidade());
 				break;
 			}
-			Character newCharacter = new Character(character);
+			Character newCharacter = new Character(this.character);
 			client.sendSocket(new Message(newCharacter, MessageType.STATUS));
 		});
 		
