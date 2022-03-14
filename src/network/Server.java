@@ -52,10 +52,8 @@ public class Server extends Thread
 			}
 		} catch (Exception e)
 		{
-			System.err.println("Desconectado: " + e.getMessage());
 			players.remove(objectOutputStream);
 			sendToAll(objectOutputStream, new Message(nome, MessageType.DISCONNECT));
-			sendToAll(objectOutputStream, new Message("[ ! ] " + nome + " desconectou-se!", MessageType.MESSAGE));
 		}
 	}
 

@@ -40,7 +40,7 @@ public class AdminScreenController implements Initializable, MessageEvent
 	private TextField txtMessage;
 
 	private Client client = new Client();
-	
+
 	private static Map<String, HBox> components = new HashMap<>();
 	private static List<AdminStatusBar> bars = new ArrayList<>();
 
@@ -50,47 +50,51 @@ public class AdminScreenController implements Initializable, MessageEvent
 
 	public void addCharacter(Character character)
 	{
-		HBox cHBox = new HBox();
-		Circle cCircle = new Circle(50);
-		VBox cVBox = new VBox();
-		Label cLabel = new Label(character.getNome());
+		if (!components.containsKey(character.getNome()))
+		{
+			HBox cHBox = new HBox();
+			Circle cCircle = new Circle(50);
+			VBox cVBox = new VBox();
+			Label cLabel = new Label(character.getNome());
 
-		cCircle.setFill(new ImagePattern(new Image(getClass().getResource(character.getImgUrl()).toExternalForm())));
-		cCircle.setStrokeType(StrokeType.OUTSIDE);
-		cCircle.setStroke(Color.BLACK);
+			cCircle.setFill(
+					new ImagePattern(new Image(getClass().getResource(character.getImgUrl()).toExternalForm())));
+			cCircle.setStrokeType(StrokeType.OUTSIDE);
+			cCircle.setStroke(Color.BLACK);
 
-		cLabel.setFont(Font.font("Bodoni MT", 22));
-		cLabel.setTextFill(Color.WHITE);
+			cLabel.setFont(Font.font("Bodoni MT", 22));
+			cLabel.setTextFill(Color.WHITE);
 
-		AdminStatusBar barVida = new AdminStatusBar("#b22626", character, StatusBarType.VIDA, client);
-		barVida.setPadding(new Insets(0, 0, 0, 30));
-		bars.add(barVida);
-		AdminStatusBar barEnergia = new AdminStatusBar("#f2f531", character, StatusBarType.ENERGIA, client);
-		barEnergia.setPadding(new Insets(0, 0, 0, 16));
-		bars.add(barEnergia);
-		AdminStatusBar barResistencia = new AdminStatusBar("#f79d25", character, StatusBarType.RESISTENCIA, client);
-		barResistencia.setPadding(new Insets(0, 0, 0, 2));
-		bars.add(barResistencia);
-		AdminStatusBar barSanidade = new AdminStatusBar("#27a6b0", character, StatusBarType.SANIDADE, client);
-		barSanidade.setPadding(new Insets(0, 0, 0, -12));
-		bars.add(barSanidade);
+			AdminStatusBar barVida = new AdminStatusBar("#b22626", character, StatusBarType.VIDA, client);
+			barVida.setPadding(new Insets(0, 0, 0, 30));
+			bars.add(barVida);
+			AdminStatusBar barEnergia = new AdminStatusBar("#f2f531", character, StatusBarType.ENERGIA, client);
+			barEnergia.setPadding(new Insets(0, 0, 0, 16));
+			bars.add(barEnergia);
+			AdminStatusBar barResistencia = new AdminStatusBar("#f79d25", character, StatusBarType.RESISTENCIA, client);
+			barResistencia.setPadding(new Insets(0, 0, 0, 2));
+			bars.add(barResistencia);
+			AdminStatusBar barSanidade = new AdminStatusBar("#27a6b0", character, StatusBarType.SANIDADE, client);
+			barSanidade.setPadding(new Insets(0, 0, 0, -12));
+			bars.add(barSanidade);
 
-		cVBox.setSpacing(5);
+			cVBox.setSpacing(5);
 
-		cVBox.getChildren().add(cLabel);
-		cVBox.getChildren().add(barVida);
-		cVBox.getChildren().add(barEnergia);
-		cVBox.getChildren().add(barResistencia);
-		cVBox.getChildren().add(barSanidade);
+			cVBox.getChildren().add(cLabel);
+			cVBox.getChildren().add(barVida);
+			cVBox.getChildren().add(barEnergia);
+			cVBox.getChildren().add(barResistencia);
+			cVBox.getChildren().add(barSanidade);
 
-		cHBox.getChildren().add(cCircle);
-		cHBox.getChildren().add(cVBox);
-		cHBox.setAlignment(Pos.CENTER);
-		cHBox.setMaxHeight(120);
+			cHBox.getChildren().add(cCircle);
+			cHBox.getChildren().add(cVBox);
+			cHBox.setAlignment(Pos.CENTER);
+			cHBox.setMaxHeight(120);
 
-		hbox.getChildren().add(cHBox);
-		
-		components.put(character.getNome(), cHBox);
+			hbox.getChildren().add(cHBox);
+
+			components.put(character.getNome(), cHBox);
+		}
 	}
 
 	public void updateBars(Character character)
@@ -104,19 +108,19 @@ public class AdminScreenController implements Initializable, MessageEvent
 			}
 		}
 	}
-	
+
 	public void disconnect(String nome)
 	{
 		hbox.getChildren().remove(components.get(nome));
 		components.remove(nome);
 	}
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
+		client.subscribeMessageEvent(this);
 		client.connect();
 		client.listen();
-		client.subscribeMessageEvent(this);
 	}
 
 	@Override
@@ -125,13 +129,10 @@ public class AdminScreenController implements Initializable, MessageEvent
 		switch (client.getMessage().getMessageType())
 		{
 		case MESSAGE:
-			
+
 			break;
 		case STATUS:
 			updateBars(client.getMessage().getCharacter());
-			break;
-		case METHOD:
-
 			break;
 		case PLAYMUSIC:
 

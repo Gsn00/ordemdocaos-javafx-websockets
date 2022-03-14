@@ -3,6 +3,7 @@ package application;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import services.JSONService;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,6 +25,7 @@ public class Main extends Application
 				Scene scene = new Scene(parent);
 				stage.setTitle("Ordem do Caos");
 				stage.getIcons().add(new Image(getClass().getResource("/images/dice.png").toExternalForm()));
+				stage.initStyle(StageStyle.UNDECORATED);
 				stage.setScene(scene);
 				stage.setMaximized(true);
 				stage.show();
@@ -33,6 +35,7 @@ public class Main extends Application
 				Scene scene = new Scene(parent);
 				stage.setTitle("Ordem do Caos");
 				stage.getIcons().add(new Image(getClass().getResource("/images/dice.png").toExternalForm()));
+				stage.initStyle(StageStyle.UNDECORATED);
 				stage.setScene(scene);
 				stage.setMaximized(true);
 				stage.show();

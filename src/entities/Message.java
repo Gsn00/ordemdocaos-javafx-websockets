@@ -25,11 +25,8 @@ public class Message implements Serializable
 		case STATUS:
 			this.character = (Character) object;
 			break;
-		case METHOD:
-
-			break;
 		case PLAYMUSIC:
-
+			this.message = (String) object;
 			break;
 		case CONNECT:
 			this.character = (Character) object;

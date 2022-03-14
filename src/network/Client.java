@@ -2,17 +2,13 @@ package network;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
 import entities.Message;
-import gui.UserScreenController;
 import javafx.application.Platform;
 import listeners.MessageEvent;
-import services.PlayMusic;
 
 public class Client
 {
@@ -53,19 +49,6 @@ public class Client
 		}
 	}
 
-	public void disconnect()
-	{
-		try
-		{
-			objectOutputStream.close();
-			objectInputStream.close();
-			socket.close();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
 	public void sendSocket(Message object)
 	{
 		if (socket != null)
@@ -97,27 +80,15 @@ public class Client
 							Message object = (Message) objectInputStream.readObject();
 							if (object != null)
 							{
-								switch (object.getMessageType())
+								message = object;
+								Platform.runLater(new Runnable()
 								{
-								case MESSAGE:
-									treatMessage(object);
-									break;
-								case STATUS:
-									treatStatus(object);
-									break;
-								case METHOD:
-									treatMethod(object);
-									break;
-								case PLAYMUSIC:
-									treatPlayMusic(object);
-									break;
-								case CONNECT:
-									treatStatus(object);
-									break;
-								case DISCONNECT:
-									treatStatus(object);
-									break;
-								}
+									@Override
+									public void run()
+									{
+										notifyMessageEvent();
+									}
+								});
 							}
 						}
 					} catch (Exception e)
@@ -129,56 +100,5 @@ public class Client
 			t.setDaemon(true);
 			t.start();
 		}
-	}
-
-	public void treatMessage(Message object)
-	{
-		message = object;
-		Platform.runLater(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				notifyMessageEvent();
-			}
-		});
-	}
-
-	public void treatStatus(Message object)
-	{
-		message = object;
-		Platform.runLater(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				notifyMessageEvent();
-			}
-		});
-	}
-
-	public void treatMethod(Message object) throws NoSuchMethodException, SecurityException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException, ClassNotFoundException
-	{
-		String[] vect = object.getMessage().split(",");
-		Class<?> objClass = Class.forName(vect[0]);
-		Method method;
-		switch (vect.length)
-		{
-		case 2:
-			method = objClass.getMethod(vect[1]);
-			method.invoke(UserScreenController.class);
-			break;
-		case 4:
-			Class<?> paramClass = Class.forName(vect[2]);
-			method = objClass.getMethod(vect[1], paramClass);
-			method.invoke(UserScreenController.class, vect[3]);
-			break;
-		}
-	}
-	
-	public void treatPlayMusic(Message object)
-	{
-		PlayMusic.playByName(object.getMessage());
 	}
 }

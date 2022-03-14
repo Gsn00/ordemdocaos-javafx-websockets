@@ -35,6 +35,7 @@ import javafx.scene.text.Font;
 import listeners.MessageEvent;
 import network.Client;
 import services.JSONService;
+import services.PlayMusic;
 
 public class UserScreenController implements Initializable, MessageEvent
 {
@@ -75,7 +76,7 @@ public class UserScreenController implements Initializable, MessageEvent
 	private Circle btD20;
 	@FXML
 	private VBox vboxSatusBar;
-	
+
 	private UserStatusBar barVida;
 	private UserStatusBar barEnergia;
 	private UserStatusBar barResistencia;
@@ -94,7 +95,8 @@ public class UserScreenController implements Initializable, MessageEvent
 	{
 		if (!msg.trim().isEmpty())
 		{
-			if (!(msg.charAt(0) == '!')) sendMessage(msg);
+			if (!(msg.charAt(0) == '!'))
+				sendMessage(msg);
 			if (msg.charAt(0) == '!')
 			{
 				// Just for test
@@ -102,7 +104,8 @@ public class UserScreenController implements Initializable, MessageEvent
 				{
 					try
 					{
-						Parent parent = FXMLLoader.load(UserScreenController.class.getResource("/gui/AdminScreen.fxml"));
+						Parent parent = FXMLLoader
+								.load(UserScreenController.class.getResource("/gui/AdminScreen.fxml"));
 						Scene scene = txtMessage.getScene();
 						scene.setRoot(parent);
 						return;
@@ -236,7 +239,7 @@ public class UserScreenController implements Initializable, MessageEvent
 			createMessage("!1d20");
 		});
 	}
-	
+
 	public void updateBars()
 	{
 		for (UserStatusBar bar : Arrays.asList(barVida, barEnergia, barResistencia, barSanidade))
@@ -262,9 +265,9 @@ public class UserScreenController implements Initializable, MessageEvent
 		barEnergia = new UserStatusBar("#f2f531", c, StatusBarType.ENERGIA, client);
 		barResistencia = new UserStatusBar("#f79d25", c, StatusBarType.RESISTENCIA, client);
 		barSanidade = new UserStatusBar("#27a6b0", c, StatusBarType.SANIDADE, client);
-		
+
 		vboxSatusBar.getChildren().addAll(barVida, barEnergia, barResistencia, barSanidade);
-		
+
 		lblJogador.setText(c.getJogador());
 		txtNome.setText(c.getNome());
 		txtOcupacao.setText(c.getOcupacao());
@@ -280,7 +283,6 @@ public class UserScreenController implements Initializable, MessageEvent
 		client.subscribeMessageEvent(this);
 		client.connect();
 		client.listen();
-		client.sendSocket(new Message("[ ! ] " + c.getNome() + " conectou-se!", MessageType.MESSAGE));
 		client.sendSocket(new Message(c, MessageType.CONNECT));
 	}
 
@@ -297,17 +299,14 @@ public class UserScreenController implements Initializable, MessageEvent
 			c.setJSONData();
 			updateBars();
 			break;
-		case METHOD:
-			
-			break;
 		case PLAYMUSIC:
-			
+			PlayMusic.playByName(client.getMessage().toString());
 			break;
 		case CONNECT:
-			
+			addMessage("[ ! ] " + client.getMessage().toString() + " conectou-se!");
 			break;
 		case DISCONNECT:
-			
+			addMessage("[ ! ] " + client.getMessage().toString() + " desconectou-se!");
 			break;
 		}
 	}
