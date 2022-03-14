@@ -8,12 +8,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import entities.Message;
+import enums.MessageType;
 
 public class Server extends Thread
 {
 	private static ServerSocket server;
 	private ObjectInputStream objectInputStream;
 	private ObjectOutputStream objectOutputStream;
+	private String nome;
 
 	public static Set<ObjectOutputStream> players = new HashSet<>();
 
@@ -42,12 +44,18 @@ public class Server extends Thread
 				if (object != null)
 				{
 					sendToAll(objectOutputStream, object);
+					if (object.getMessageType() == MessageType.CONNECT)
+					{
+						this.nome = object.getCharacter().getNome();
+					}
 				}
 			}
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Desconectado: " + e.getMessage());
 			players.remove(objectOutputStream);
+			sendToAll(objectOutputStream, new Message(nome, MessageType.DISCONNECT));
+			sendToAll(objectOutputStream, new Message("[ ! ] " + nome + " desconectou-se!", MessageType.MESSAGE));
 		}
 	}
 
@@ -69,7 +77,7 @@ public class Server extends Thread
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static void startServer()
 	{
 		try

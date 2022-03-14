@@ -5,5 +5,7 @@ public enum MessageType
 	MESSAGE,
 	STATUS,
 	METHOD,
-	PLAYMUSIC;
+	PLAYMUSIC,
+	CONNECT,
+	DISCONNECT;
 }

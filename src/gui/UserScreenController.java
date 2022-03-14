@@ -281,6 +281,7 @@ public class UserScreenController implements Initializable, MessageEvent
 		client.connect();
 		client.listen();
 		client.sendSocket(new Message("[ ! ] " + c.getNome() + " conectou-se!", MessageType.MESSAGE));
+		client.sendSocket(new Message(c, MessageType.CONNECT));
 	}
 
 	@Override
@@ -300,6 +301,12 @@ public class UserScreenController implements Initializable, MessageEvent
 			
 			break;
 		case PLAYMUSIC:
+			
+			break;
+		case CONNECT:
+			
+			break;
+		case DISCONNECT:
 			
 			break;
 		}

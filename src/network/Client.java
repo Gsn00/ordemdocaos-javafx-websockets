@@ -111,6 +111,12 @@ public class Client
 								case PLAYMUSIC:
 									treatPlayMusic(object);
 									break;
+								case CONNECT:
+									treatStatus(object);
+									break;
+								case DISCONNECT:
+									treatStatus(object);
+									break;
 								}
 							}
 						}

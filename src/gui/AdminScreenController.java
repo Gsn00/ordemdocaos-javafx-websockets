@@ -2,7 +2,9 @@ package gui;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import entities.AdminStatusBar;
@@ -39,6 +41,7 @@ public class AdminScreenController implements Initializable, MessageEvent
 
 	private Client client = new Client();
 	
+	private static Map<String, HBox> components = new HashMap<>();
 	private static List<AdminStatusBar> bars = new ArrayList<>();
 
 	public void onTxtMessage()
@@ -86,6 +89,8 @@ public class AdminScreenController implements Initializable, MessageEvent
 		cHBox.setMaxHeight(120);
 
 		hbox.getChildren().add(cHBox);
+		
+		components.put(character.getNome(), cHBox);
 	}
 
 	public void updateBars(Character character)
@@ -100,11 +105,15 @@ public class AdminScreenController implements Initializable, MessageEvent
 		}
 	}
 	
+	public void disconnect(String nome)
+	{
+		hbox.getChildren().remove(components.get(nome));
+		components.remove(nome);
+	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		addCharacter(new Character());
-
 		client.connect();
 		client.listen();
 		client.subscribeMessageEvent(this);
@@ -126,6 +135,12 @@ public class AdminScreenController implements Initializable, MessageEvent
 			break;
 		case PLAYMUSIC:
 
+			break;
+		case CONNECT:
+			addCharacter(client.getMessage().getCharacter());
+			break;
+		case DISCONNECT:
+			disconnect(client.getMessage().toString());
 			break;
 		}
 	}

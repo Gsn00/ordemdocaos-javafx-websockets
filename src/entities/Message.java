@@ -31,6 +31,12 @@ public class Message implements Serializable
 		case PLAYMUSIC:
 
 			break;
+		case CONNECT:
+			this.character = (Character) object;
+			break;
+		case DISCONNECT:
+			this.message = (String) object;
+			break;
 		}
 	}
 
