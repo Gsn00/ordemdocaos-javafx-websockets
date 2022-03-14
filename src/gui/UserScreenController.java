@@ -1,8 +1,6 @@
 package gui;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -12,15 +10,13 @@ import entities.Message;
 import entities.UserStatusBar;
 import enums.MessageType;
 import enums.StatusBarType;
+import gui.services.ChatService;
 import gui.services.InventoryService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -82,105 +78,22 @@ public class UserScreenController implements Initializable, MessageEvent
 	private UserStatusBar barResistencia;
 	private UserStatusBar barSanidade;
 	private Client client = new Client();
-	private Character c = new Character();
+	private Character character = new Character();
+	private ChatService chat;
 
 	private ObservableList<String> obsMsg = FXCollections.observableArrayList();
 
 	public void onTxtMessage()
 	{
-		createMessage(txtMessage.getText());
-	}
-
-	public void createMessage(String msg)
-	{
-		if (!msg.trim().isEmpty())
-		{
-			if (!(msg.charAt(0) == '!'))
-				sendMessage(msg);
-			if (msg.charAt(0) == '!')
-			{
-				// Just for test
-				if (msg.equalsIgnoreCase("!admin"))
-				{
-					try
-					{
-						Parent parent = FXMLLoader
-								.load(UserScreenController.class.getResource("/gui/AdminScreen.fxml"));
-						Scene scene = txtMessage.getScene();
-						scene.setRoot(parent);
-						return;
-					} catch (IOException e)
-					{
-						e.printStackTrace();
-					}
-				}
-				if (msg.contains("d"))
-				{
-					try
-					{
-						int addition = 0;
-						if (msg.contains("+"))
-						{
-							addition = msg.indexOf('+');
-							if (addition != -1)
-							{
-								addition = Integer.parseInt(msg.substring(addition, msg.length()));
-								String[] vect = msg.split(" ");
-								msg = vect[0];
-							}
-						}
-
-						int D = msg.indexOf('d');
-						int quantityDices = Integer.parseInt(msg.substring(1, D));
-						int dice = Integer.parseInt(msg.substring((D + 1), msg.length()));
-
-						String result = "Resultado: ( ";
-						List<Integer> values = new ArrayList<>();
-
-						for (int i = 0; i < quantityDices; i++)
-						{
-							int value = (int) ((Math.random() * dice) + 1);
-							values.add(value);
-							result += value + " ";
-						}
-						result += ")";
-
-						if (addition != 0)
-						{
-							result += (" +" + addition);
-						}
-
-						int sum = 0;
-						for (Integer i : values)
-						{
-							sum += i;
-						}
-						result += "\nTotal: ( " + (sum + addition) + " )";
-						result = quantityDices + "D" + dice + "\n" + result;
-
-						sendMessage(result);
-					} catch (Exception e)
-					{
-						sendMessage(msg);
-					}
-				}
-			}
-		}
+		chat.sendMessage(txtMessage.getText());
 	}
 
 	public void sendMessage(String msg)
 	{
-		obsMsg.add(c.getNome() + ": " + msg);
+		obsMsg.add(character.getNome() + ": " + msg);
 		listView.setItems(obsMsg);
-		client.sendSocket(new Message((c.getNome() + ": " + msg), MessageType.MESSAGE));
+		client.sendSocket(new Message((character.getNome() + ": " + msg), MessageType.MESSAGE));
 		txtMessage.setText("");
-		listView.scrollTo(obsMsg.size());
-	}
-
-	public void addMessage(String msg)
-	{
-		obsMsg.add(msg);
-		listView.setItems(obsMsg);
 		listView.scrollTo(obsMsg.size());
 	}
 
@@ -236,7 +149,7 @@ public class UserScreenController implements Initializable, MessageEvent
 		});
 		btD20.setOnMouseClicked(event ->
 		{
-			createMessage("!1d20");
+			chat.sendToMe("!1d20");
 		});
 	}
 
@@ -244,7 +157,7 @@ public class UserScreenController implements Initializable, MessageEvent
 	{
 		for (UserStatusBar bar : Arrays.asList(barVida, barEnergia, barResistencia, barSanidade))
 		{
-			bar.setCharacter(c);
+			bar.setCharacter(character);
 			bar.updateBar();
 		}
 	}
@@ -261,19 +174,18 @@ public class UserScreenController implements Initializable, MessageEvent
 		Font popZero = Font.loadFont(getClass().getResourceAsStream("/fonts/Populationzerobb.otf"), 64);
 		lblOrdemDoCaos.setFont(popZero);
 
-		barVida = new UserStatusBar("#b22626", c, StatusBarType.VIDA, client);
-		barEnergia = new UserStatusBar("#f2f531", c, StatusBarType.ENERGIA, client);
-		barResistencia = new UserStatusBar("#f79d25", c, StatusBarType.RESISTENCIA, client);
-		barSanidade = new UserStatusBar("#27a6b0", c, StatusBarType.SANIDADE, client);
-
+		barVida = new UserStatusBar("#b22626", character, StatusBarType.VIDA, client);
+		barEnergia = new UserStatusBar("#f2f531", character, StatusBarType.ENERGIA, client);
+		barResistencia = new UserStatusBar("#f79d25", character, StatusBarType.RESISTENCIA, client);
+		barSanidade = new UserStatusBar("#27a6b0", character, StatusBarType.SANIDADE, client);
 		vboxSatusBar.getChildren().addAll(barVida, barEnergia, barResistencia, barSanidade);
 
-		lblJogador.setText(c.getJogador());
-		txtNome.setText(c.getNome());
-		txtOcupacao.setText(c.getOcupacao());
-		txtIdade.setText(c.getIdade());
-		txtSexo.setText(c.getSexo());
-		txtLocalNascimento.setText(c.getLocalNascimento());
+		lblJogador.setText(character.getJogador());
+		txtNome.setText(character.getNome());
+		txtOcupacao.setText(character.getOcupacao());
+		txtIdade.setText(character.getIdade());
+		txtSexo.setText(character.getSexo());
+		txtLocalNascimento.setText(character.getLocalNascimento());
 
 		new InventoryService(tbItems, txtItems, columnItem, columnButton);
 
@@ -283,7 +195,9 @@ public class UserScreenController implements Initializable, MessageEvent
 		client.subscribeMessageEvent(this);
 		client.connect();
 		client.listen();
-		client.sendSocket(new Message(c, MessageType.CONNECT));
+		client.sendSocket(new Message(character, MessageType.CONNECT));
+		
+		chat = new ChatService(txtMessage, listView, character, client);
 	}
 
 	@Override
@@ -292,21 +206,21 @@ public class UserScreenController implements Initializable, MessageEvent
 		switch (client.getMessage().getMessageType())
 		{
 		case MESSAGE:
-			addMessage(client.getMessage().toString());
+			chat.sendToMe(client.getMessage().toString());
 			break;
 		case STATUS:
-			c = client.getMessage().getCharacter();
-			c.setJSONData();
+			character = client.getMessage().getCharacter();
+			character.setJSONData();
 			updateBars();
 			break;
 		case PLAYMUSIC:
 			PlayMusic.playByName(client.getMessage().toString());
 			break;
 		case CONNECT:
-			addMessage("[ ! ] " + client.getMessage().toString() + " conectou-se!");
+			chat.sendToMe("[ ! ] " + client.getMessage().getCharacter().getNome() + " conectou-se!");
 			break;
 		case DISCONNECT:
-			addMessage("[ ! ] " + client.getMessage().toString() + " desconectou-se!");
+			chat.sendToMe("[ ! ] " + client.getMessage().toString() + " desconectou-se!");
 			break;
 		}
 	}
