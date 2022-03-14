@@ -48,12 +48,17 @@ public class Server extends Thread
 					{
 						this.nome = object.getCharacter().getNome();
 					}
+					if (object.getMessageType() == MessageType.DISCONNECT)
+					{
+						sendToAll(objectOutputStream, object);
+						players.remove(objectOutputStream);
+					}
 				}
 			}
 		} catch (Exception e)
 		{
-			players.remove(objectOutputStream);
 			sendToAll(objectOutputStream, new Message(nome, MessageType.DISCONNECT));
+			players.remove(objectOutputStream);
 		}
 	}
 

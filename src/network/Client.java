@@ -6,7 +6,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Character;
 import entities.Message;
+import enums.MessageType;
 import javafx.application.Platform;
 import listeners.MessageEvent;
 
@@ -63,6 +65,23 @@ public class Client
 		}
 	}
 
+	public void disconnect(Character character)
+	{
+		if (socket != null)
+		{
+			try
+			{
+				sendSocket(new Message(character, MessageType.DISCONNECT));
+				objectInputStream.close();
+				objectOutputStream.close();
+				socket.close();
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public void listen()
 	{
 		if (socket != null)

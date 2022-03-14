@@ -34,6 +34,11 @@ public class Character implements Serializable
 	{
 		getJSONData();
 	}
+	
+	public Character(String nome)
+	{
+		this.nome = nome;
+	}
 
 	public Character(Character clone)
 	{

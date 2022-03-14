@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import network.Client;
@@ -31,6 +32,8 @@ public class ChatService
 		this.list = list;
 		this.character = character;
 		this.client = client;
+		
+		configListView();
 	}
 
 	public void sendMessage(String msg)
@@ -45,8 +48,8 @@ public class ChatService
 
 					if (msg.equalsIgnoreCase("!admin"))
 					{
-						Parent parent = FXMLLoader
-								.load(UserScreenController.class.getResource("/gui/AdminScreen.fxml"));
+						client.disconnect(character);
+						Parent parent = FXMLLoader.load(UserScreenController.class.getResource("/gui/AdminScreen.fxml"));
 						Scene scene = txt.getScene();
 						scene.setRoot(parent);
 						return;
@@ -100,6 +103,7 @@ public class ChatService
 				} catch (Exception e)
 				{
 					sendToAll(msg);
+					return;
 				}
 			}
 			sendToAll(msg);
@@ -120,5 +124,29 @@ public class ChatService
 		list.setItems(messages);
 		txt.setText("");
 		list.scrollTo(messages.size());
+	}
+	
+	private void configListView()
+	{
+		list.setCellFactory(param -> new ListCell<String>()
+		{
+			@Override
+			protected void updateItem(String item, boolean empty)
+			{
+				super.updateItem(item, empty);
+				if (empty || item == null)
+				{
+					setGraphic(null);
+					setText(null);
+					return;
+				}
+				setMinWidth(param.getWidth() - 40);
+				setPrefWidth(param.getWidth() - 40);
+				setMaxWidth(param.getWidth() - 40);
+				setWrapText(true);
+				setText(item);
+				setStyle("-fx-font: 14 arial");
+			};
+		});
 	}
 }

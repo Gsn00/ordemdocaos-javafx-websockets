@@ -18,7 +18,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -97,30 +96,6 @@ public class UserScreenController implements Initializable, MessageEvent
 		listView.scrollTo(obsMsg.size());
 	}
 
-	private void configListView()
-	{
-		listView.setCellFactory(param -> new ListCell<String>()
-		{
-			@Override
-			protected void updateItem(String item, boolean empty)
-			{
-				super.updateItem(item, empty);
-				if (empty || item == null)
-				{
-					setGraphic(null);
-					setText(null);
-					return;
-				}
-				setMinWidth(param.getWidth() - 40);
-				setPrefWidth(param.getWidth() - 40);
-				setMaxWidth(param.getWidth() - 40);
-				setWrapText(true);
-				setText(item);
-				setStyle("-fx-font: 14 arial");
-			};
-		});
-	}
-
 	public void configCircleButtons()
 	{
 		List<Circle> circles = Arrays.asList(btInventory, btD20);
@@ -189,7 +164,6 @@ public class UserScreenController implements Initializable, MessageEvent
 
 		new InventoryService(tbItems, txtItems, columnItem, columnButton);
 
-		configListView();
 		configCircleButtons();
 
 		client.subscribeMessageEvent(this);

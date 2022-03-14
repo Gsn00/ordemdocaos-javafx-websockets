@@ -8,8 +8,11 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import entities.AdminStatusBar;
+import enums.MessageType;
 import enums.StatusBarType;
+import gui.services.ChatService;
 import entities.Character;
+import entities.Message;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -27,6 +30,7 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import listeners.MessageEvent;
 import network.Client;
+import services.PlayMusic;
 
 public class AdminScreenController implements Initializable, MessageEvent
 {
@@ -38,14 +42,17 @@ public class AdminScreenController implements Initializable, MessageEvent
 	private ListView<String> listView;
 	@FXML
 	private TextField txtMessage;
-
+	
+	private Character master = new Character("Mestre");
 	private Client client = new Client();
+	private ChatService chat;
 
 	private static Map<String, HBox> components = new HashMap<>();
 	private static List<AdminStatusBar> bars = new ArrayList<>();
 
 	public void onTxtMessage()
 	{
+		chat.sendMessage(txtMessage.getText());
 	}
 
 	public void addCharacter(Character character)
@@ -118,9 +125,15 @@ public class AdminScreenController implements Initializable, MessageEvent
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
+		Font popZero = Font.loadFont(getClass().getResourceAsStream("/fonts/Populationzerobb.otf"), 64);
+		lblOrdemDoCaos.setFont(popZero);
+		
 		client.subscribeMessageEvent(this);
 		client.connect();
 		client.listen();
+		client.sendSocket(new Message(master, MessageType.CONNECT));
+		
+		chat = new ChatService(txtMessage, listView, master, client);
 	}
 
 	@Override
@@ -129,13 +142,13 @@ public class AdminScreenController implements Initializable, MessageEvent
 		switch (client.getMessage().getMessageType())
 		{
 		case MESSAGE:
-
+			chat.sendToMe(client.getMessage().toString());
 			break;
 		case STATUS:
 			updateBars(client.getMessage().getCharacter());
 			break;
 		case PLAYMUSIC:
-
+			PlayMusic.playByName(client.getMessage().toString());
 			break;
 		case CONNECT:
 			addCharacter(client.getMessage().getCharacter());
