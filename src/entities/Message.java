@@ -10,16 +10,27 @@ public class Message implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	private String message;
+	private Character character;
 	private MessageType messageType;
-	
+
 	public Message(Object object, MessageType messageType)
 	{
 		this.messageType = messageType;
-		this.message = (String) object;
-		
-		if (messageType == MessageType.STATUS)
+
+		switch (messageType)
 		{
-			//
+		case MESSAGE:
+			this.message = (String) object;
+			break;
+		case STATUS:
+			this.character = (Character) object;
+			break;
+		case METHOD:
+
+			break;
+		case PLAYMUSIC:
+
+			break;
 		}
 	}
 
@@ -31,6 +42,16 @@ public class Message implements Serializable
 	public void setMessage(String message)
 	{
 		this.message = message;
+	}
+
+	public Character getCharacter()
+	{
+		return character;
+	}
+
+	public void setCharacter(Character character)
+	{
+		this.character = character;
 	}
 
 	public MessageType getMessageType()

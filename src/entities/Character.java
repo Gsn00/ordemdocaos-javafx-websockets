@@ -1,9 +1,17 @@
 package entities;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.github.cliftonlabs.json_simple.JsonObject;
+
 import services.JSONService;
 
-public class Character
+public class Character implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
 	private String jogador;
 	private String nome;
 	private String ocupacao;
@@ -20,11 +28,32 @@ public class Character
 	private Integer sanidade;
 	private Integer maxSanidade;
 	
+	private List<String> items = new ArrayList<>();
+	
 	public Character()
 	{
 		getJSONData();
 	}
 
+	public Character(Character clone)
+	{
+		this.jogador = clone.jogador;
+		this.nome = clone.nome;
+		this.ocupacao = clone.ocupacao;
+		this.idade = clone.idade;
+		this.sexo = clone.sexo;
+		this.localNascimento = clone.localNascimento;
+		this.imgUrl = clone.imgUrl;
+		this.vida = clone.vida;
+		this.maxVida = clone.maxVida;
+		this.energia = clone.energia;
+		this.maxEnergia = clone.maxEnergia;
+		this.resistencia = clone.resistencia;
+		this.maxResistencia = clone.maxResistencia;
+		this.sanidade = clone.sanidade;
+		this.maxSanidade = clone.maxSanidade;
+	}
+	
 	public String getJogador()
 	{
 		return jogador;
@@ -175,26 +204,39 @@ public class Character
 		this.maxSanidade = maxSanidade;
 	}
 
+	public List<String> getItems()
+	{
+		return items;
+	}
+
 	public void setJSONData()
 	{
-		JSONService.setData("jogador", jogador);
-		JSONService.setData("nome", nome);
-		JSONService.setData("ocupacao", ocupacao);
-		JSONService.setData("idade", idade);
-		JSONService.setData("sexo", sexo);
-		JSONService.setData("localNascimento", localNascimento);
-		JSONService.setData("imgUrl", imgUrl);
 		
-		JSONService.setData("vida", vida);
-		JSONService.setData("maxVida", maxVida);
-		JSONService.setData("energia", energia);
-		JSONService.setData("maxEnergia", maxEnergia);
-		JSONService.setData("resistencia", resistencia);
-		JSONService.setData("maxResistencia", maxResistencia);
-		JSONService.setData("sanidade", sanidade);
-		JSONService.setData("maxSanidade", maxSanidade);
+		JsonObject obj = new JsonObject();
+		
+		obj.put("jogador", jogador);
+		obj.put("nome", nome);
+		obj.put("ocupacao", ocupacao);
+		obj.put("idade", idade);
+		obj.put("sexo", sexo);
+		obj.put("localNascimento", localNascimento);
+		obj.put("imgUrl", imgUrl);
+		
+		obj.put("vida", vida);
+		obj.put("maxVida", maxVida);
+		obj.put("energia", energia);
+		obj.put("maxEnergia", maxEnergia);
+		obj.put("resistencia", resistencia);
+		obj.put("maxResistencia", maxResistencia);
+		obj.put("sanidade", sanidade);
+		obj.put("maxSanidade", maxSanidade);
+		
+		obj.put("items", items);
+		
+		JSONService.setData(obj);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void getJSONData()
 	{
 		jogador = (String) JSONService.getData("jogador");
@@ -213,5 +255,7 @@ public class Character
 		maxResistencia = JSONService.getInt("maxResistencia");
 		sanidade = JSONService.getInt("sanidade");
 		maxSanidade = JSONService.getInt("maxSanidade");
+		
+		items = (List<String>) JSONService.getList("items");
 	}
 }

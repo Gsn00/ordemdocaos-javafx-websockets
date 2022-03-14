@@ -21,6 +21,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
+import network.Client;
 
 public class AdminScreenController implements Initializable
 {
@@ -32,10 +33,11 @@ public class AdminScreenController implements Initializable
 	private ListView<String> listView;
 	@FXML
 	private TextField txtMessage;
+	
+	private Client client = new Client();
 
 	public void onTxtMessage()
 	{
-
 	}
 
 	public void addCharacter(Character character)
@@ -52,13 +54,13 @@ public class AdminScreenController implements Initializable
 		cLabel.setFont(Font.font("Bodoni MT", 22));
 		cLabel.setTextFill(Color.WHITE);
 
-		AdminStatusBar barVida = new AdminStatusBar("#b22626", character, StatusBarType.VIDA);
+		AdminStatusBar barVida = new AdminStatusBar("#b22626", character, StatusBarType.VIDA, client);
 		barVida.setPadding(new Insets(0, 0, 0, 30));
-		AdminStatusBar barEnergia = new AdminStatusBar("#f2f531", character, StatusBarType.ENERGIA);
+		AdminStatusBar barEnergia = new AdminStatusBar("#f2f531", character, StatusBarType.ENERGIA, client);
 		barEnergia.setPadding(new Insets(0, 0, 0, 16));
-		AdminStatusBar barResistencia = new AdminStatusBar("#f79d25", character, StatusBarType.RESISTENCIA);
+		AdminStatusBar barResistencia = new AdminStatusBar("#f79d25", character, StatusBarType.RESISTENCIA, client);
 		barResistencia.setPadding(new Insets(0, 0, 0, 2));
-		AdminStatusBar barSanidade = new AdminStatusBar("#27a6b0", character, StatusBarType.SANIDADE);
+		AdminStatusBar barSanidade = new AdminStatusBar("#27a6b0", character, StatusBarType.SANIDADE, client);
 		barSanidade.setPadding(new Insets(0, 0, 0, -12));
 
 		cVBox.setSpacing(5);
@@ -80,8 +82,10 @@ public class AdminScreenController implements Initializable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
+		
 		addCharacter(new Character());
-		addCharacter(new Character());
-		addCharacter(new Character());
+		
+		client.connect();
+		client.listen();
 	}
 }

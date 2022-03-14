@@ -17,13 +17,13 @@ import services.PlayMusic;
 public class Client
 {
 	public Socket socket;
-	public String message;
+	public Message message;
 	private ObjectInputStream objectInputStream;
 	private ObjectOutputStream objectOutputStream;
 
 	private List<MessageEvent> messages = new ArrayList<>();
 
-	public String getMessage()
+	public Message getMessage()
 	{
 		return message;
 	}
@@ -127,8 +127,7 @@ public class Client
 
 	public void treatMessage(Message object)
 	{
-		message = object.toString();
-
+		message = object;
 		Platform.runLater(new Runnable()
 		{
 			@Override
@@ -141,7 +140,15 @@ public class Client
 
 	public void treatStatus(Message object)
 	{
-
+		message = object;
+		Platform.runLater(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				notifyMessageEvent();
+			}
+		});
 	}
 
 	public void treatMethod(Message object) throws NoSuchMethodException, SecurityException, IllegalAccessException,

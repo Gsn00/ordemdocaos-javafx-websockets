@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -48,7 +49,7 @@ public class JSONService
 				obj.put("sanidade", getData("sanidade", name));
 
 				obj.put("items", new ArrayList<String>());
-				
+
 				try (FileWriter fileWriter = new FileWriter(file))
 				{
 					fileWriter.write(obj.toJson());
@@ -59,16 +60,30 @@ public class JSONService
 			}
 		}
 	}
+	
+	public static void setData(JsonObject jsonObject)
+	{
+		try (FileWriter fileWriter = new FileWriter(file))
+		{
+			fileWriter.write(jsonObject.toJson());
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	public static void setData(String key, Object value)
 	{
 		try (Reader reader = new FileReader(file))
 		{
-			JsonObject obj = (JsonObject) Jsoner.deserialize(reader);
-			obj.put(key, value);
-			try (FileWriter fileWriter = new FileWriter(file))
+			if (reader != null)
 			{
-				fileWriter.write(obj.toJson());
+				JsonObject obj = (JsonObject) Jsoner.deserialize(reader);
+				obj.put(key, value);
+				try (FileWriter fileWriter = new FileWriter(file))
+				{
+					fileWriter.write(obj.toJson());
+				}
 			}
 		} catch (Exception e)
 		{
@@ -92,7 +107,7 @@ public class JSONService
 		}
 		return null;
 	}
-	
+
 	public static Object getData(String key, String name)
 	{
 		InputStream input = JSONService.class.getResourceAsStream("/characters/" + name + ".json");

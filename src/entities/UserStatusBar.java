@@ -1,5 +1,6 @@
 package entities;
 
+import enums.MessageType;
 import enums.StatusBarType;
 import gui.services.StatusService;
 import javafx.geometry.Pos;
@@ -14,6 +15,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+import network.Client;
 import services.JSONService;
 
 public class UserStatusBar extends HBox
@@ -22,9 +24,14 @@ public class UserStatusBar extends HBox
 	private Rectangle baseRect;
 	private Rectangle bar;
 	private Label lblStatus;
+	private Character character;
+	private StatusBarType statusBarType;
 
-	public UserStatusBar(String color, Character character, StatusBarType statusBarType)
+	public UserStatusBar(String color, Character character, StatusBarType statusBarType, Client client)
 	{
+		this.character = character;
+		this.statusBarType = statusBarType;
+		
 		baseRect = new Rectangle(100, 15);
 		baseRect.setFill(Paint.valueOf("#4f4f4f"));
 		baseRect.setStroke(Paint.valueOf("#383838"));
@@ -44,7 +51,7 @@ public class UserStatusBar extends HBox
 		lblStatus.setTextFill(Color.BLACK);
 		lblStatus.setStyle("-fx-font-weight: bold");
 
-		updateBar(character, statusBarType);
+		updateBar();
 
 		Circle buttonAdd = new Circle();
 		buttonAdd.setFill(new ImagePattern(new Image(UserStatusBar.class.getResource("/images/plus.png").toExternalForm())));
@@ -70,27 +77,25 @@ public class UserStatusBar extends HBox
 				character.setVida(StatusService.incrementValue(character.getVida(), character.getMaxVida()));
 				StatusService.updateBar(bar, lblStatus, character.getVida(), character.getMaxVida());
 				JSONService.setData("vida", character.getVida());
-				// Send socket
 				break;
 			case ENERGIA:
 				character.setEnergia(StatusService.incrementValue(character.getEnergia(), character.getMaxEnergia()));
 				StatusService.updateBar(bar, lblStatus, character.getEnergia(), character.getMaxEnergia());
 				JSONService.setData("energia", character.getEnergia());
-				// Send socket
 				break;
 			case RESISTENCIA:
 				character.setResistencia(StatusService.incrementValue(character.getResistencia(), character.getMaxResistencia()));
 				StatusService.updateBar(bar, lblStatus, character.getResistencia(), character.getMaxResistencia());
 				JSONService.setData("resistencia", character.getResistencia());
-				// Send socket
 				break;
 			case SANIDADE:
 				character.setSanidade(StatusService.incrementValue(character.getSanidade(), character.getMaxSanidade()));
 				StatusService.updateBar(bar, lblStatus, character.getSanidade(), character.getMaxSanidade());
 				JSONService.setData("sanidade", character.getSanidade());
-				// Send socket
 				break;
 			}
+			Character newCharacter = new Character(character);
+			client.sendSocket(new Message(newCharacter, MessageType.STATUS));
 		});
 		
 		Circle buttonRem = new Circle();
@@ -117,27 +122,25 @@ public class UserStatusBar extends HBox
 				character.setVida(StatusService.decrementValue(character.getVida(), character.getMaxVida()));
 				StatusService.updateBar(bar, lblStatus, character.getVida(), character.getMaxVida());
 				JSONService.setData("vida", character.getVida());
-				//Send socket
 				break;
 			case ENERGIA:
 				character.setEnergia(StatusService.decrementValue(character.getEnergia(), character.getMaxEnergia()));
 				StatusService.updateBar(bar, lblStatus, character.getEnergia(), character.getMaxEnergia());
 				JSONService.setData("energia", character.getEnergia());
-				//Send socket
 				break;
 			case RESISTENCIA:
 				character.setResistencia(StatusService.decrementValue(character.getResistencia(), character.getMaxResistencia()));
 				StatusService.updateBar(bar, lblStatus, character.getResistencia(), character.getMaxResistencia());
 				JSONService.setData("resistencia", character.getResistencia());
-				//Send socket
 				break;
 			case SANIDADE:
 				character.setSanidade(StatusService.decrementValue(character.getSanidade(), character.getMaxSanidade()));
 				StatusService.updateBar(bar, lblStatus, character.getSanidade(), character.getMaxSanidade());
 				JSONService.setData("sanidade", character.getSanidade());
-				//Send socket
 				break;
 			}
+			Character newCharacter = new Character(character);
+			client.sendSocket(new Message(newCharacter, MessageType.STATUS));
 		});
 
 		anchorPane = new AnchorPane();
@@ -184,7 +187,37 @@ public class UserStatusBar extends HBox
 		this.bar = bar;
 	}
 	
-	public void updateBar(Character character, StatusBarType statusBarType)
+	public Label getLblStatus()
+	{
+		return lblStatus;
+	}
+
+	public void setLblStatus(Label lblStatus)
+	{
+		this.lblStatus = lblStatus;
+	}
+
+	public Character getCharacter()
+	{
+		return character;
+	}
+
+	public void setCharacter(Character character)
+	{
+		this.character = character;
+	}
+
+	public StatusBarType getStatusBarType()
+	{
+		return statusBarType;
+	}
+
+	public void setStatusBarType(StatusBarType statusBarType)
+	{
+		this.statusBarType = statusBarType;
+	}
+
+	public void updateBar()
 	{
 		switch (statusBarType)
 		{

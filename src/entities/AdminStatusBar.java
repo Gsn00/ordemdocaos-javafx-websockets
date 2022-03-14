@@ -1,5 +1,6 @@
 package entities;
 
+import enums.MessageType;
 import enums.StatusBarType;
 import gui.services.StatusService;
 import javafx.geometry.Pos;
@@ -14,6 +15,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+import network.Client;
 
 public class AdminStatusBar extends HBox
 {
@@ -21,9 +23,14 @@ public class AdminStatusBar extends HBox
 	private Rectangle baseRect;
 	private Rectangle bar;
 	private Label lblStatus;
+	private Character character;
+	private StatusBarType statusBarType;
 
-	public AdminStatusBar(String color, Character character, StatusBarType statusBarType)
+	public AdminStatusBar(String color, Character character, StatusBarType statusBarType, Client client)
 	{
+		this.character = character;
+		this.statusBarType = statusBarType;
+		
 		baseRect = new Rectangle(100, 15);
 		baseRect.setFill(Paint.valueOf("#4f4f4f"));
 		baseRect.setStroke(Paint.valueOf("#383838"));
@@ -43,7 +50,7 @@ public class AdminStatusBar extends HBox
 		lblStatus.setTextFill(Color.BLACK);
 		lblStatus.setStyle("-fx-font-weight: bold");
 
-		updateBar(character, statusBarType);
+		updateBar();
 
 		Circle button = new Circle();
 		button.setFill(new ImagePattern(new Image(AdminStatusBar.class.getResource("/images/plus.png").toExternalForm())));
@@ -68,24 +75,22 @@ public class AdminStatusBar extends HBox
 			case VIDA:
 				character.setMaxVida(StatusService.incrementMaxValue(character.getMaxVida()));
 				StatusService.updateBar(bar, lblStatus, character.getVida(), character.getMaxVida());
-				//Send socket
 				break;
 			case ENERGIA:
 				character.setMaxEnergia(StatusService.incrementMaxValue(character.getMaxEnergia()));
 				StatusService.updateBar(bar, lblStatus, character.getEnergia(), character.getMaxEnergia());
-				//Send socket
 				break;
 			case RESISTENCIA:
 				character.setMaxResistencia(StatusService.incrementMaxValue(character.getMaxResistencia()));
 				StatusService.updateBar(bar, lblStatus, character.getResistencia(), character.getMaxResistencia());
-				//Send socket
 				break;
 			case SANIDADE:
 				character.setMaxSanidade(StatusService.incrementMaxValue(character.getMaxSanidade()));
 				StatusService.updateBar(bar, lblStatus, character.getSanidade(), character.getMaxSanidade());
-				//Send socket
 				break;
 			}
+			Character newCharacter = new Character(character);
+			client.sendSocket(new Message(newCharacter, MessageType.STATUS));
 		});
 		
 		anchorPane = new AnchorPane();
@@ -129,7 +134,37 @@ public class AdminStatusBar extends HBox
 		this.bar = bar;
 	}
 	
-	public void updateBar(Character character, StatusBarType statusBarType)
+	public Label getLblStatus()
+	{
+		return lblStatus;
+	}
+
+	public void setLblStatus(Label lblStatus)
+	{
+		this.lblStatus = lblStatus;
+	}
+
+	public Character getCharacter()
+	{
+		return character;
+	}
+
+	public void setCharacter(Character character)
+	{
+		this.character = character;
+	}
+
+	public StatusBarType getStatusBarType()
+	{
+		return statusBarType;
+	}
+
+	public void setStatusBarType(StatusBarType statusBarType)
+	{
+		this.statusBarType = statusBarType;
+	}
+
+	public void updateBar()
 	{
 		switch (statusBarType)
 		{

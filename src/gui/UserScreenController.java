@@ -76,6 +76,10 @@ public class UserScreenController implements Initializable, MessageEvent
 	@FXML
 	private VBox vboxSatusBar;
 	
+	private UserStatusBar barVida;
+	private UserStatusBar barEnergia;
+	private UserStatusBar barResistencia;
+	private UserStatusBar barSanidade;
 	private Client client = new Client();
 	private Character c = new Character();
 
@@ -232,6 +236,15 @@ public class UserScreenController implements Initializable, MessageEvent
 			createMessage("!1d20");
 		});
 	}
+	
+	public void updateBars()
+	{
+		for (UserStatusBar bar : Arrays.asList(barVida, barEnergia, barResistencia, barSanidade))
+		{
+			bar.setCharacter(c);
+			bar.updateBar();
+		}
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
@@ -245,10 +258,10 @@ public class UserScreenController implements Initializable, MessageEvent
 		Font popZero = Font.loadFont(getClass().getResourceAsStream("/fonts/Populationzerobb.otf"), 64);
 		lblOrdemDoCaos.setFont(popZero);
 
-		UserStatusBar barVida = new UserStatusBar("#b22626", c, StatusBarType.VIDA);
-		UserStatusBar barEnergia = new UserStatusBar("#f2f531", c, StatusBarType.ENERGIA);
-		UserStatusBar barResistencia = new UserStatusBar("#f79d25", c, StatusBarType.RESISTENCIA);
-		UserStatusBar barSanidade = new UserStatusBar("#27a6b0", c, StatusBarType.SANIDADE);
+		barVida = new UserStatusBar("#b22626", c, StatusBarType.VIDA, client);
+		barEnergia = new UserStatusBar("#f2f531", c, StatusBarType.ENERGIA, client);
+		barResistencia = new UserStatusBar("#f79d25", c, StatusBarType.RESISTENCIA, client);
+		barSanidade = new UserStatusBar("#27a6b0", c, StatusBarType.SANIDADE, client);
 		
 		vboxSatusBar.getChildren().addAll(barVida, barEnergia, barResistencia, barSanidade);
 		
@@ -273,6 +286,22 @@ public class UserScreenController implements Initializable, MessageEvent
 	@Override
 	public void onMessage()
 	{
-		addMessage(client.getMessage());
+		switch (client.getMessage().getMessageType())
+		{
+		case MESSAGE:
+			addMessage(client.getMessage().toString());
+			break;
+		case STATUS:
+			c = client.getMessage().getCharacter();
+			c.setJSONData();
+			updateBars();
+			break;
+		case METHOD:
+			
+			break;
+		case PLAYMUSIC:
+			
+			break;
+		}
 	}
 }
