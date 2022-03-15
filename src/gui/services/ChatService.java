@@ -48,7 +48,7 @@ public class ChatService
 
 					if (msg.equalsIgnoreCase("!admin"))
 					{
-						client.disconnect(character);
+						client.sendSocket(new Message(character, MessageType.DISCONNECT));
 						Parent parent = FXMLLoader.load(UserScreenController.class.getResource("/gui/AdminScreen.fxml"));
 						Scene scene = txt.getScene();
 						scene.setRoot(parent);

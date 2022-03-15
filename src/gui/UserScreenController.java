@@ -194,7 +194,7 @@ public class UserScreenController implements Initializable, MessageEvent
 			chat.sendToMe("[ ! ] " + client.getMessage().getCharacter().getNome() + " conectou-se!");
 			break;
 		case DISCONNECT:
-			chat.sendToMe("[ ! ] " + client.getMessage().toString() + " desconectou-se!");
+			chat.sendToMe("[ ! ] " + client.getMessage().getCharacter().getNome() + " desconectou-se!");
 			break;
 		}
 	}

@@ -154,7 +154,8 @@ public class AdminScreenController implements Initializable, MessageEvent
 			addCharacter(client.getMessage().getCharacter());
 			break;
 		case DISCONNECT:
-			disconnect(client.getMessage().toString());
+			disconnect(client.getMessage().getCharacter().getNome());
+			chat.sendToMe("[ ! ] " + client.getMessage().getCharacter().getNome() + " desconectou-se!");
 			break;
 		}
 	}

@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
 
+import entities.Character;
 import entities.Message;
 import enums.MessageType;
 
@@ -15,7 +16,7 @@ public class Server extends Thread
 	private static ServerSocket server;
 	private ObjectInputStream objectInputStream;
 	private ObjectOutputStream objectOutputStream;
-	private String nome;
+	private Character character;
 
 	public static Set<ObjectOutputStream> players = new HashSet<>();
 
@@ -46,18 +47,17 @@ public class Server extends Thread
 					sendToAll(objectOutputStream, object);
 					if (object.getMessageType() == MessageType.CONNECT)
 					{
-						this.nome = object.getCharacter().getNome();
+						this.character = object.getCharacter();
 					}
 					if (object.getMessageType() == MessageType.DISCONNECT)
 					{
-						sendToAll(objectOutputStream, object);
 						players.remove(objectOutputStream);
 					}
 				}
 			}
 		} catch (Exception e)
 		{
-			sendToAll(objectOutputStream, new Message(nome, MessageType.DISCONNECT));
+			sendToAll(objectOutputStream, new Message(character, MessageType.DISCONNECT));
 			players.remove(objectOutputStream);
 		}
 	}

@@ -32,7 +32,7 @@ public class Message implements Serializable
 			this.character = (Character) object;
 			break;
 		case DISCONNECT:
-			this.message = (String) object;
+			this.character = (Character) object;
 			break;
 		}
 	}
