@@ -177,11 +177,26 @@ public class UserScreenController implements Initializable, MessageEvent
 		case PLAYMUSIC:
 			PlayMusic.playByName(client.getMessage().toString());
 			break;
+		case PAUSE:
+			PlayMusic.pause();
+			break;
+		case PLAY:
+			PlayMusic.play();
+			break;
+		case VOLUME:
+			PlayMusic.setVolume(client.getMessage().getVolume());
+			break;
+		case MUSICLOOPING:
+			PlayMusic.looping = client.getMessage().getMusicLooping();
+			break;
 		case CONNECT:
 			chat.sendToMe("[ ! ] " + client.getMessage().getCharacter().getNome() + " conectou-se!");
 			break;
 		case DISCONNECT:
 			chat.sendToMe("[ ! ] " + client.getMessage().getCharacter().getNome() + " desconectou-se!");
+			break;
+		case REFRESHCONNECTIONS:
+			client.sendSocket(new Message(character, MessageType.REFRESHCONNECTIONS));
 			break;
 		}
 	}

@@ -1,5 +1,6 @@
 package entities;
 
+import enums.MessageType;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -9,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import network.Client;
 import services.PlayMusic;
 
 public class ToggleSwitch extends StackPane
@@ -48,7 +50,7 @@ public class ToggleSwitch extends StackPane
 		setOpacity(0.8);
 	}
 
-	public ToggleSwitch() {
+	public ToggleSwitch(Client client) {
 		init();
 		EventHandler<Event> click = new EventHandler<Event>() {
 			@Override
@@ -68,6 +70,7 @@ public class ToggleSwitch extends StackPane
 					setOpacity(1);
 					PlayMusic.looping = state;
 				}
+				client.sendSocket(new Message(state, MessageType.MUSICLOOPING));
 			}
 		};
 		EventHandler<Event> mouseEnteredEvent = new EventHandler<Event>()

@@ -74,6 +74,8 @@ public class AdminScreenController implements Initializable, MessageEvent
 	private TableColumn<String, String> columnItem;
 	@FXML
 	private TableColumn<String, String> columnButton;
+	@FXML
+	private Circle btRefresh;
 	
 	private Character master = new Character("Mestre");
 	private Client client = new Client();
@@ -156,28 +158,6 @@ public class AdminScreenController implements Initializable, MessageEvent
 
 	public void configCircleButtons()
 	{
-		Image img = new Image(AdminScreenController.class.getResource("/images/play.png").toExternalForm());
-		btPlay.setFill(new ImagePattern(img));
-		Image img1 = new Image(AdminScreenController.class.getResource("/images/pause.png").toExternalForm());
-		btPause.setFill(new ImagePattern(img1));
-	}
-	
-	private void configVolume()
-	{
-		volume.setValue(PlayMusic.VOLUME * 100);
-		
-		volume.valueProperty().addListener(new ChangeListener<Number>()
-		{
-			@Override
-			public void changed(ObservableValue<? extends Number> arg0, Number oldValue, Number newValue)
-			{
-				PlayMusic.setVolume((double) newValue / 100);
-			}
-		});
-	}
-	
-	public void configMedia()
-	{
 		EventHandler<Event> mouseEnteredEvent = new EventHandler<Event>()
 		{
 			@Override
@@ -194,19 +174,54 @@ public class AdminScreenController implements Initializable, MessageEvent
 				btPlay.getScene().setCursor(Cursor.DEFAULT);
 			}
 		};
-		btPlay.setOnMouseClicked(event -> {
-			PlayMusic.play();
-		});
-		btPause.setOnMouseClicked(event -> {
-			PlayMusic.pause();
+		
+		Image img = new Image(AdminScreenController.class.getResource("/images/play.png").toExternalForm());
+		btPlay.setFill(new ImagePattern(img));
+		Image img1 = new Image(AdminScreenController.class.getResource("/images/pause.png").toExternalForm());
+		btPause.setFill(new ImagePattern(img1));
+		Image im2 = new Image(AdminScreenController.class.getResource("/images/refresh.png").toExternalForm());
+		btRefresh.setFill(new ImagePattern(im2));
+		
+		btRefresh.setOnMouseClicked(event -> {
+			client.sendSocket(new Message(null, MessageType.REFRESHCONNECTIONS));
 		});
 		
 		btPlay.setOnMouseEntered(mouseEnteredEvent);
 		btPause.setOnMouseEntered(mouseEnteredEvent);
 		volume.setOnMouseEntered(mouseEnteredEvent);
+		btRefresh.setOnMouseEntered(mouseEnteredEvent);
 		btPlay.setOnMouseExited(mouseExitedEvent);
 		btPause.setOnMouseExited(mouseExitedEvent);
 		volume.setOnMouseExited(mouseExitedEvent);
+		btRefresh.setOnMouseExited(mouseExitedEvent);
+	}
+	
+	private void configVolume()
+	{
+		volume.setValue(PlayMusic.VOLUME * 100);
+		
+		volume.valueProperty().addListener(new ChangeListener<Number>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends Number> arg0, Number oldValue, Number newValue)
+			{
+				Double volume = (Double) newValue / 100;
+				PlayMusic.setVolume(volume);
+				client.sendSocket(new Message(volume, MessageType.VOLUME));
+			}
+		});
+	}
+	
+	public void configMedia()
+	{
+		btPlay.setOnMouseClicked(event -> {
+			PlayMusic.play();
+			client.sendSocket(new Message(null, MessageType.PLAY));
+		});
+		btPause.setOnMouseClicked(event -> {
+			PlayMusic.pause();
+			client.sendSocket(new Message(null, MessageType.PAUSE));
+		});
 	}
 	
 	public void configTable()
@@ -240,6 +255,7 @@ public class AdminScreenController implements Initializable, MessageEvent
 				bt.setOnAction(e ->
 				{
 					PlayMusic.playByName(tableSong.getItems().get(tableItem));
+					client.sendSocket(new Message(tableSong.getItems().get(tableItem), MessageType.PLAYMUSIC));
 					tableSong.setVisible(false);
 					tableSong.setVisible(true);
 				});
@@ -259,7 +275,7 @@ public class AdminScreenController implements Initializable, MessageEvent
 		
 		configCircleButtons();
 		
-		hboxMedia.getChildren().add(new ToggleSwitch());
+		hboxMedia.getChildren().add(new ToggleSwitch(client));
 		configVolume();
 		configMedia();
 		configTable();
@@ -268,6 +284,7 @@ public class AdminScreenController implements Initializable, MessageEvent
 		client.connect();
 		client.listen();
 		client.sendSocket(new Message(master, MessageType.CONNECT));
+		client.sendSocket(new Message(null, MessageType.REFRESHCONNECTIONS));
 		
 		chat = new ChatService(txtMessage, listView, master, client);
 	}
@@ -292,6 +309,11 @@ public class AdminScreenController implements Initializable, MessageEvent
 		case DISCONNECT:
 			disconnect(client.getMessage().getCharacter().getNome());
 			chat.sendToMe("[ ! ] " + client.getMessage().getCharacter().getNome() + " desconectou-se!");
+			break;
+		case REFRESHCONNECTIONS:
+			addCharacter(client.getMessage().getCharacter());
+			break;
+		default:
 			break;
 		}
 	}
