@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AdminScreenController">
    <children>
       <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="1366.0" style="-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #010a06, #05120c, #010a06);" HBox.hgrow="ALWAYS">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="724.0" prefWidth="804.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="734.0" prefWidth="1366.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label fx:id="lblOrdemDoCaos" text="Ordem do Caos" textFill="WHITE">
                      <font>
@@ -32,27 +37,70 @@
                               <Insets left="40.0" right="20.0" top="60.0" />
                            </HBox.margin>
                         </HBox>
-                        <VBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="315.0" prefWidth="290.0">
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <ListView fx:id="listView" focusTraversable="false" prefHeight="238.0" prefWidth="224.0" style="-fx-border-color: transparent; -fx-background-radius: 20 20 0 0; -fx-focus-color: transparent; -fx-background-color: #383838;" stylesheets="@../css/listview.css">
-                                 <VBox.margin>
-                                    <Insets left="20.0" right="20.0" top="20.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                 </padding>
-                              </ListView>
-                              <TextField fx:id="txtMessage" focusTraversable="false" minHeight="30.0" onAction="#onTxtMessage" prefHeight="50.0" prefWidth="258.0" promptText="Digite aqui" style="-fx-border-color: transparent; -fx-background-radius: 0 0 20 20; -fx-focus-color: transparent; -fx-faint-color: transparent; -fx-background-color: #383838; -fx-border-color: #4f4f4f; -fx-border-width: 1 0 0 0; -fx-text-fill: white;">
-                                 <VBox.margin>
-                                    <Insets left="20.0" right="20.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets left="20.0" right="20.0" />
-                                 </padding>
-                                 <font>
-                                    <Font name="Arial" size="14.0" />
-                                 </font>
-                              </TextField>
+                              <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="270.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox alignment="BOTTOM_CENTER" prefHeight="129.0" prefWidth="290.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <HBox fx:id="hboxMedia" alignment="CENTER" prefHeight="46.0" prefWidth="290.0" spacing="15.0">
+                                             <children>
+                                                <Circle fx:id="btPlay" fill="DODGERBLUE" radius="17.0" stroke="TRANSPARENT" strokeType="OUTSIDE" strokeWidth="0.0" />
+                                                <Circle fx:id="btPause" fill="DODGERBLUE" radius="17.0" stroke="TRANSPARENT" strokeType="OUTSIDE" strokeWidth="0.0" />
+                                             </children>
+                                          </HBox>
+                                          <Slider fx:id="volume" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="14.0" prefWidth="151.0" stylesheets="@../css/slider.css" value="50.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <ChoiceBox fx:id="choiceSong" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="250.0" style="-fx-background-color: #383838; -fx-background-radius: 20 20 0 0;">
+                                             <VBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </VBox.margin>
+                                             <padding>
+                                                <Insets left="10.0" right="10.0" />
+                                             </padding>
+                                          </ChoiceBox>
+                                          <TableView fx:id="tableSong" focusTraversable="false" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="250.0" style="-fx-background-color: #383838; -fx-background-radius: 0 0 20 20;" stylesheets="@../css/tableviewstyle.css" VBox.vgrow="ALWAYS">
+                                            <columns>
+                                              <TableColumn fx:id="columnItem" editable="false" prefWidth="152.0" resizable="false" />
+                                              <TableColumn fx:id="columnButton" editable="false" prefWidth="76.0" resizable="false" />
+                                            </columns>
+                                             <VBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </VBox.margin>
+                                             <padding>
+                                                <Insets bottom="20.0" left="10.0" right="10.0" />
+                                             </padding>
+                                          </TableView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="315.0" prefWidth="290.0">
+                                 <children>
+                                    <ListView fx:id="listView" focusTraversable="false" prefHeight="238.0" prefWidth="224.0" style="-fx-border-color: transparent; -fx-background-radius: 20 20 0 0; -fx-focus-color: transparent; -fx-background-color: #383838 #383838;" stylesheets="@../css/listview.css">
+                                       <VBox.margin>
+                                          <Insets left="20.0" right="20.0" top="20.0" />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                       </padding>
+                                    </ListView>
+                                    <TextField fx:id="txtMessage" focusTraversable="false" minHeight="30.0" onAction="#onTxtMessage" prefHeight="50.0" prefWidth="258.0" promptText="Digite aqui" style="-fx-border-color: transparent; -fx-background-radius: 0 0 20 20; -fx-focus-color: transparent; -fx-faint-color: transparent; -fx-background-color: #383838; -fx-border-color: #4f4f4f; -fx-border-width: 1 0 0 0; -fx-text-fill: white;">
+                                       <VBox.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets left="20.0" right="20.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </VBox>
                            </children>
                         </VBox>
                      </children>

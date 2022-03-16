@@ -107,7 +107,8 @@ public class ChoosingCharacterController implements Initializable
 		addCharacter("Zyan");
 		addCharacter("Java");
 		addCharacter("Moriart");
-		addCharacter("Jubisclaudo");
+		addCharacter("Lorenzo");
 		addCharacter("Robert");
+		addCharacter("Gustavo");
 	}
 }

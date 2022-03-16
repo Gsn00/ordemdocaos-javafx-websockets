@@ -12,8 +12,6 @@ import enums.MessageType;
 import enums.StatusBarType;
 import gui.services.ChatService;
 import gui.services.InventoryService;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -80,20 +78,9 @@ public class UserScreenController implements Initializable, MessageEvent
 	private Character character = new Character();
 	private ChatService chat;
 
-	private ObservableList<String> obsMsg = FXCollections.observableArrayList();
-
 	public void onTxtMessage()
 	{
 		chat.sendMessage(txtMessage.getText());
-	}
-
-	public void sendMessage(String msg)
-	{
-		obsMsg.add(character.getNome() + ": " + msg);
-		listView.setItems(obsMsg);
-		client.sendSocket(new Message((character.getNome() + ": " + msg), MessageType.MESSAGE));
-		txtMessage.setText("");
-		listView.scrollTo(obsMsg.size());
 	}
 
 	public void configCircleButtons()
@@ -124,7 +111,7 @@ public class UserScreenController implements Initializable, MessageEvent
 		});
 		btD20.setOnMouseClicked(event ->
 		{
-			chat.sendToMe("!1d20");
+			chat.sendMessage("!1d20");
 		});
 	}
 

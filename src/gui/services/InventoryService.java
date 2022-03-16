@@ -6,6 +6,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -96,6 +97,12 @@ public class InventoryService
 				bt.setStyle("-fx-background-color:  #4f4f4f; -fx-text-fill: white");
 				bt.setOpacity(0.4);
 				int tableItem = getTableRow().getIndex();
+				bt.setOnMouseEntered(event -> {
+					bt.getScene().setCursor(Cursor.HAND);
+				});
+				bt.setOnMouseExited(event -> {
+					bt.getScene().setCursor(Cursor.DEFAULT);
+				});
 				bt.setOnAction(e ->
 				{
 					removeItem(tableItem);

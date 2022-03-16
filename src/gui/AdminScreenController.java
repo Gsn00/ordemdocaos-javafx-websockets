@@ -2,6 +2,7 @@ package gui;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +14,27 @@ import enums.StatusBarType;
 import gui.services.ChatService;
 import entities.Character;
 import entities.Message;
+import entities.ToggleSwitch;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
@@ -42,6 +58,22 @@ public class AdminScreenController implements Initializable, MessageEvent
 	private ListView<String> listView;
 	@FXML
 	private TextField txtMessage;
+	@FXML
+	private HBox hboxMedia;
+	@FXML
+	private Circle btPlay;
+	@FXML
+	private Circle btPause;
+	@FXML
+	private Slider volume;
+	@FXML
+	private ChoiceBox<String> choiceSong;
+	@FXML
+	private TableView<String> tableSong;
+	@FXML
+	private TableColumn<String, String> columnItem;
+	@FXML
+	private TableColumn<String, String> columnButton;
 	
 	private Character master = new Character("Mestre");
 	private Client client = new Client();
@@ -122,11 +154,115 @@ public class AdminScreenController implements Initializable, MessageEvent
 		components.remove(nome);
 	}
 
+	public void configCircleButtons()
+	{
+		Image img = new Image(AdminScreenController.class.getResource("/images/play.png").toExternalForm());
+		btPlay.setFill(new ImagePattern(img));
+		Image img1 = new Image(AdminScreenController.class.getResource("/images/pause.png").toExternalForm());
+		btPause.setFill(new ImagePattern(img1));
+	}
+	
+	private void configVolume()
+	{
+		volume.setValue(PlayMusic.VOLUME * 100);
+		
+		volume.valueProperty().addListener(new ChangeListener<Number>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends Number> arg0, Number oldValue, Number newValue)
+			{
+				PlayMusic.setVolume((double) newValue / 100);
+			}
+		});
+	}
+	
+	public void configMedia()
+	{
+		EventHandler<Event> mouseEnteredEvent = new EventHandler<Event>()
+		{
+			@Override
+			public void handle(Event event)
+			{
+				btPlay.getScene().setCursor(Cursor.HAND);
+			}
+		};
+		EventHandler<Event> mouseExitedEvent = new EventHandler<Event>()
+		{
+			@Override
+			public void handle(Event event)
+			{
+				btPlay.getScene().setCursor(Cursor.DEFAULT);
+			}
+		};
+		btPlay.setOnMouseClicked(event -> {
+			PlayMusic.play();
+		});
+		btPause.setOnMouseClicked(event -> {
+			PlayMusic.pause();
+		});
+		
+		btPlay.setOnMouseEntered(mouseEnteredEvent);
+		btPause.setOnMouseEntered(mouseEnteredEvent);
+		volume.setOnMouseEntered(mouseEnteredEvent);
+		btPlay.setOnMouseExited(mouseExitedEvent);
+		btPause.setOnMouseExited(mouseExitedEvent);
+		volume.setOnMouseExited(mouseExitedEvent);
+	}
+	
+	public void configTable()
+	{
+		ObservableList<String> metal = FXCollections.observableArrayList(Arrays.asList("som1.mp3", "som2.mp3", "som3.mp3"));
+		tableSong.setItems(metal);
+		
+		columnItem.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		columnButton.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		columnButton.setCellFactory(param -> new TableCell<String, String>()
+		{
+			@Override
+			protected void updateItem(String item, boolean empty)
+			{
+				super.updateItem(item, empty);
+				if (item == null)
+				{
+					setGraphic(null);
+					return;
+				}
+				Button bt = new Button("Play");
+				bt.setStyle("-fx-background-color:  #4f4f4f; -fx-text-fill: white");
+				bt.setOpacity(0.4);
+				int tableItem = getTableRow().getIndex();
+				bt.setOnMouseEntered(event -> {
+					bt.getScene().setCursor(Cursor.HAND);
+				});
+				bt.setOnMouseExited(event -> {
+					bt.getScene().setCursor(Cursor.DEFAULT);
+				});
+				bt.setOnAction(e ->
+				{
+					PlayMusic.playByName(tableSong.getItems().get(tableItem));
+					tableSong.setVisible(false);
+					tableSong.setVisible(true);
+				});
+				setGraphic(bt);
+				setAlignment(Pos.CENTER);
+			}
+		});
+
+		tableSong.setPlaceholder(new Label(""));
+	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		Font popZero = Font.loadFont(getClass().getResourceAsStream("/fonts/Populationzerobb.otf"), 64);
 		lblOrdemDoCaos.setFont(popZero);
+		
+		configCircleButtons();
+		
+		hboxMedia.getChildren().add(new ToggleSwitch());
+		configVolume();
+		configMedia();
+		configTable();
 		
 		client.subscribeMessageEvent(this);
 		client.connect();

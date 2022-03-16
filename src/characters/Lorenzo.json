@@ -5,7 +5,7 @@
 	"energia": 230,
 	"vida": 670,
 	"sanidade": 50,
-	"nome": "Lorenzo Rodrigues",
+	"nome": "Lorenzo",
 	"maxResistencia": 100,
 	"imgUrl": "/images/characters/Jubisclaudo.png",
 	"idade": "18",
@@ -14,5 +14,5 @@
 	"maxSanidade": 100,
 	"sexo": "Masculino",
 	"items": [],
-	"jogador": "Jubiscaludo"
+	"jogador": "Luis"
 }

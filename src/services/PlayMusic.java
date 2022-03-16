@@ -2,6 +2,7 @@ package services;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 public class PlayMusic
 {
@@ -11,6 +12,13 @@ public class PlayMusic
 
 	public static void playByName(String name)
 	{
+		if (mp != null)
+		{
+			mp.stop();
+			mp = null;
+			playByName(name);
+			return;
+		}
 		if (mp == null)
 		{
 			new Thread(new Runnable()
@@ -27,7 +35,10 @@ public class PlayMusic
 						{
 							mp.stop();
 							mp = null;
+							return;
 						}
+						mp.seek(Duration.ZERO);
+						mp.play();
 					});
 				}
 			}).start();
@@ -40,6 +51,31 @@ public class PlayMusic
 		{
 			mp.stop();
 			mp = null;
+		}
+	}
+
+	public static void pause()
+	{
+		if (mp != null)
+		{
+			mp.pause();
+		}
+	}
+
+	public static void play()
+	{
+		if (mp != null)
+		{
+			mp.play();
+		}
+	}
+
+	public static void setVolume(double volume)
+	{
+		if (mp != null)
+		{
+			mp.setVolume(volume);
+			VOLUME = volume;
 		}
 	}
 }
