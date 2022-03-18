@@ -46,6 +46,38 @@ public class ChatService
 				{
 					msg = msg.toLowerCase();
 
+					if (msg.equalsIgnoreCase("!connect"))
+					{
+						if (client.socket != null && client.socket.isConnected())
+						{
+							sendToMe("[ ! ] Você já está conectado!");
+							return;
+						}
+						if (client.connect())
+						{
+							client.sendSocket(new Message(character, MessageType.CONNECT));
+							sendToMe("[ ! ] Conectado com sucesso!");
+							client.listen();
+							return;
+						} else {
+							sendToMe("[ ! ] Não foi possível conectar ao servidor.");
+							return;
+						}
+					}
+					
+					if (msg.equalsIgnoreCase("!disconnect"))
+					{
+						if (client.socket != null && client.socket.isConnected())
+						{
+							client.sendSocket(new Message(null, MessageType.DISCONNECT));
+							client.disconnect(character);
+							sendToMe("[ ! ] Desconectado...");
+							return;
+						}
+						sendToMe("[ ! ] Você não está conectado em nenhum servidor.");
+						return;
+					}
+					
 					if (msg.equalsIgnoreCase("!admin"))
 					{
 						client.sendSocket(new Message(character, MessageType.DISCONNECT));
@@ -102,6 +134,7 @@ public class ChatService
 					}
 				} catch (Exception e)
 				{
+					e.printStackTrace();
 					sendToAll(msg);
 					return;
 				}
@@ -112,7 +145,7 @@ public class ChatService
 
 	private void sendToAll(String msg)
 	{
-		sendToMe("Você: " + msg);
+		addMessage("Você: " + msg);
 		client.sendSocket(new Message(character.getNome() + ": " + msg, MessageType.MESSAGE));
 		txt.setText("");
 		list.scrollTo(messages.size());
@@ -122,7 +155,14 @@ public class ChatService
 	{
 		messages.add(msg);
 		list.setItems(messages);
+		list.scrollTo(messages.size());
 		txt.setText("");
+	}
+	
+	public void addMessage(String msg)
+	{
+		messages.add(msg);
+		list.setItems(messages);
 		list.scrollTo(messages.size());
 	}
 	

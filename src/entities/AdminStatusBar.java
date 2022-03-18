@@ -93,15 +93,57 @@ public class AdminStatusBar extends HBox
 			client.sendSocket(new Message(newCharacter, MessageType.STATUS));
 		});
 		
+		Circle buttonRem = new Circle();
+		buttonRem.setFill(new ImagePattern(new Image(UserStatusBar.class.getResource("/images/hifen.png").toExternalForm())));
+		buttonRem.setRadius(12);
+		buttonRem.setOpacity(0.6);
+		buttonRem.setLayoutX(-10);
+		buttonRem.setLayoutY(8);
+
+		buttonRem.setOnMouseEntered(event ->
+		{
+			buttonRem.getScene().setCursor(Cursor.HAND);
+			buttonRem.setOpacity(1);
+		});
+		buttonRem.setOnMouseExited(event ->
+		{
+			buttonRem.getScene().setCursor(Cursor.DEFAULT);
+			buttonRem.setOpacity(0.6);
+		});
+		buttonRem.setOnMouseClicked(event -> {
+			switch (statusBarType)
+			{
+			case VIDA:
+				StatusService.decrementMaxValue(this.character, StatusBarType.VIDA);
+				StatusService.updateBar(bar, lblStatus, this.character.getVida(), this.character.getMaxVida());
+				break;
+			case ENERGIA:
+				StatusService.decrementMaxValue(this.character, StatusBarType.ENERGIA);
+				StatusService.updateBar(bar, lblStatus, this.character.getEnergia(), this.character.getMaxEnergia());
+				break;
+			case RESISTENCIA:
+				StatusService.decrementMaxValue(this.character, StatusBarType.RESISTENCIA);
+				StatusService.updateBar(bar, lblStatus, this.character.getResistencia(), this.character.getMaxResistencia());
+				break;
+			case SANIDADE:
+				StatusService.decrementMaxValue(this.character, StatusBarType.SANIDADE);
+				StatusService.updateBar(bar, lblStatus, this.character.getSanidade(), this.character.getMaxSanidade());
+				break;
+			}
+			Character newCharacter = new Character(this.character);
+			client.sendSocket(new Message(newCharacter, MessageType.STATUS));
+		});
+		
 		anchorPane = new AnchorPane();
 		anchorPane.getChildren().add(baseRect);
 		anchorPane.getChildren().add(bar);
 		anchorPane.getChildren().add(lblStatus);
 		anchorPane.getChildren().add(button);
+		anchorPane.getChildren().add(buttonRem);
 
 		getChildren().add(anchorPane);
 
-		setSpacing(10);
+		setSpacing(15);
 	}
 
 	public AnchorPane getAnchorPane()

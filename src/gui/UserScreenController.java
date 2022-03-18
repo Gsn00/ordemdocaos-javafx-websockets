@@ -167,7 +167,7 @@ public class UserScreenController implements Initializable, MessageEvent
 		switch (client.getMessage().getMessageType())
 		{
 		case MESSAGE:
-			chat.sendToMe(client.getMessage().toString());
+			chat.addMessage(client.getMessage().toString());
 			break;
 		case STATUS:
 			character = client.getMessage().getCharacter();
@@ -190,10 +190,10 @@ public class UserScreenController implements Initializable, MessageEvent
 			PlayMusic.looping = client.getMessage().getMusicLooping();
 			break;
 		case CONNECT:
-			chat.sendToMe("[ ! ] " + client.getMessage().getCharacter().getNome() + " conectou-se!");
+			chat.addMessage("[ ! ] " + client.getMessage().getCharacter().getNome() + " conectou-se!");
 			break;
 		case DISCONNECT:
-			chat.sendToMe("[ ! ] " + client.getMessage().getCharacter().getNome() + " desconectou-se!");
+			chat.addMessage("[ ! ] " + client.getMessage().getCharacter().getNome() + " desconectou-se!");
 			break;
 		case REFRESHCONNECTIONS:
 			client.sendSocket(new Message(character, MessageType.REFRESHCONNECTIONS));

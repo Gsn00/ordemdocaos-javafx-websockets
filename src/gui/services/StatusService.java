@@ -1,5 +1,7 @@
 package gui.services;
 
+import entities.Character;
+import enums.StatusBarType;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -43,18 +45,50 @@ public class StatusService
 		return maxValue += 1;
 	}
 
-	public static int decrementMaxValue(int value, int maxValue)
+	public static void decrementMaxValue(Character character, StatusBarType statusBarType)
 	{
-		if (maxValue > 1)
+		switch (statusBarType)
 		{
-			maxValue -= 1;
-			if (value > maxValue)
+		case VIDA:
+			if (character.getMaxVida() > 1)
 			{
-				value = maxValue;
+				character.setMaxVida(character.getMaxVida() - 1);
+				if (character.getVida() > character.getMaxVida())
+				{
+					character.setVida(character.getMaxVida());
+				}
 			}
-			return value;
+			break;
+		case ENERGIA:
+			if (character.getMaxEnergia() > 1)
+			{
+				character.setMaxEnergia(character.getMaxEnergia() - 1);
+				if (character.getEnergia() > character.getMaxEnergia())
+				{
+					character.setEnergia(character.getMaxEnergia());
+				}
+			}
+			break;
+		case RESISTENCIA:
+			if (character.getMaxResistencia() > 1)
+			{
+				character.setMaxResistencia(character.getMaxResistencia() - 1);
+				if (character.getResistencia() > character.getMaxResistencia())
+				{
+					character.setResistencia(character.getMaxResistencia());
+				}
+			}
+			break;
+		case SANIDADE:
+			if (character.getMaxSanidade() > 1)
+			{
+				character.setMaxSanidade(character.getMaxSanidade() - 1);
+				if (character.getSanidade() > character.getMaxSanidade())
+				{
+					character.setSanidade(character.getMaxSanidade());
+				}
+			}
+			break;
 		}
-		return value;
 	}
-
 }

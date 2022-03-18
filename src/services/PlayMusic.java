@@ -75,7 +75,7 @@ public class PlayMusic
 		if (mp != null)
 		{
 			mp.setVolume(volume);
-			VOLUME = volume;
 		}
+		VOLUME = volume;
 	}
 }

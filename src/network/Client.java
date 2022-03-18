@@ -39,15 +39,17 @@ public class Client
 		}
 	}
 
-	public void connect()
+	public boolean connect()
 	{
 		try
 		{
 			socket = new Socket("26.163.199.159", 7000);
 			objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+			return true;
 		} catch (Exception e)
 		{
 			System.err.println("Não foi possível conectar ao servidor.");
+			return false;
 		}
 	}
 
@@ -75,6 +77,7 @@ public class Client
 				objectInputStream.close();
 				objectOutputStream.close();
 				socket.close();
+				socket = null;
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -84,7 +87,7 @@ public class Client
 	
 	public void listen()
 	{
-		if (socket != null)
+		if (socket != null && socket.isConnected())
 		{
 			Thread t = new Thread(new Runnable()
 			{
@@ -94,7 +97,7 @@ public class Client
 					try
 					{
 						objectInputStream = new ObjectInputStream(socket.getInputStream());
-						while (true)
+						while (socket != null)
 						{
 							Message object = (Message) objectInputStream.readObject();
 							if (object != null)
