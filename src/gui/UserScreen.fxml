@@ -6,139 +6,152 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UserScreenController">
+
+<HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="1366.0" style="-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #010a06, #05120c, #010a06);" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UserScreenController">
    <children>
-      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="1366.0" style="-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #010a06, #05120c, #010a06);" HBox.hgrow="ALWAYS">
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" style="-fx-border-color: white; -fx-border-radius: 18 18 18 18;">
+         <HBox.margin>
+            <Insets bottom="90.0" left="20.0" right="20.0" top="90.0" />
+         </HBox.margin>
          <children>
-            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" style="-fx-border-color: white; -fx-border-radius: 18 18 18 18;">
-               <HBox.margin>
-                  <Insets bottom="90.0" left="20.0" right="20.0" top="90.0" />
-               </HBox.margin>
+            <Label fx:id="lblJogador" alignment="TOP_CENTER" text="Jogador" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Bodoni MT" size="28.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" top="40.0" />
+               </VBox.margin>
+            </Label>
+            <VBox>
                <children>
-                  <Label fx:id="lblJogador" alignment="TOP_CENTER" text="Jogador" textAlignment="CENTER" textFill="WHITE">
+                  <Label text="Nome" textFill="WHITE">
                      <font>
-                        <Font name="Bodoni MT" size="28.0" />
+                        <Font name="Bodoni MT" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtNome" editable="false" focusTraversable="false" style="-fx-text-fill: white; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0 0 1 0;" text="Nome do Personagem">
+                     <font>
+                        <Font name="Bodoni MT" size="14.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="20.0" top="40.0" />
+                        <Insets bottom="20.0" />
                      </VBox.margin>
-                  </Label>
-                  <VBox>
-                     <children>
-                        <Label text="Nome" textFill="WHITE">
-                           <font>
-                              <Font name="Bodoni MT" size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtNome" editable="false" focusTraversable="false" style="-fx-text-fill: white; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0 0 1 0;" text="Nome do Personagem">
-                           <font>
-                              <Font name="Bodoni MT" size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </VBox.margin>
-                  </VBox>
-                  <VBox>
-                     <children>
-                        <Label text="Ocupação" textFill="WHITE">
-                           <font>
-                              <Font name="Bodoni MT" size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtOcupacao" editable="false" focusTraversable="false" style="-fx-text-fill: white; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0 0 1 0;" text="Ocupação do Personagem">
-                           <font>
-                              <Font name="Bodoni MT" size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </VBox.margin>
-                  </VBox>
-                  <VBox>
-                     <children>
-                        <Label text="Idade" textFill="WHITE">
-                           <font>
-                              <Font name="Bodoni MT" size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtIdade" editable="false" focusTraversable="false" style="-fx-text-fill: white; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0 0 1 0;" text="Idade do Personagem">
-                           <font>
-                              <Font name="Bodoni MT" size="14.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" />
-                     </VBox.margin>
-                  </VBox>
-                  <VBox>
-                     <children>
-                        <Label text="Sexo" textFill="WHITE">
-                           <font>
-                              <Font name="Bodoni MT" size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtSexo" editable="false" focusTraversable="false" style="-fx-text-fill: white; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0 0 1 0;" text="Sexo do personagem">
-                           <font>
-                              <Font name="Bodoni MT" size="14.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" />
-                     </VBox.margin>
-                  </VBox>
-                  <VBox>
-                     <children>
-                        <Label text="Local de nascimento" textFill="WHITE">
-                           <font>
-                              <Font name="Bodoni MT" size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtLocalNascimento" editable="false" focusTraversable="false" style="-fx-text-fill: white; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0 0 1 0;" text="Local de nascimento do personagem">
-                           <font>
-                              <Font name="Bodoni MT" size="14.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" />
-                     </VBox.margin>
-                  </VBox>
+                  </TextField>
                </children>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="724.0" prefWidth="804.0" HBox.hgrow="ALWAYS">
+            <VBox>
                <children>
-                  <Label fx:id="lblOrdemDoCaos" text="Ordem do Caos" textFill="WHITE">
+                  <Label text="Ocupação" textFill="WHITE">
                      <font>
-                        <Font name="Bodoni MT Condensed" size="59.0" />
+                        <Font name="Bodoni MT" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtOcupacao" editable="false" focusTraversable="false" style="-fx-text-fill: white; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0 0 1 0;" text="Ocupação do Personagem">
+                     <font>
+                        <Font name="Bodoni MT" size="14.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="40.0" />
+                        <Insets bottom="20.0" />
                      </VBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label text="Idade" textFill="WHITE">
+                     <font>
+                        <Font name="Bodoni MT" size="20.0" />
+                     </font>
                   </Label>
-                  <HBox alignment="BOTTOM_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="534.0" prefWidth="674.0" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets bottom="60.0" />
-                     </VBox.margin>
+                  <TextField fx:id="txtIdade" editable="false" focusTraversable="false" style="-fx-text-fill: white; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0 0 1 0;" text="Idade do Personagem">
+                     <font>
+                        <Font name="Bodoni MT" size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label text="Sexo" textFill="WHITE">
+                     <font>
+                        <Font name="Bodoni MT" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtSexo" editable="false" focusTraversable="false" style="-fx-text-fill: white; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0 0 1 0;" text="Sexo do personagem">
+                     <font>
+                        <Font name="Bodoni MT" size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label text="Local de nascimento" textFill="WHITE">
+                     <font>
+                        <Font name="Bodoni MT" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtLocalNascimento" editable="false" focusTraversable="false" style="-fx-text-fill: white; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0 0 1 0;" text="Local de nascimento do personagem">
+                     <font>
+                        <Font name="Bodoni MT" size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" prefHeight="724.0" prefWidth="804.0" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="lblOrdemDoCaos" text="Ordem do Caos" textFill="WHITE">
+               <font>
+                  <Font name="Bodoni MT Condensed" size="59.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="BOTTOM_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="534.0" prefWidth="674.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="60.0" />
+               </VBox.margin>
+               <children>
+                  <AnchorPane prefHeight="530.0" prefWidth="334.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <VBox alignment="BOTTOM_RIGHT" prefHeight="554.0" prefWidth="768.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER" prefHeight="530.0" prefWidth="726.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <VBox fx:id="vboxInventory" alignment="CENTER_RIGHT" prefHeight="291.0" prefWidth="648.0" visible="false">
+                              <ImageView fx:id="imgView" fitHeight="411.0" fitWidth="583.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../Pictures/3c2179146c371fddaf8a83e50bf9f76703ed340a_hq.jpg" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <VBox alignment="BOTTOM_RIGHT" layoutX="433.0" prefHeight="530.0" prefWidth="293.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <VBox fx:id="vboxInventory" alignment="CENTER_RIGHT" prefHeight="291.0" prefWidth="577.0" visible="false">
                                  <children>
                                     <TableView fx:id="tbItems" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="250.0" style="-fx-border-color: transparent; -fx-background-radius: 20 20 0 0; -fx-focus-color: transparent; -fx-background-color: #383838;" stylesheets="@../css/tableviewstyle.css">
                                       <columns>
@@ -166,58 +179,58 @@
                            </children>
                         </VBox>
                      </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox alignment="BOTTOM_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="300.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);;">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="336.0" prefWidth="330.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="261.0">
+                     <children>
+                        <Circle fx:id="btD20" fill="DODGERBLUE" radius="22.0" stroke="TRANSPARENT" strokeType="OUTSIDE" />
+                        <Circle fx:id="circle" fill="#1f93ff" radius="70.0" stroke="BLACK" strokeType="INSIDE" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
                   </HBox>
+                  <VBox fx:id="vboxSatusBar" alignment="BOTTOM_CENTER" prefHeight="173.0" prefWidth="261.0" spacing="5.0" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
-            <VBox alignment="BOTTOM_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="300.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);;">
+            <HBox prefHeight="341.0" prefWidth="290.0">
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="336.0" prefWidth="330.0" VBox.vgrow="ALWAYS">
+                  <VBox prefHeight="315.0" prefWidth="290.0">
                      <children>
-                        <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="261.0">
-                           <children>
-                              <Circle fx:id="btD20" fill="DODGERBLUE" radius="22.0" stroke="TRANSPARENT" strokeType="OUTSIDE" />
-                              <Circle fx:id="circle" fill="#1f93ff" radius="70.0" stroke="BLACK" strokeType="INSIDE" />
-                           </children>
+                        <ListView fx:id="listView" focusTraversable="false" prefHeight="238.0" prefWidth="250.0" style="-fx-border-color: transparent; -fx-background-radius: 20 20 0 0; -fx-focus-color: transparent; -fx-background-color: #383838;" stylesheets="@../css/listview.css">
                            <VBox.margin>
-                              <Insets top="20.0" />
+                              <Insets left="20.0" right="20.0" top="20.0" />
                            </VBox.margin>
-                        </HBox>
-                        <VBox fx:id="vboxSatusBar" alignment="BOTTOM_CENTER" prefHeight="173.0" prefWidth="261.0" spacing="5.0" VBox.vgrow="ALWAYS" />
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                           </padding>
+                        </ListView>
+                        <TextField fx:id="txtMessage" focusTraversable="false" minHeight="30.0" onAction="#onTxtMessage" prefHeight="50.0" prefWidth="258.0" promptText="Digite aqui" style="-fx-border-color: transparent; -fx-background-radius: 0 0 20 20; -fx-focus-color: transparent; -fx-faint-color: transparent; -fx-background-color: #383838; -fx-border-color: #4f4f4f; -fx-border-width: 1 0 0 0; -fx-text-fill: white;">
+                           <VBox.margin>
+                              <Insets bottom="40.0" left="20.0" right="20.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="20.0" right="20.0" />
+                           </padding>
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </VBox>
-                  <HBox prefHeight="341.0" prefWidth="290.0">
-                     <children>
-                        <VBox prefHeight="315.0" prefWidth="290.0">
-                           <children>
-                              <ListView fx:id="listView" focusTraversable="false" prefHeight="238.0" prefWidth="250.0" style="-fx-border-color: transparent; -fx-background-radius: 20 20 0 0; -fx-focus-color: transparent; -fx-background-color: #383838;" stylesheets="@../css/listview.css">
-                                 <VBox.margin>
-                                    <Insets left="20.0" right="20.0" top="20.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                 </padding>
-                              </ListView>
-                              <TextField fx:id="txtMessage" focusTraversable="false" minHeight="30.0" onAction="#onTxtMessage" prefHeight="50.0" prefWidth="258.0" promptText="Digite aqui" style="-fx-border-color: transparent; -fx-background-radius: 0 0 20 20; -fx-focus-color: transparent; -fx-faint-color: transparent; -fx-background-color: #383838; -fx-border-color: #4f4f4f; -fx-border-width: 1 0 0 0; -fx-text-fill: white;">
-                                 <VBox.margin>
-                                    <Insets bottom="40.0" left="20.0" right="20.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets left="20.0" right="20.0" />
-                                 </padding>
-                                 <font>
-                                    <Font name="Arial" size="14.0" />
-                                 </font>
-                              </TextField>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
                </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </VBox>
+            </HBox>
          </children>
-      </HBox>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </VBox>
    </children>
 </HBox>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -8,6 +9,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
@@ -20,35 +23,65 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="734.0" prefWidth="1366.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="lblOrdemDoCaos" text="Ordem do Caos" textFill="WHITE">
-                     <font>
-                        <Font name="Bodoni MT Condensed" size="59.0" />
-                     </font>
+                  <HBox fx:id="hbox" alignment="BOTTOM_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="534.0" prefWidth="674.0" VBox.vgrow="ALWAYS">
                      <VBox.margin>
-                        <Insets top="40.0" />
-                     </VBox.margin>
-                  </Label>
-                  <HBox alignment="BOTTOM_LEFT" prefHeight="58.0" prefWidth="1366.0">
-                     <children>
-                        <Circle fx:id="btRefresh" fill="DODGERBLUE" radius="17.0" stroke="TRANSPARENT" strokeType="OUTSIDE" strokeWidth="0.0" />
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="60.0" right="60.0" top="5.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="BOTTOM_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="534.0" prefWidth="674.0" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets bottom="40.0" />
+                        <Insets bottom="40.0" left="10.0" right="10.0" top="40.0" />
                      </VBox.margin>
                      <children>
-                        <TilePane fx:id="tilePane" alignment="TOP_CENTER" hgap="25.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white; -fx-border-radius: 20;" vgap="25.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="592.0" prefWidth="1145.0" style="-fx-border-color: white; -fx-border-radius: 20;" HBox.hgrow="ALWAYS">
+                           <children>
+                              <TilePane fx:id="tilePane" alignment="TOP_CENTER" hgap="25.0" prefHeight="306.0" prefWidth="1076.0" vgap="25.0" VBox.vgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </TilePane>
+                              <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                 <children>
+                                    <VBox alignment="BOTTOM_LEFT" prefHeight="328.0" prefWidth="66.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Circle fx:id="btNote" fill="DODGERBLUE" radius="17.0" stroke="TRANSPARENT" strokeType="OUTSIDE" strokeWidth="0.0" />
+                                          <Circle fx:id="btRefresh" fill="DODGERBLUE" radius="17.0" stroke="TRANSPARENT" strokeType="OUTSIDE" strokeWidth="0.0" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="348.0" prefWidth="181.0" style="-fx-background-color: #383838; -fx-background-radius: 20;">
+                                       <children>
+                                          <VBox prefHeight="26.0" prefWidth="161.0">
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label text="Imagem" textFill="WHITE" />
+                                                <Button fx:id="btImgSelect" mnemonicParsing="false" onAction="#onBtImgSelect" text="Selecionar" />
+                                                <Button fx:id="btImgRemove" mnemonicParsing="false" onAction="#onBtImgRemove" text="Remover">
+                                                   <VBox.margin>
+                                                      <Insets top="5.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                    <ImageView fx:id="imgView" fitHeight="348.0" fitWidth="625.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../Pictures/dc6du5w-92b68c4d-c41c-44f2-9cdf-38ca4d895c99.jpg" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
                            <HBox.margin>
-                              <Insets left="40.0" right="20.0" />
+                              <Insets />
                            </HBox.margin>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </TilePane>
+                        </VBox>
                         <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
                               <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="270.0" spacing="15.0" VBox.vgrow="ALWAYS">

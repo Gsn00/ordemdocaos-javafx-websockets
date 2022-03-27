@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import network.Client;
 import services.PlayMusic;
 
@@ -24,7 +25,8 @@ public class ToggleSwitch extends StackPane
 
 	public boolean state;
 
-	private void init() {
+	private void init()
+	{
 		getChildren().addAll(back, button);
 
 		setMinSize(30, 15);
@@ -50,27 +52,38 @@ public class ToggleSwitch extends StackPane
 		setOpacity(0.8);
 	}
 
-	public ToggleSwitch(Client client) {
+	public ToggleSwitch(Client client)
+	{
 		init();
-		EventHandler<Event> click = new EventHandler<Event>() {
+		EventHandler<Event> click = new EventHandler<Event>()
+		{
 			@Override
-			public void handle(Event e) {
-				if (state) {
+			public void handle(Event e)
+			{
+				if (state)
+				{
 					button.setStyle(buttonStyleOff);
 					back.setFill(Color.valueOf("white"));
 					setAlignment(button, Pos.CENTER_LEFT);
 					state = false;
 					setOpacity(0.8);
-					PlayMusic.looping = state;
-				} else {
+					PlayMusic.DURATION = null;
+				} else
+				{
 					button.setStyle(buttonStyleOn);
 					back.setFill(Color.valueOf("#383838"));
 					setAlignment(button, Pos.CENTER_RIGHT);
 					state = true;
 					setOpacity(1);
-					PlayMusic.looping = state;
+					if (PlayMusic.mp == null)
+					{
+						PlayMusic.DURATION = Duration.ZERO;
+					} else
+					{
+						PlayMusic.DURATION = PlayMusic.mp.getCurrentTime();
+					}
 				}
-				client.sendSocket(new Message(state, MessageType.MUSICLOOPING));
+				client.sendSocket(new Message(PlayMusic.DURATION, MessageType.MUSICLOOPING));
 			}
 		};
 		EventHandler<Event> mouseEnteredEvent = new EventHandler<Event>()

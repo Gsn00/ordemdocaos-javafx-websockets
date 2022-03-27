@@ -1,6 +1,9 @@
 package gui;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -24,10 +27,13 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -38,6 +44,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -46,6 +53,10 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import listeners.MessageEvent;
 import network.Client;
 import services.PlayMusic;
@@ -53,13 +64,13 @@ import services.PlayMusic;
 public class AdminScreenController implements Initializable, MessageEvent
 {
 	@FXML
-	private Label lblOrdemDoCaos;
-	@FXML
 	private TilePane tilePane;
 	@FXML
 	private ListView<String> listView;
 	@FXML
 	private TextField txtMessage;
+	@FXML
+	private HBox hbox;
 	@FXML
 	private HBox hboxMedia;
 	@FXML
@@ -78,6 +89,14 @@ public class AdminScreenController implements Initializable, MessageEvent
 	private TableColumn<String, String> columnButton;
 	@FXML
 	private Circle btRefresh;
+	@FXML
+	private Circle btNote;
+	@FXML
+	private ImageView imgView;
+	@FXML
+	private Button btImgSelect;
+	@FXML
+	private Button btImgRemove;
 
 	private Character master = new Character("Mestre");
 	private Client client = new Client();
@@ -182,22 +201,44 @@ public class AdminScreenController implements Initializable, MessageEvent
 		btPlay.setFill(new ImagePattern(img));
 		Image img1 = new Image(AdminScreenController.class.getResource("/images/pause.png").toExternalForm());
 		btPause.setFill(new ImagePattern(img1));
-		Image im2 = new Image(AdminScreenController.class.getResource("/images/refresh.png").toExternalForm());
-		btRefresh.setFill(new ImagePattern(im2));
+		Image img2 = new Image(AdminScreenController.class.getResource("/images/refresh.png").toExternalForm());
+		btRefresh.setFill(new ImagePattern(img2));
+		Image img3 = new Image(AdminScreenController.class.getResource("/images/pen.png").toExternalForm());
+		btNote.setFill(new ImagePattern(img3));
 
 		btRefresh.setOnMouseClicked(event ->
 		{
 			client.sendSocket(new Message(null, MessageType.REFRESHCONNECTIONS));
 		});
 
+		btNote.setOnMouseClicked(event ->
+		{
+			try
+			{
+				Stage stage = new Stage();
+				stage.initStyle(StageStyle.UNDECORATED);
+				stage.initModality(Modality.WINDOW_MODAL);
+				stage.initOwner(btNote.getScene().getWindow());
+				Parent parent = FXMLLoader.load(AdminScreenController.class.getResource("/gui/Note.fxml"));
+				Scene scene = new Scene(parent);
+				stage.setScene(scene);
+				stage.show();
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		});
+
 		btPlay.setOnMouseEntered(mouseEnteredEvent);
 		btPause.setOnMouseEntered(mouseEnteredEvent);
 		volume.setOnMouseEntered(mouseEnteredEvent);
 		btRefresh.setOnMouseEntered(mouseEnteredEvent);
+		btNote.setOnMouseEntered(mouseEnteredEvent);
 		btPlay.setOnMouseExited(mouseExitedEvent);
 		btPause.setOnMouseExited(mouseExitedEvent);
 		volume.setOnMouseExited(mouseExitedEvent);
 		btRefresh.setOnMouseExited(mouseExitedEvent);
+		btNote.setOnMouseExited(mouseExitedEvent);
 	}
 
 	private void configVolume()
@@ -276,20 +317,25 @@ public class AdminScreenController implements Initializable, MessageEvent
 
 	public void configChoiceSong()
 	{
-		ObservableList<String> values = FXCollections.observableArrayList(Arrays.asList("Combate", "Investigação", "Triste", "Terror", "Boss", "Abertura"));
+		ObservableList<String> values = FXCollections.observableArrayList(
+				Arrays.asList("Combate", "Investigação", "Triste", "Terror", "Boss", "Abertura", "Pausa"));
 		choiceSong.setItems(values);
-		
-		ObservableList<String> combate = FXCollections.observableArrayList(Arrays.asList("som1.mp3", "som2.mp3", "som3.mp3"));
-		
+
+		ObservableList<String> combate = FXCollections.observableArrayList(Arrays.asList("Beat It (Solo Cover).mp3"));
+
 		ObservableList<String> investigacao = FXCollections.observableArrayList(Arrays.asList());
-		
-		ObservableList<String> triste = FXCollections.observableArrayList(Arrays.asList("O Segredo na Floresta - Final Ending Theme.mp3"));
-		
-		ObservableList<String> terror = FXCollections.observableArrayList(Arrays.asList("Beastly Calls - O Segredo na Floresta Ost.mp3"));
-		
-		ObservableList<String> boss = FXCollections.observableArrayList(Arrays.asList("Final Boss - O Segredo na Floresta.mp3"));
-		
+
+		ObservableList<String> triste = FXCollections
+				.observableArrayList(Arrays.asList("O Segredo na Floresta - Final Ending Theme.mp3"));
+
+		ObservableList<String> terror = FXCollections.observableArrayList(Arrays.asList());
+
+		ObservableList<String> boss = FXCollections.observableArrayList(Arrays
+				.asList("Final Boss - O Segredo na Floresta.mp3", "Beastly Calls - O Segredo na Floresta Ost.mp3"));
+
 		ObservableList<String> abertura = FXCollections.observableArrayList(Arrays.asList("Chukou.mp3"));
+
+		ObservableList<String> pausa = FXCollections.observableArrayList(Arrays.asList());
 
 		choiceSong.setOnAction(event ->
 		{
@@ -313,16 +359,38 @@ public class AdminScreenController implements Initializable, MessageEvent
 			case "Abertura":
 				tableSong.setItems(abertura);
 				break;
+			case "Pausa":
+				tableSong.setItems(pausa);
+				break;
 			}
 		});
+	}
+
+	public void onBtImgSelect()
+	{
+		FileChooser chooser = new FileChooser();
+		chooser.setInitialDirectory(new File(Paths.get("./src/images/rpg/").toAbsolutePath().normalize().toString()));
+		FileChooser.ExtensionFilter exFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+		FileChooser.ExtensionFilter exFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+		chooser.getExtensionFilters().addAll(exFilterPNG, exFilterJPG);
+
+		File file = chooser.showOpenDialog(null);
+		if (file != null)
+		{
+			imgView.setImage(new Image(file.toURI().toString()));
+			client.sendSocket(new Message(file.getName(), MessageType.IMAGE));
+		}
+	}
+	
+	public void onBtImgRemove()
+	{
+		imgView.setImage(null);
+		client.sendSocket(new Message(null, MessageType.IMAGE));
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		Font popZero = Font.loadFont(getClass().getResourceAsStream("/fonts/Populationzerobb.otf"), 64);
-		lblOrdemDoCaos.setFont(popZero);
-
 		configCircleButtons();
 
 		hboxMedia.getChildren().add(new ToggleSwitch(client));

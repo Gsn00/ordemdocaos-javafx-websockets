@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 
 import enums.MessageType;
+import javafx.util.Duration;
 
 public class Message implements Serializable
 {
@@ -13,7 +14,7 @@ public class Message implements Serializable
 	private Character character;
 	private MessageType messageType;
 	private Double volume;
-	private Boolean musicLooping;
+	private Duration duration;
 
 	public Message(Object object, MessageType messageType)
 	{
@@ -38,7 +39,7 @@ public class Message implements Serializable
 			this.volume = (Double) object;
 			break;
 		case MUSICLOOPING:
-			this.musicLooping = (Boolean) object;
+			this.setDuration((Duration) object);
 			break;
 		case CONNECT:
 			this.character = (Character) object;
@@ -48,6 +49,11 @@ public class Message implements Serializable
 			break;
 		case REFRESHCONNECTIONS:
 			this.character = (Character) object;
+			break;
+		case IMAGE:
+			this.message = (String) object;
+			break;
+		default:
 			break;
 		}
 	}
@@ -92,16 +98,16 @@ public class Message implements Serializable
 		this.volume = volume;
 	}
 
-	public Boolean getMusicLooping()
+	public Duration getDuration()
 	{
-		return musicLooping;
+		return duration;
 	}
 
-	public void setMusicLooping(Boolean musicLooping)
+	public void setDuration(Duration duration)
 	{
-		this.musicLooping = musicLooping;
+		this.duration = duration;
 	}
-
+	
 	@Override
 	public String toString()
 	{

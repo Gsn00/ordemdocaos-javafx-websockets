@@ -6,9 +6,9 @@ import javafx.util.Duration;
 
 public class PlayMusic
 {
-	private static MediaPlayer mp;
-	public static boolean looping = false;
+	public static MediaPlayer mp;
 	public static double VOLUME = 0.4;
+	public static Duration DURATION;
 
 	public static void playByName(String name)
 	{
@@ -31,13 +31,13 @@ public class PlayMusic
 					mp.play();
 					mp.setOnEndOfMedia(() ->
 					{
-						if (looping == false)
+						if (DURATION == null)
 						{
 							mp.stop();
 							mp = null;
 							return;
 						}
-						mp.seek(Duration.ZERO);
+						mp.seek(DURATION);
 						mp.play();
 					});
 				}

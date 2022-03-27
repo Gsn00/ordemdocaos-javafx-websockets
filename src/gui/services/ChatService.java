@@ -69,7 +69,7 @@ public class ChatService
 					{
 						if (client.socket != null && client.socket.isConnected())
 						{
-							client.sendSocket(new Message(null, MessageType.DISCONNECT));
+							client.sendSocket(new Message(character, MessageType.DISCONNECT));
 							client.disconnect(character);
 							sendToMe("[ ! ] Desconectado...");
 							return;

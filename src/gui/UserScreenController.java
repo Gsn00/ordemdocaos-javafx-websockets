@@ -21,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -69,6 +70,8 @@ public class UserScreenController implements Initializable, MessageEvent
 	private Circle btD20;
 	@FXML
 	private VBox vboxSatusBar;
+	@FXML
+	private ImageView imgView;
 
 	private UserStatusBar barVida;
 	private UserStatusBar barEnergia;
@@ -178,6 +181,7 @@ public class UserScreenController implements Initializable, MessageEvent
 			PlayMusic.playByName(client.getMessage().toString());
 			break;
 		case PAUSE:
+			System.out.println("ASASAS");
 			PlayMusic.pause();
 			break;
 		case PLAY:
@@ -187,16 +191,28 @@ public class UserScreenController implements Initializable, MessageEvent
 			PlayMusic.setVolume(client.getMessage().getVolume());
 			break;
 		case MUSICLOOPING:
-			PlayMusic.looping = client.getMessage().getMusicLooping();
+			PlayMusic.DURATION = client.getMessage().getDuration();
 			break;
 		case CONNECT:
 			chat.addMessage("[ ! ] " + client.getMessage().getCharacter().getNome() + " conectou-se!");
 			break;
 		case DISCONNECT:
+			if (client.getMessage().getCharacter().getNome().equalsIgnoreCase("Mestre")) PlayMusic.DURATION = null;
 			chat.addMessage("[ ! ] " + client.getMessage().getCharacter().getNome() + " desconectou-se!");
 			break;
 		case REFRESHCONNECTIONS:
 			client.sendSocket(new Message(character, MessageType.REFRESHCONNECTIONS));
+			break;
+		case IMAGE:
+			if (client.getMessage().getMessage() == null)
+			{
+				imgView.setImage(null);
+				break;
+			}
+			Image image = new Image(UserScreenController.class.getResource("/images/rpg/" + client.getMessage().getMessage()).toExternalForm());
+			imgView.setImage(image);
+			break;
+		default:
 			break;
 		}
 	}
