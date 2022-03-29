@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.Main;
 import entities.Character;
 import entities.Message;
 import enums.MessageType;
@@ -15,7 +16,7 @@ import listeners.MessageEvent;
 public class Client
 {
 	public Socket socket;
-	public Message message;
+	private Message message;
 	private ObjectInputStream objectInputStream;
 	private ObjectOutputStream objectOutputStream;
 
@@ -43,12 +44,11 @@ public class Client
 	{
 		try
 		{
-			socket = new Socket("26.163.199.159", 7000);
+			socket = new Socket(Main.IP, 7000);
 			objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 			return true;
 		} catch (Exception e)
 		{
-			System.err.println("Não foi possível conectar ao servidor.");
 			return false;
 		}
 	}
@@ -66,7 +66,7 @@ public class Client
 			}
 		}
 	}
-
+	
 	public void disconnect(Character character)
 	{
 		if (socket != null)

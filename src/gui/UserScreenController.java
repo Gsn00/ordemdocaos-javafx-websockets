@@ -160,7 +160,7 @@ public class UserScreenController implements Initializable, MessageEvent
 		client.connect();
 		client.listen();
 		client.sendSocket(new Message(character, MessageType.CONNECT));
-		
+
 		chat = new ChatService(txtMessage, listView, character, client);
 	}
 
@@ -181,7 +181,6 @@ public class UserScreenController implements Initializable, MessageEvent
 			PlayMusic.playByName(client.getMessage().toString());
 			break;
 		case PAUSE:
-			System.out.println("ASASAS");
 			PlayMusic.pause();
 			break;
 		case PLAY:
@@ -197,10 +196,11 @@ public class UserScreenController implements Initializable, MessageEvent
 			chat.addMessage("[ ! ] " + client.getMessage().getCharacter().getNome() + " conectou-se!");
 			break;
 		case DISCONNECT:
-			if (client.getMessage().getCharacter().getNome().equalsIgnoreCase("Mestre")) PlayMusic.DURATION = null;
+			if (client.getMessage().getCharacter().getNome().equalsIgnoreCase("Mestre"))
+				PlayMusic.DURATION = null;
 			chat.addMessage("[ ! ] " + client.getMessage().getCharacter().getNome() + " desconectou-se!");
 			break;
-		case REFRESHCONNECTIONS:
+		case ADMINREFRESHCONNECTIONS:
 			client.sendSocket(new Message(character, MessageType.REFRESHCONNECTIONS));
 			break;
 		case IMAGE:
@@ -209,7 +209,8 @@ public class UserScreenController implements Initializable, MessageEvent
 				imgView.setImage(null);
 				break;
 			}
-			Image image = new Image(UserScreenController.class.getResource("/images/rpg/" + client.getMessage().getMessage()).toExternalForm());
+			Image image = new Image(UserScreenController.class
+					.getResource("/images/rpg/" + client.getMessage().getMessage()).toExternalForm());
 			imgView.setImage(image);
 			break;
 		default:

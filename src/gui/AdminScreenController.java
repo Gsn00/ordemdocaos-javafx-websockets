@@ -208,7 +208,7 @@ public class AdminScreenController implements Initializable, MessageEvent
 
 		btRefresh.setOnMouseClicked(event ->
 		{
-			client.sendSocket(new Message(null, MessageType.REFRESHCONNECTIONS));
+			client.sendSocket(new Message(null, MessageType.ADMINREFRESHCONNECTIONS));
 		});
 
 		btNote.setOnMouseClicked(event ->
@@ -403,7 +403,7 @@ public class AdminScreenController implements Initializable, MessageEvent
 		client.connect();
 		client.listen();
 		client.sendSocket(new Message(master, MessageType.CONNECT));
-		client.sendSocket(new Message(null, MessageType.REFRESHCONNECTIONS));
+		client.sendSocket(new Message(null, MessageType.ADMINREFRESHCONNECTIONS));
 
 		chat = new ChatService(txtMessage, listView, master, client);
 	}

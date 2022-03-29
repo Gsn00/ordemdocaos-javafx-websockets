@@ -80,7 +80,7 @@ public class Server extends Thread
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void startServer()
 	{
 		try

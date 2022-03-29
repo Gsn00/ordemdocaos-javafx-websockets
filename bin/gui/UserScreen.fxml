@@ -6,14 +6,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
-
 
 <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="1366.0" style="-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #010a06, #05120c, #010a06);" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UserScreenController">
    <children>
@@ -142,11 +140,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="530.0" prefWidth="726.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <ImageView fx:id="imgView" fitHeight="411.0" fitWidth="583.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../Pictures/3c2179146c371fddaf8a83e50bf9f76703ed340a_hq.jpg" />
-                                 </image>
-                              </ImageView>
+                              <ImageView fx:id="imgView" fitHeight="411.0" fitWidth="583.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </HBox>
                         <VBox alignment="BOTTOM_RIGHT" layoutX="433.0" prefHeight="530.0" prefWidth="293.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">

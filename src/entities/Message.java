@@ -7,7 +7,6 @@ import javafx.util.Duration;
 
 public class Message implements Serializable
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private String message;

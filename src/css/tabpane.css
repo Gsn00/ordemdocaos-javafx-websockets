@@ -1,0 +1,15 @@
+.tab-pane:top .tab-header-area .tab-header-background {
+	-fx-background-color: #424242;
+}
+
+.tab:top {
+	-fx-background-color: #424242;
+}
+
+.tab:selected:top {
+	-fx-background-color: #383838;
+	-fx-border-color: #383838;
+	-fx-focus-color: transparent;
+	-fx-faint-focus-color: transparent;
+	-fx-text-base-color: white;
+}

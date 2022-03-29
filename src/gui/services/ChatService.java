@@ -7,6 +7,7 @@ import entities.Character;
 import entities.Message;
 import enums.MessageType;
 import gui.UserScreenController;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -46,6 +47,13 @@ public class ChatService
 				{
 					msg = msg.toLowerCase();
 
+					if (msg.equalsIgnoreCase("!exit"))
+					{
+						client.disconnect(character);
+						Platform.exit();
+						System.exit(0);
+					}
+					
 					if (msg.equalsIgnoreCase("!connect"))
 					{
 						if (client.socket != null && client.socket.isConnected())
@@ -69,7 +77,6 @@ public class ChatService
 					{
 						if (client.socket != null && client.socket.isConnected())
 						{
-							client.sendSocket(new Message(character, MessageType.DISCONNECT));
 							client.disconnect(character);
 							sendToMe("[ ! ] Desconectado...");
 							return;
