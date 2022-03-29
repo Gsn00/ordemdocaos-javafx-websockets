@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import network.Client;
 import network.Server;
 import services.JSONService;
 
@@ -33,9 +34,14 @@ public class ConnectScreenController
 		if (!txtJogador.getText().trim().isEmpty())
 		{
 			Main.IP = txtJogador.getText();
-			Stage stage = (Stage) txtJogador.getScene().getWindow();
-			stage.close();
-			start();
+			if (Client.canConnect())
+			{
+				Stage stage = (Stage) txtJogador.getScene().getWindow();
+				stage.close();
+				start();
+			} else {
+				lblJogador.setText("Não foi possível conectar-se ao IP " + Main.IP);
+			}
 		}
 	}
 

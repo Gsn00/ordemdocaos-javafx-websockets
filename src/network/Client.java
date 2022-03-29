@@ -52,6 +52,16 @@ public class Client
 			return false;
 		}
 	}
+	
+	public static boolean canConnect()
+	{
+		try (Socket s = new Socket(Main.IP, 7000)) {
+			return true;
+		} catch (Exception e)
+		{
+			return false;
+		}
+	}
 
 	public void sendSocket(Message object)
 	{
