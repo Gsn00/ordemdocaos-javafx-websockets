@@ -19,6 +19,7 @@ public class Server extends Thread
 	private Character character;
 
 	public static Set<ObjectOutputStream> players = new HashSet<>();
+	public static Set<Character> characters = new HashSet<>();
 
 	public Server(Socket socket)
 	{
@@ -44,14 +45,30 @@ public class Server extends Thread
 				Message object = (Message) objectInputStream.readObject();
 				if (object != null)
 				{
-					sendToAll(objectOutputStream, object);
-					if (object.getMessageType() == MessageType.CONNECT)
+
+					switch (object.getMessageType())
 					{
+					case REFRESHCONNECTIONS:
+						characters.add(object.getCharacter());
+						if (characters.size() == (players.size() - 1))
+						{
+							object = new Message(object.getCharacter(), MessageType.REFRESHCONNECTIONS);
+							object.setCharacters(characters);
+							sendToAll(objectOutputStream, object);
+							characters.clear();
+						}
+						break;
+					case CONNECT:
+						sendToAll(objectOutputStream, object);
 						this.character = object.getCharacter();
-					}
-					if (object.getMessageType() == MessageType.DISCONNECT)
-					{
+						break;
+					case DISCONNECT:
+						sendToAll(objectOutputStream, object);
 						players.remove(objectOutputStream);
+						break;
+					default:
+						sendToAll(objectOutputStream, object);
+						break;
 					}
 				}
 			}

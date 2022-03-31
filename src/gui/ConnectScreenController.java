@@ -87,7 +87,7 @@ public class ConnectScreenController
 				Stage stage = new Stage();
 				stage.setTitle("Ordem do Caos");
 				stage.getIcons().add(new Image(getClass().getResource("/images/dice.png").toExternalForm()));
-				stage.initStyle(StageStyle.UNDECORATED);
+//				stage.initStyle(StageStyle.UNDECORATED);
 				stage.setScene(scene);
 				stage.setMaximized(true);
 				stage.show();
@@ -98,7 +98,7 @@ public class ConnectScreenController
 				Stage stage = new Stage();
 				stage.setTitle("Ordem do Caos");
 				stage.getIcons().add(new Image(getClass().getResource("/images/dice.png").toExternalForm()));
-				stage.initStyle(StageStyle.UNDECORATED);
+//				stage.initStyle(StageStyle.UNDECORATED);
 				stage.setScene(scene);
 				stage.setMaximized(true);
 				stage.show();

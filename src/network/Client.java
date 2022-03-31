@@ -27,6 +27,16 @@ public class Client
 		return message;
 	}
 
+	public ObjectInputStream getObjectInputStream()
+	{
+		return objectInputStream;
+	}
+
+	public ObjectOutputStream getObjectOutputStream()
+	{
+		return objectOutputStream;
+	}
+
 	public void subscribeMessageEvent(MessageEvent event)
 	{
 		messages.add(event);
@@ -46,16 +56,18 @@ public class Client
 		{
 			socket = new Socket(Main.IP, 7000);
 			objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+			objectInputStream = new ObjectInputStream(socket.getInputStream());
 			return true;
 		} catch (Exception e)
 		{
 			return false;
 		}
 	}
-	
+
 	public static boolean canConnect()
 	{
-		try (Socket s = new Socket(Main.IP, 7000)) {
+		try (Socket s = new Socket(Main.IP, 7000))
+		{
 			return true;
 		} catch (Exception e)
 		{
@@ -76,7 +88,7 @@ public class Client
 			}
 		}
 	}
-	
+
 	public void disconnect(Character character)
 	{
 		if (socket != null)
@@ -94,7 +106,7 @@ public class Client
 			}
 		}
 	}
-	
+
 	public void listen()
 	{
 		if (socket != null && socket.isConnected())
@@ -106,7 +118,6 @@ public class Client
 				{
 					try
 					{
-						objectInputStream = new ObjectInputStream(socket.getInputStream());
 						while (socket != null)
 						{
 							Message object = (Message) objectInputStream.readObject();

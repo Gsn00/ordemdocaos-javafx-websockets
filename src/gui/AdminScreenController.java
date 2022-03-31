@@ -331,7 +331,7 @@ public class AdminScreenController implements Initializable, MessageEvent
 		ObservableList<String> terror = FXCollections.observableArrayList(Arrays.asList());
 
 		ObservableList<String> boss = FXCollections.observableArrayList(Arrays
-				.asList("Final Boss - O Segredo na Floresta.mp3", "Beastly Calls - O Segredo na Floresta Ost.mp3"));
+				.asList("Final Boss - O Segredo na Floresta.mp3", "Beastly Calls - O Segredo na Floresta Ost.mp3", "Pugna.mp3"));
 
 		ObservableList<String> abertura = FXCollections.observableArrayList(Arrays.asList("Chukou.mp3"));
 
@@ -431,7 +431,10 @@ public class AdminScreenController implements Initializable, MessageEvent
 			chat.addMessage("[ ! ] " + client.getMessage().getCharacter().getNome() + " desconectou-se!");
 			break;
 		case REFRESHCONNECTIONS:
-			addCharacter(client.getMessage().getCharacter());
+			for (Character c : client.getMessage().getCharacters())
+			{
+				addCharacter(c);
+			}
 			break;
 		default:
 			break;

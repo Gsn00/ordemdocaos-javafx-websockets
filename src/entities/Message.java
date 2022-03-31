@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import enums.MessageType;
 import javafx.util.Duration;
@@ -14,6 +15,7 @@ public class Message implements Serializable
 	private MessageType messageType;
 	private Double volume;
 	private Duration duration;
+	private Set<Character> characters;
 
 	public Message(Object object, MessageType messageType)
 	{
@@ -107,6 +109,16 @@ public class Message implements Serializable
 		this.duration = duration;
 	}
 	
+	public Set<Character> getCharacters()
+	{
+		return characters;
+	}
+
+	public void setCharacters(Set<Character> characters)
+	{
+		this.characters = characters;
+	}
+
 	@Override
 	public String toString()
 	{
