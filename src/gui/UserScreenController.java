@@ -1,9 +1,14 @@
 package gui;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
 
 import entities.Character;
 import entities.Message;
@@ -12,6 +17,7 @@ import enums.MessageType;
 import enums.StatusBarType;
 import gui.services.ChatService;
 import gui.services.InventoryService;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -173,9 +179,12 @@ public class UserScreenController implements Initializable, MessageEvent
 			chat.addMessage(client.getMessage().toString());
 			break;
 		case STATUS:
-			character = client.getMessage().getCharacter();
-			character.setJSONData();
-			updateBars();
+			if (character.getNome().equalsIgnoreCase(client.getMessage().getCharacter().getNome()))
+			{
+				character = client.getMessage().getCharacter();
+				character.setJSONData();
+				updateBars();
+			}
 			break;
 		case PLAYMUSIC:
 			PlayMusic.playByName(client.getMessage().toString());
@@ -204,14 +213,19 @@ public class UserScreenController implements Initializable, MessageEvent
 			client.sendSocket(new Message(character, MessageType.REFRESHCONNECTIONS));
 			break;
 		case IMAGE:
-			if (client.getMessage().getMessage() == null)
+			try
 			{
-				imgView.setImage(null);
-				break;
+				if (client.getMessage().getImageBytes() == null)
+				{
+					imgView.setImage(null);
+					return;
+				}
+		        BufferedImage image = ImageIO.read(new ByteArrayInputStream(client.getMessage().getImageBytes()));
+				imgView.setImage(SwingFXUtils.toFXImage(image, null));
+			} catch (IOException e)
+			{
+				e.printStackTrace();
 			}
-			Image image = new Image(UserScreenController.class
-					.getResource("/images/rpg/" + client.getMessage().getMessage()).toExternalForm());
-			imgView.setImage(image);
 			break;
 		default:
 			break;

@@ -16,7 +16,8 @@ public class Message implements Serializable
 	private Double volume;
 	private Duration duration;
 	private Set<Character> characters;
-
+	private byte[] imageBytes;
+	
 	public Message(Object object, MessageType messageType)
 	{
 		this.messageType = messageType;
@@ -52,7 +53,7 @@ public class Message implements Serializable
 			this.character = (Character) object;
 			break;
 		case IMAGE:
-			this.message = (String) object;
+			this.imageBytes = (byte[]) object;
 			break;
 		default:
 			break;
@@ -117,6 +118,16 @@ public class Message implements Serializable
 	public void setCharacters(Set<Character> characters)
 	{
 		this.characters = characters;
+	}
+
+	public byte[] getImageBytes()
+	{
+		return imageBytes;
+	}
+
+	public void setImageBytes(byte[] imageBytes)
+	{
+		this.imageBytes = imageBytes;
 	}
 
 	@Override

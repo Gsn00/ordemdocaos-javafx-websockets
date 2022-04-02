@@ -1,15 +1,18 @@
 package gui;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
 
 import entities.AdminStatusBar;
 import enums.MessageType;
@@ -330,8 +333,9 @@ public class AdminScreenController implements Initializable, MessageEvent
 
 		ObservableList<String> terror = FXCollections.observableArrayList(Arrays.asList());
 
-		ObservableList<String> boss = FXCollections.observableArrayList(Arrays
-				.asList("Final Boss - O Segredo na Floresta.mp3", "Beastly Calls - O Segredo na Floresta Ost.mp3", "Pugna.mp3"));
+		ObservableList<String> boss = FXCollections
+				.observableArrayList(Arrays.asList("Final Boss - O Segredo na Floresta.mp3",
+						"Beastly Calls - O Segredo na Floresta Ost.mp3", "Pugna.mp3"));
 
 		ObservableList<String> abertura = FXCollections.observableArrayList(Arrays.asList("Chukou.mp3"));
 
@@ -369,7 +373,6 @@ public class AdminScreenController implements Initializable, MessageEvent
 	public void onBtImgSelect()
 	{
 		FileChooser chooser = new FileChooser();
-		chooser.setInitialDirectory(new File(Paths.get("./src/images/rpg/").toAbsolutePath().normalize().toString()));
 		FileChooser.ExtensionFilter exFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
 		FileChooser.ExtensionFilter exFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
 		chooser.getExtensionFilters().addAll(exFilterPNG, exFilterJPG);
@@ -377,11 +380,25 @@ public class AdminScreenController implements Initializable, MessageEvent
 		File file = chooser.showOpenDialog(null);
 		if (file != null)
 		{
-			imgView.setImage(new Image(file.toURI().toString()));
-			client.sendSocket(new Message(file.getName(), MessageType.IMAGE));
+			try
+			{
+				Image image = new Image(file.toURI().toString());
+				imgView.setImage(image);
+				
+		        BufferedImage bufferedImage = ImageIO.read(file);
+		        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		        int extension = file.getName().lastIndexOf('.');
+		        String format = file.getName().substring(extension + 1);
+		        ImageIO.write(bufferedImage, format, byteArrayOutputStream);
+		        
+				client.sendSocket(new Message(byteArrayOutputStream.toByteArray(), MessageType.IMAGE));
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
-	
+
 	public void onBtImgRemove()
 	{
 		imgView.setImage(null);
