@@ -24,7 +24,8 @@ public class ChatService
 	private ListView<String> list;
 	private Character character;
 	private Client client;
-
+	private UserScreenController userScreen;
+	
 	private ObservableList<String> messages = FXCollections.observableArrayList();
 
 	public ChatService(TextField txt, ListView<String> list, Character character, Client client)
@@ -33,6 +34,17 @@ public class ChatService
 		this.list = list;
 		this.character = character;
 		this.client = client;
+		
+		configListView();
+	}
+	
+	public ChatService(TextField txt, ListView<String> list, Character character, Client client, UserScreenController userScreen)
+	{
+		this.txt = txt;
+		this.list = list;
+		this.character = character;
+		this.client = client;
+		this.userScreen = userScreen;
 		
 		configListView();
 	}
@@ -47,11 +59,126 @@ public class ChatService
 				{
 					msg = msg.toLowerCase();
 
+					if (msg.equalsIgnoreCase("!commands"))
+					{
+						sendToMe("!V, !E, !R, !S, !ADMIN, !DISCONNECT, !CONNECT, !EXIT, !COMMANDS, !<Number>D<Number>");
+						return;
+					}
+					
+					if (msg.startsWith("!v"))
+					{
+						String[] vect = msg.split(" ");
+						if (vect.length == 1)
+						{
+							sendToMe("[ ! ] Ex: !v +10 / !v -10");
+							return;
+						}
+						if (vect.length > 1)
+						{
+							int quantity = Integer.parseInt(vect[1].substring(1));
+							if (vect[1].startsWith("+"))
+							{
+								character.setVida(StatusService.incrementValue(quantity, character.getVida(), character.getMaxVida()));
+								sendToMe("[ ! ] Sua vida foi aumentada em " + quantity);
+							}
+							if (vect[1].startsWith("-"))
+							{
+								character.setVida(StatusService.decrementValue(quantity, character.getVida(), character.getMaxVida()));
+								sendToMe("[ ! ] Sua vida foi diminuida em " + quantity);
+							}
+							character.setJSONData();
+							userScreen.updateBars();
+						}
+						return;
+					}
+					
+					if (msg.startsWith("!e"))
+					{
+						String[] vect = msg.split(" ");
+						if (vect.length == 1)
+						{
+							sendToMe("[ ! ] Ex: !e +10 / !e -10");
+							return;
+						}
+						if (vect.length > 1)
+						{
+							int quantity = Integer.parseInt(vect[1].substring(1));
+							if (vect[1].startsWith("+"))
+							{
+								character.setEnergia(StatusService.incrementValue(quantity, character.getEnergia(), character.getMaxEnergia()));
+								sendToMe("[ ! ] Sua energia foi aumentada em " + quantity);
+							}
+							if (vect[1].startsWith("-"))
+							{
+								character.setEnergia(StatusService.decrementValue(quantity, character.getEnergia(), character.getMaxEnergia()));
+								sendToMe("[ ! ] Sua energia foi diminuida em " + quantity);
+							}
+							character.setJSONData();
+							userScreen.updateBars();
+						}
+						return;
+					}
+					
+					if (msg.startsWith("!r"))
+					{
+						String[] vect = msg.split(" ");
+						if (vect.length == 1)
+						{
+							sendToMe("[ ! ] Ex: !r +10 / !r -10");
+							return;
+						}
+						if (vect.length > 1)
+						{
+							int quantity = Integer.parseInt(vect[1].substring(1));
+							if (vect[1].startsWith("+"))
+							{
+								character.setResistencia(StatusService.incrementValue(quantity, character.getResistencia(), character.getMaxResistencia()));
+								sendToMe("[ ! ] Sua resistência foi aumentada em " + quantity);
+							}
+							if (vect[1].startsWith("-"))
+							{
+								character.setResistencia(StatusService.decrementValue(quantity, character.getResistencia(), character.getMaxResistencia()));
+								sendToMe("[ ! ] Sua resistência foi diminuida em " + quantity);
+							}
+							character.setJSONData();
+							userScreen.updateBars();
+						}
+						return;
+					}
+					
+					if (msg.startsWith("!s"))
+					{
+						String[] vect = msg.split(" ");
+						if (vect.length == 1)
+						{
+							sendToMe("[ ! ] Ex: !s +10 / !s -10");
+							return;
+						}
+						if (vect.length > 1)
+						{
+							int quantity = Integer.parseInt(vect[1].substring(1));
+							if (vect[1].startsWith("+"))
+							{
+								character.setSanidade(StatusService.incrementValue(quantity, character.getSanidade(), character.getMaxSanidade()));
+								sendToMe("[ ! ] Sua sanidade foi aumentada em " + quantity);
+							}
+							if (vect[1].startsWith("-"))
+							{
+								character.setSanidade(StatusService.decrementValue(quantity, character.getSanidade(), character.getMaxSanidade()));
+								sendToMe("[ ! ] Sua sanidade foi diminuida em " + quantity);
+							}
+							character.setJSONData();
+							userScreen.updateBars();
+						}
+						return;
+					}
+					
 					if (msg.equalsIgnoreCase("!exit"))
 					{
 						client.disconnect(character);
 						Platform.exit();
 						System.exit(0);
+						return;
 					}
 					
 					if (msg.equalsIgnoreCase("!connect"))

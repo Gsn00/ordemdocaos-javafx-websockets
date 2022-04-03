@@ -27,16 +27,6 @@ public class Client
 		return message;
 	}
 
-	public ObjectInputStream getObjectInputStream()
-	{
-		return objectInputStream;
-	}
-
-	public ObjectOutputStream getObjectOutputStream()
-	{
-		return objectOutputStream;
-	}
-
 	public void subscribeMessageEvent(MessageEvent event)
 	{
 		messages.add(event);

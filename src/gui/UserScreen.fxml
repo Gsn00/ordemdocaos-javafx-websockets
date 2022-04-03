@@ -113,6 +113,9 @@
                      <font>
                         <Font name="Bodoni MT" size="14.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets bottom="40.0" />
+                     </VBox.margin>
                   </TextField>
                </children>
                <VBox.margin>

@@ -146,7 +146,7 @@ public class UserScreenController implements Initializable, MessageEvent
 		lblOrdemDoCaos.setFont(popZero);
 
 		barVida = new UserStatusBar("#b22626", character, StatusBarType.VIDA, client);
-		barEnergia = new UserStatusBar("#f2f531", character, StatusBarType.ENERGIA, client);
+		barEnergia = new UserStatusBar("#212121", character, StatusBarType.ENERGIA, client);
 		barResistencia = new UserStatusBar("#f79d25", character, StatusBarType.RESISTENCIA, client);
 		barSanidade = new UserStatusBar("#27a6b0", character, StatusBarType.SANIDADE, client);
 		vboxSatusBar.getChildren().addAll(barVida, barEnergia, barResistencia, barSanidade);
@@ -167,7 +167,7 @@ public class UserScreenController implements Initializable, MessageEvent
 		client.listen();
 		client.sendSocket(new Message(character, MessageType.CONNECT));
 
-		chat = new ChatService(txtMessage, listView, character, client);
+		chat = new ChatService(txtMessage, listView, character, client, this);
 	}
 
 	@Override

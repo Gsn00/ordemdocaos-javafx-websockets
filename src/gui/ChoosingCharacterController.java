@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,6 +29,8 @@ public class ChoosingCharacterController implements Initializable
 	private Label lblOrdemDoCaos;
 	@FXML
 	private HBox hbox;
+	@FXML
+	private HBox hboxAdmin;
 
 	public void addCharacter(String name)
 	{
@@ -98,6 +101,52 @@ public class ChoosingCharacterController implements Initializable
 		hbox.getChildren().add(cHBox);
 	}
 
+	public void addAdmin(String name, String img)
+	{
+		VBox vbox = new VBox();
+		Label lblName = new Label(name);
+		Circle imgCircle = new Circle(50);
+		
+		lblName.setFont(Font.font("Bodoni MT", 22));
+		lblName.setTextFill(Color.WHITE);
+		
+		imgCircle.setFill(new ImagePattern(
+				new Image(AdminScreenController.class.getResource("/images/" + img).toExternalForm())));
+		imgCircle.setStrokeType(StrokeType.OUTSIDE);
+		imgCircle.setStroke(Color.BLACK);
+		
+		imgCircle.setOnMouseEntered(event ->
+		{
+			imgCircle.getScene().setCursor(Cursor.HAND);
+			vbox.setOpacity(1);
+		});
+		imgCircle.setOnMouseExited(event ->
+		{
+			if (imgCircle.getScene() != null)
+			{
+				imgCircle.getScene().setCursor(Cursor.DEFAULT);
+				vbox.setOpacity(0.6);
+			}
+		});
+		imgCircle.setOnMouseClicked(event ->
+		{
+			try
+			{
+				Parent parent = FXMLLoader.load(UserScreenController.class.getResource("/gui/AdminScreen.fxml"));
+				Scene scene = vbox.getScene();
+				scene.setRoot(parent);
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		});
+		
+		vbox.setAlignment(Pos.CENTER);
+		
+		vbox.getChildren().addAll(lblName, imgCircle);
+		hboxAdmin.getChildren().add(vbox);
+	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
@@ -110,5 +159,6 @@ public class ChoosingCharacterController implements Initializable
 		addCharacter("Lorenzo");
 		addCharacter("Robert");
 		addCharacter("Gustavo");
+		addAdmin("Mestre", "Simbolo_RPG.jpg");
 	}
 }

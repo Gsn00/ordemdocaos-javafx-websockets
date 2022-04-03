@@ -56,8 +56,8 @@
                                              </VBox.margin>
                                              <children>
                                                 <Label text="Imagem" textFill="WHITE" />
-                                                <Button fx:id="btImgSelect" mnemonicParsing="false" onAction="#onBtImgSelect" text="Selecionar" />
-                                                <Button fx:id="btImgRemove" mnemonicParsing="false" onAction="#onBtImgRemove" text="Remover">
+                                                <Button fx:id="btImgSelect" mnemonicParsing="false" onAction="#onBtImgSelect" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" text="Selecionar" />
+                                                <Button fx:id="btImgRemove" mnemonicParsing="false" onAction="#onBtImgRemove" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" text="Remover">
                                                    <VBox.margin>
                                                       <Insets top="5.0" />
                                                    </VBox.margin>

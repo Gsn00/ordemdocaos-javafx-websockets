@@ -63,6 +63,7 @@ import javafx.stage.StageStyle;
 import listeners.MessageEvent;
 import network.Client;
 import services.PlayMusic;
+import services.Utils;
 
 public class AdminScreenController implements Initializable, MessageEvent
 {
@@ -133,7 +134,7 @@ public class AdminScreenController implements Initializable, MessageEvent
 			AdminStatusBar barVida = new AdminStatusBar("#b22626", character, StatusBarType.VIDA, client);
 			barVida.setPadding(new Insets(0, 0, 0, 30));
 			bars.add(barVida);
-			AdminStatusBar barEnergia = new AdminStatusBar("#f2f531", character, StatusBarType.ENERGIA, client);
+			AdminStatusBar barEnergia = new AdminStatusBar("#212121", character, StatusBarType.ENERGIA, client);
 			barEnergia.setPadding(new Insets(0, 0, 0, 16));
 			bars.add(barEnergia);
 			AdminStatusBar barResistencia = new AdminStatusBar("#f79d25", character, StatusBarType.RESISTENCIA, client);
@@ -321,50 +322,36 @@ public class AdminScreenController implements Initializable, MessageEvent
 	public void configChoiceSong()
 	{
 		ObservableList<String> values = FXCollections.observableArrayList(
-				Arrays.asList("Combate", "Investigação", "Triste", "Terror", "Boss", "Abertura", "Pausa"));
+				Arrays.asList("Combate", "Investigação", "Triste", "Terror", "Exploração", "Boss", "Abertura", "Pausa"));
 		choiceSong.setItems(values);
-
-		ObservableList<String> combate = FXCollections.observableArrayList(Arrays.asList("Beat It (Solo Cover).mp3"));
-
-		ObservableList<String> investigacao = FXCollections.observableArrayList(Arrays.asList());
-
-		ObservableList<String> triste = FXCollections
-				.observableArrayList(Arrays.asList("O Segredo na Floresta - Final Ending Theme.mp3"));
-
-		ObservableList<String> terror = FXCollections.observableArrayList(Arrays.asList());
-
-		ObservableList<String> boss = FXCollections
-				.observableArrayList(Arrays.asList("Final Boss - O Segredo na Floresta.mp3",
-						"Beastly Calls - O Segredo na Floresta Ost.mp3", "Pugna.mp3"));
-
-		ObservableList<String> abertura = FXCollections.observableArrayList(Arrays.asList("Chukou.mp3"));
-
-		ObservableList<String> pausa = FXCollections.observableArrayList(Arrays.asList());
 
 		choiceSong.setOnAction(event ->
 		{
 			switch (choiceSong.getSelectionModel().getSelectedItem())
 			{
 			case "Combate":
-				tableSong.setItems(combate);
+				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Combate")));
 				break;
 			case "Investigação":
-				tableSong.setItems(investigacao);
+				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Investigação")));
 				break;
 			case "Triste":
-				tableSong.setItems(triste);
+				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Triste")));
 				break;
 			case "Terror":
-				tableSong.setItems(terror);
+				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Terror")));
+				break;
+			case "Exploração":
+				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Exploração")));
 				break;
 			case "Boss":
-				tableSong.setItems(boss);
+				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Boss")));
 				break;
 			case "Abertura":
-				tableSong.setItems(abertura);
+				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Abertura")));
 				break;
 			case "Pausa":
-				tableSong.setItems(pausa);
+				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Pausa")));
 				break;
 			}
 		});
@@ -373,9 +360,8 @@ public class AdminScreenController implements Initializable, MessageEvent
 	public void onBtImgSelect()
 	{
 		FileChooser chooser = new FileChooser();
-		FileChooser.ExtensionFilter exFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-		FileChooser.ExtensionFilter exFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-		chooser.getExtensionFilters().addAll(exFilterPNG, exFilterJPG);
+		FileChooser.ExtensionFilter exFilter = new FileChooser.ExtensionFilter("PNG and JPG files", "*.PNG", "*.JPG");
+		chooser.getExtensionFilters().addAll(exFilter);
 
 		File file = chooser.showOpenDialog(null);
 		if (file != null)
@@ -384,13 +370,13 @@ public class AdminScreenController implements Initializable, MessageEvent
 			{
 				Image image = new Image(file.toURI().toString());
 				imgView.setImage(image);
-				
-		        BufferedImage bufferedImage = ImageIO.read(file);
-		        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		        int extension = file.getName().lastIndexOf('.');
-		        String format = file.getName().substring(extension + 1);
-		        ImageIO.write(bufferedImage, format, byteArrayOutputStream);
-		        
+
+				BufferedImage bufferedImage = ImageIO.read(file);
+				ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+				int extension = file.getName().lastIndexOf('.');
+				String format = file.getName().substring(extension + 1);
+				ImageIO.write(bufferedImage, format, byteArrayOutputStream);
+
 				client.sendSocket(new Message(byteArrayOutputStream.toByteArray(), MessageType.IMAGE));
 			} catch (IOException e)
 			{
@@ -405,6 +391,16 @@ public class AdminScreenController implements Initializable, MessageEvent
 		client.sendSocket(new Message(null, MessageType.IMAGE));
 	}
 
+	public void onMouseEntered()
+	{
+		hbox.getScene().setCursor(Cursor.HAND);
+	}
+
+	public void onMouseExited()
+	{
+		hbox.getScene().setCursor(Cursor.DEFAULT);
+	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{

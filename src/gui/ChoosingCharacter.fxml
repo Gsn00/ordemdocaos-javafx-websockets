@@ -26,10 +26,15 @@
                   <Insets top="40.0" />
                </VBox.margin>
             </Label>
-            <HBox fx:id="hbox" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="1366.0" spacing="25.0" VBox.vgrow="ALWAYS">
+            <HBox fx:id="hbox" alignment="TOP_CENTER" prefHeight="250.0" prefWidth="1276.0" spacing="25.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="60.0" left="20.0" right="20.0" top="60.0" />
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="60.0" />
                </VBox.margin></HBox>
+            <HBox fx:id="hboxAdmin" alignment="TOP_CENTER" prefHeight="265.0" prefWidth="1276.0" spacing="25.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="60.0" left="20.0" right="20.0" />
+               </VBox.margin>
+            </HBox>
          </children>
       </VBox>
    </children>

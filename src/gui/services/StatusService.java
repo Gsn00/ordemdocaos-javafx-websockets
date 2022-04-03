@@ -30,6 +30,15 @@ public class StatusService
 		}
 		return value;
 	}
+	
+	public static int incrementValue(int quantity, int value, int maxValue)
+	{
+		if ((value + quantity) < maxValue)
+		{
+			return value += quantity;
+		}
+		return maxValue;
+	}
 
 	public static int decrementValue(int value, int maxValue)
 	{
@@ -38,6 +47,15 @@ public class StatusService
 			return value -= 1;
 		}
 		return value;
+	}
+	
+	public static int decrementValue(int quantity, int value, int maxValue)
+	{
+		if ((value - quantity) > 0)
+		{
+			return value -= quantity;
+		}
+		return 0;
 	}
 
 	public static int incrementMaxValue(int maxValue)
