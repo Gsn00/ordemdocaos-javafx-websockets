@@ -13,6 +13,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -101,20 +102,86 @@ public class ChoosingCharacterController implements Initializable
 		hbox.getChildren().add(cHBox);
 	}
 
+	public void addExtra()
+	{
+		HBox cHBox = new HBox();
+		Circle cCircle = new Circle(50);
+		VBox cVBox = new VBox();
+		Label cLabel = new Label("Criar");
+		TextField cText = new TextField();
+
+		cCircle.setFill(new ImagePattern(
+				new Image(getClass().getResource("/images/characters/Silhouette.png").toExternalForm())));
+		cCircle.setStrokeType(StrokeType.OUTSIDE);
+		cCircle.setStroke(Color.BLACK);
+
+		cCircle.setOnMouseEntered(event ->
+		{
+			cCircle.getScene().setCursor(Cursor.HAND);
+			cHBox.setOpacity(1);
+		});
+		cCircle.setOnMouseExited(event ->
+		{
+			if (cCircle.getScene() != null)
+			{
+				cCircle.getScene().setCursor(Cursor.DEFAULT);
+				cHBox.setOpacity(0.6);
+			}
+		});
+		cCircle.setOnMouseClicked(event ->
+		{
+			try
+			{
+				if (!cText.getText().trim().equalsIgnoreCase("") && JSONService.exists(cText.getText()))
+				{
+					JSONService.createDefaultFile(cText.getText());
+
+					Parent parent = FXMLLoader.load(getClass().getResource("/gui/UserScreen.fxml"));
+					Scene scene = cCircle.getScene();
+					scene.setRoot(parent);
+					scene.setCursor(Cursor.DEFAULT);
+				}
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		});
+
+		cLabel.setFont(Font.font("Bodoni MT", 22));
+		cLabel.setTextFill(Color.WHITE);
+
+		cText.setPadding(new Insets(0, 0, 0, 10));
+		cText.setStyle(
+				"-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: white; -fx-text-fill: white;");
+		cText.setPromptText("Nome do personagem");
+		cText.setFocusTraversable(false);
+
+		cVBox.setSpacing(5);
+
+		cVBox.getChildren().add(cLabel);
+		cVBox.getChildren().add(cText);
+
+		cHBox.getChildren().add(cCircle);
+		cHBox.getChildren().add(cVBox);
+		cHBox.setOpacity(0.6);
+
+		hbox.getChildren().add(cHBox);
+	}
+
 	public void addAdmin(String name, String img)
 	{
 		VBox vbox = new VBox();
 		Label lblName = new Label(name);
 		Circle imgCircle = new Circle(50);
-		
+
 		lblName.setFont(Font.font("Bodoni MT", 22));
 		lblName.setTextFill(Color.WHITE);
-		
+
 		imgCircle.setFill(new ImagePattern(
 				new Image(AdminScreenController.class.getResource("/images/" + img).toExternalForm())));
 		imgCircle.setStrokeType(StrokeType.OUTSIDE);
 		imgCircle.setStroke(Color.BLACK);
-		
+
 		imgCircle.setOnMouseEntered(event ->
 		{
 			imgCircle.getScene().setCursor(Cursor.HAND);
@@ -140,13 +207,14 @@ public class ChoosingCharacterController implements Initializable
 				e.printStackTrace();
 			}
 		});
-		
+
 		vbox.setAlignment(Pos.CENTER);
-		
+
 		vbox.getChildren().addAll(lblName, imgCircle);
+		vbox.setOpacity(0.6);
 		hboxAdmin.getChildren().add(vbox);
 	}
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
@@ -158,7 +226,7 @@ public class ChoosingCharacterController implements Initializable
 		addCharacter("Moriart");
 		addCharacter("Lorenzo");
 		addCharacter("Robert");
-		addCharacter("Gustavo");
+		addExtra();
 		addAdmin("Mestre", "Simbolo_RPG.jpg");
 	}
 }

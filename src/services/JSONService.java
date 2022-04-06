@@ -157,4 +157,14 @@ public class JSONService
 		}
 		return null;
 	}
+	
+	public static boolean exists(String name)
+	{
+		InputStream input = JSONService.class.getResourceAsStream("/characters/" + name + ".json");
+		if (input == null)
+		{
+			return false;
+		}
+		return true;
+	}
 }

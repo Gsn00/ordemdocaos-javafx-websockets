@@ -58,6 +58,7 @@ public class ChatService
 				try
 				{
 					msg = msg.toLowerCase();
+					String[] args = msg.split(" ");
 
 					if (msg.equalsIgnoreCase("!commands"))
 					{
@@ -65,7 +66,7 @@ public class ChatService
 						return;
 					}
 					
-					if (msg.startsWith("!v"))
+					if (args[0].startsWith("!v"))
 					{
 						String[] vect = msg.split(" ");
 						if (vect.length == 1)
@@ -88,11 +89,13 @@ public class ChatService
 							}
 							character.setJSONData();
 							userScreen.updateBars();
+							Character newCharacter = new Character(this.character);
+							client.sendSocket(new Message(newCharacter, MessageType.STATUS));
 						}
 						return;
 					}
 					
-					if (msg.startsWith("!e"))
+					if (args[0].equalsIgnoreCase("!e"))
 					{
 						String[] vect = msg.split(" ");
 						if (vect.length == 1)
@@ -115,11 +118,13 @@ public class ChatService
 							}
 							character.setJSONData();
 							userScreen.updateBars();
+							Character newCharacter = new Character(this.character);
+							client.sendSocket(new Message(newCharacter, MessageType.STATUS));
 						}
 						return;
 					}
 					
-					if (msg.startsWith("!r"))
+					if (args[0].equalsIgnoreCase("!r"))
 					{
 						String[] vect = msg.split(" ");
 						if (vect.length == 1)
@@ -142,11 +147,13 @@ public class ChatService
 							}
 							character.setJSONData();
 							userScreen.updateBars();
+							Character newCharacter = new Character(this.character);
+							client.sendSocket(new Message(newCharacter, MessageType.STATUS));
 						}
 						return;
 					}
 					
-					if (msg.startsWith("!s"))
+					if (args[0].equalsIgnoreCase("!s"))
 					{
 						String[] vect = msg.split(" ");
 						if (vect.length == 1)
@@ -169,6 +176,8 @@ public class ChatService
 							}
 							character.setJSONData();
 							userScreen.updateBars();
+							Character newCharacter = new Character(this.character);
+							client.sendSocket(new Message(newCharacter, MessageType.STATUS));
 						}
 						return;
 					}
