@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import enums.MessageType;
@@ -16,8 +17,11 @@ public class Message implements Serializable
 	private Double volume;
 	private Duration duration;
 	private Set<Character> characters;
+	private List<String> playlist;
+	
 	private byte[] imageBytes;
 	
+	@SuppressWarnings("unchecked")
 	public Message(Object object, MessageType messageType)
 	{
 		this.messageType = messageType;
@@ -31,6 +35,12 @@ public class Message implements Serializable
 			this.character = (Character) object;
 			break;
 		case PLAYMUSIC:
+			this.message = (String) object;
+			break;
+		case PLAYLIST:
+			this.playlist = (List<String>) object;
+			break;
+		case PLAYBYPLAYLIST:
 			this.message = (String) object;
 			break;
 		case PAUSE:
@@ -128,6 +138,16 @@ public class Message implements Serializable
 	public void setImageBytes(byte[] imageBytes)
 	{
 		this.imageBytes = imageBytes;
+	}
+
+	public List<String> getPlaylist()
+	{
+		return playlist;
+	}
+
+	public void setPlaylist(List<String> playlist)
+	{
+		this.playlist = playlist;
 	}
 
 	@Override

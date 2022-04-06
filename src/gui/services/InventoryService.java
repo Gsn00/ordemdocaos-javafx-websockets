@@ -2,6 +2,7 @@ package gui.services;
 
 import java.util.List;
 
+import entities.TooltippedTableCell;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -81,6 +82,7 @@ public class InventoryService
 		});
 
 		columnItem.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		columnItem.setCellFactory(TooltippedTableCell.forTableColumn());
 		columnButton.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		columnButton.setCellFactory(param -> new TableCell<String, String>()
 		{

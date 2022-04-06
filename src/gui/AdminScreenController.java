@@ -90,6 +90,8 @@ public class AdminScreenController implements Initializable, MessageEvent
 	@FXML
 	private TableColumn<String, String> columnItem;
 	@FXML
+	private TableColumn<String, String> columnPlaylist;
+	@FXML
 	private TableColumn<String, String> columnButton;
 	@FXML
 	private Circle btRefresh;
@@ -101,6 +103,14 @@ public class AdminScreenController implements Initializable, MessageEvent
 	private Button btImgSelect;
 	@FXML
 	private Button btImgRemove;
+	@FXML
+	private TableView<String> tablePlaylist;
+	@FXML
+	private TableColumn<String, String> playlistName;
+	@FXML
+	private TableColumn<String, String> playlistBtRem;
+	@FXML
+	private TableColumn<String, String> playlistBtPlay;
 
 	private Character master = new Character("Mestre");
 	private Client client = new Client();
@@ -280,6 +290,42 @@ public class AdminScreenController implements Initializable, MessageEvent
 
 		columnItem.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		columnItem.setCellFactory(TooltippedTableCell.forTableColumn());
+		columnPlaylist.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		columnPlaylist.setCellFactory(param -> new TableCell<String, String>()
+		{
+			@Override
+			protected void updateItem(String item, boolean empty)
+			{
+				super.updateItem(item, empty);
+				if (item == null)
+				{
+					setGraphic(null);
+					return;
+				}
+				Button bt = new Button("+");
+				bt.setStyle("-fx-background-color:  #4f4f4f; -fx-text-fill: white");
+				bt.setOpacity(0.4);
+				String tableItem = getItem();
+				bt.setOnMouseEntered(event ->
+				{
+					bt.getScene().setCursor(Cursor.HAND);
+				});
+				bt.setOnMouseExited(event ->
+				{
+					bt.getScene().setCursor(Cursor.DEFAULT);
+				});
+				bt.setOnAction(e ->
+				{
+					PlayMusic.playlist.add(tableItem);
+					tablePlaylist.setItems(FXCollections.observableArrayList(PlayMusic.playlist));
+					tablePlaylist.setVisible(false);
+					tablePlaylist.setVisible(true);
+					client.sendSocket(new Message(new ArrayList<>(PlayMusic.playlist), MessageType.PLAYLIST));
+				});
+				setGraphic(bt);
+				setAlignment(Pos.CENTER);
+			}
+		});
 		columnButton.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		columnButton.setCellFactory(param -> new TableCell<String, String>()
 		{
@@ -321,8 +367,8 @@ public class AdminScreenController implements Initializable, MessageEvent
 
 	public void configChoiceSong()
 	{
-		ObservableList<String> values = FXCollections.observableArrayList(
-				Arrays.asList("Combate", "Investigação", "Triste", "Terror", "Exploração", "Boss", "Abertura", "Pausa"));
+		ObservableList<String> values = FXCollections.observableArrayList(Arrays.asList("Combate", "Investigação",
+				"Suspense", "Triste", "Terror", "Exploração", "Boss", "Abertura", "Pausa"));
 		choiceSong.setItems(values);
 
 		choiceSong.setOnAction(event ->
@@ -334,6 +380,9 @@ public class AdminScreenController implements Initializable, MessageEvent
 				break;
 			case "Investigação":
 				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Investigação")));
+				break;
+			case "Suspense":
+				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Suspense")));
 				break;
 			case "Triste":
 				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Triste")));
@@ -391,6 +440,88 @@ public class AdminScreenController implements Initializable, MessageEvent
 		client.sendSocket(new Message(null, MessageType.IMAGE));
 	}
 
+	public void configTablePlaylist()
+	{
+		tablePlaylist.setItems(FXCollections.observableArrayList(PlayMusic.playlist));
+
+		playlistName.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		playlistName.setCellFactory(TooltippedTableCell.forTableColumn());
+		playlistBtRem.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		playlistBtRem.setCellFactory(param -> new TableCell<String, String>()
+		{
+			@Override
+			protected void updateItem(String item, boolean empty)
+			{
+				super.updateItem(item, empty);
+				if (item == null)
+				{
+					setGraphic(null);
+					return;
+				}
+				Button bt = new Button("X");
+				bt.setStyle("-fx-background-color:  #4f4f4f; -fx-text-fill: white");
+				bt.setOpacity(0.4);
+				int tableItem = getTableRow().getIndex();
+				bt.setOnMouseEntered(event ->
+				{
+					bt.getScene().setCursor(Cursor.HAND);
+				});
+				bt.setOnMouseExited(event ->
+				{
+					bt.getScene().setCursor(Cursor.DEFAULT);
+				});
+				bt.setOnAction(e ->
+				{
+					if (!PlayMusic.NAME.equalsIgnoreCase(getItem()))
+					{
+						PlayMusic.playlist.remove(tableItem);
+						tablePlaylist.getItems().remove(tableItem);
+						tablePlaylist.setVisible(false);
+						tablePlaylist.setVisible(true);
+						client.sendSocket(new Message(new ArrayList<>(PlayMusic.playlist), MessageType.PLAYLIST));
+					}
+				});
+				setGraphic(bt);
+				setAlignment(Pos.CENTER);
+			}
+		});
+		playlistBtPlay.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		playlistBtPlay.setCellFactory(param -> new TableCell<String, String>()
+		{
+			@Override
+			protected void updateItem(String item, boolean empty)
+			{
+				super.updateItem(item, empty);
+				if (item == null)
+				{
+					setGraphic(null);
+					return;
+				}
+				Button bt = new Button("Play");
+				bt.setStyle("-fx-background-color:  #4f4f4f; -fx-text-fill: white");
+				bt.setOpacity(0.4);
+				String tableItem = getItem();
+				bt.setOnMouseEntered(event ->
+				{
+					bt.getScene().setCursor(Cursor.HAND);
+				});
+				bt.setOnMouseExited(event ->
+				{
+					bt.getScene().setCursor(Cursor.DEFAULT);
+				});
+				bt.setOnAction(e ->
+				{
+					PlayMusic.playByPlaylist(tableItem);
+					client.sendSocket(new Message(getItem(), MessageType.PLAYBYPLAYLIST));
+				});
+				setGraphic(bt);
+				setAlignment(Pos.CENTER);
+			}
+		});
+
+		tablePlaylist.setPlaceholder(new Label("PLAYLIST"));
+	}
+
 	public void onMouseEntered()
 	{
 		hbox.getScene().setCursor(Cursor.HAND);
@@ -400,7 +531,7 @@ public class AdminScreenController implements Initializable, MessageEvent
 	{
 		hbox.getScene().setCursor(Cursor.DEFAULT);
 	}
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
@@ -411,6 +542,7 @@ public class AdminScreenController implements Initializable, MessageEvent
 		configMedia();
 		configTable();
 		configChoiceSong();
+		configTablePlaylist();
 
 		client.subscribeMessageEvent(this);
 		client.connect();

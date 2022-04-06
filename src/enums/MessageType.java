@@ -5,6 +5,8 @@ public enum MessageType
 	MESSAGE,
 	STATUS,
 	PLAYMUSIC,
+	PLAYLIST,
+	PLAYBYPLAYLIST,
 	PLAY,
 	PAUSE,
 	VOLUME,

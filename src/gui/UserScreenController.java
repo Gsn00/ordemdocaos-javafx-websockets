@@ -17,6 +17,7 @@ import enums.MessageType;
 import enums.StatusBarType;
 import gui.services.ChatService;
 import gui.services.InventoryService;
+import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -189,6 +190,12 @@ public class UserScreenController implements Initializable, MessageEvent
 		case PLAYMUSIC:
 			PlayMusic.playByName(client.getMessage().toString());
 			break;
+		case PLAYLIST:
+			PlayMusic.playlist = FXCollections.observableArrayList(client.getMessage().getPlaylist());
+			break;
+		case PLAYBYPLAYLIST:
+			PlayMusic.playByPlaylist(client.getMessage().getMessage());
+			break;
 		case PAUSE:
 			PlayMusic.pause();
 			break;
@@ -220,7 +227,7 @@ public class UserScreenController implements Initializable, MessageEvent
 					imgView.setImage(null);
 					return;
 				}
-		        BufferedImage image = ImageIO.read(new ByteArrayInputStream(client.getMessage().getImageBytes()));
+				BufferedImage image = ImageIO.read(new ByteArrayInputStream(client.getMessage().getImageBytes()));
 				imgView.setImage(SwingFXUtils.toFXImage(image, null));
 			} catch (IOException e)
 			{

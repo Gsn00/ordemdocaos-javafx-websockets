@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import network.Client;
 import network.Server;
 import services.JSONService;
@@ -86,7 +87,7 @@ public class ConnectScreenController
 				Stage stage = new Stage();
 				stage.setTitle("Ordem do Caos");
 				stage.getIcons().add(new Image(getClass().getResource("/images/dice.png").toExternalForm()));
-//				stage.initStyle(StageStyle.UNDECORATED);
+				stage.initStyle(StageStyle.UNDECORATED);
 				stage.setScene(scene);
 				stage.setMaximized(true);
 				stage.show();
@@ -97,7 +98,7 @@ public class ConnectScreenController
 				Stage stage = new Stage();
 				stage.setTitle("Ordem do Caos");
 				stage.getIcons().add(new Image(getClass().getResource("/images/dice.png").toExternalForm()));
-//				stage.initStyle(StageStyle.UNDECORATED);
+				stage.initStyle(StageStyle.UNDECORATED);
 				stage.setScene(scene);
 				stage.setMaximized(true);
 				stage.show();
