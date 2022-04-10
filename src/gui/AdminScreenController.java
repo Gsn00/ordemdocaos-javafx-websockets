@@ -368,7 +368,7 @@ public class AdminScreenController implements Initializable, MessageEvent
 	public void configChoiceSong()
 	{
 		ObservableList<String> values = FXCollections.observableArrayList(Arrays.asList("Combate", "Investigação",
-				"Suspense", "Triste", "Terror", "Exploração", "Boss", "Abertura", "Pausa"));
+				"Suspense", "Triste", "Terror", "Exploração", "Conexão", "Boss", "Abertura", "Pausa"));
 		choiceSong.setItems(values);
 
 		choiceSong.setOnAction(event ->
@@ -392,6 +392,9 @@ public class AdminScreenController implements Initializable, MessageEvent
 				break;
 			case "Exploração":
 				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Exploração")));
+				break;
+			case "Conexão":
+				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Conexão")));
 				break;
 			case "Boss":
 				tableSong.setItems(FXCollections.observableArrayList(Utils.readSongList("Boss")));
